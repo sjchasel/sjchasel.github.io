@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>西窗的妙妙屋</title>
   
-  <subtitle>和梦想平等交易，和喧嚣保持距离</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
@@ -10,7 +10,7 @@
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>Chasel</name>
+    <name>Chsel</name>
     
   </author>
   
