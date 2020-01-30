@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-29T08:31:10.587Z</updated>
+  <updated>2020-01-29T03:09:25.363Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>hexo-theme-melody v1.5 supports iframe &amp; slides</title>
-    <link href="http://yoursite.com/2020/01/29/try%20slide/"/>
-    <id>http://yoursite.com/2020/01/29/try%20slide/</id>
-    <published>2020-01-29T08:31:12.000Z</published>
-    <updated>2020-01-29T08:31:10.587Z</updated>
-    
-    <content type="html"><![CDATA[<p>// balalala…</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;// balalala…&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>My New Post</title>
