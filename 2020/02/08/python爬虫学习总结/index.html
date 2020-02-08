@@ -1,0 +1,711 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="python爬虫学习总结"><meta name="keywords" content=""><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>python爬虫学习总结 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests库的七个主要方法与HTTP协议对资源的操作的关系"><span class="toc-number">1.</span> <span class="toc-text">Requests库的七个主要方法与HTTP协议对资源的操作的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Response对象"><span class="toc-number">2.</span> <span class="toc-text">Response对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于bs4库的HTML内容查找方法"><span class="toc-number">3.</span> <span class="toc-text">基于bs4库的HTML内容查找方法</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">4</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">python爬虫学习总结</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-08</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/02/08/python爬虫学习总结/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>#Requests<br>##安装</p>
+<ol>
+<li><strong>安装</strong><br>管理员权限打开cmd，输入 <figure class="highlight plain"><figcaption><span>install requests```</span></figcaption><table><tr><td class="code"><pre><span class="line">如果总是出现time out的报错，切换成国内镜像源，如清华、百度和阿里云的进行安装。</span><br><span class="line">2. **导入**</span><br><span class="line">&#96;&#96;&#96;python</span><br><span class="line">import requests</span><br></pre></td></tr></table></figure></li>
+<li><strong>测试</strong><br>尝试抓取百度的网页<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">print(r.status_code)</span><br><span class="line"><span class="comment">#若返回200，则访问正常。</span></span><br><span class="line">print(r.encoding) </span><br><span class="line"><span class="comment">#encoding是从HTTP header中猜测出来的编码方式。</span></span><br><span class="line">print(r.apparent_encoding)</span><br><span class="line"><span class="comment">#apparent_encoding是从内容中分析出来的编码方式</span></span><br><span class="line">r.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="comment">#为了防止出现乱码，将encoding=apparent_encoding</span></span><br><span class="line">print(r.text)</span><br><span class="line"><span class="comment">#抓取出了百度网页的内容，为html格式</span></span><br></pre></td></tr></table></figure>
+<h2 id="Requests库的七个主要方法与HTTP协议对资源的操作的关系"><a href="#Requests库的七个主要方法与HTTP协议对资源的操作的关系" class="headerlink" title="Requests库的七个主要方法与HTTP协议对资源的操作的关系"></a>Requests库的七个主要方法与HTTP协议对资源的操作的关系</h2><ol>
+<li><strong>requests.requests()</strong><br>构造一个请求，是支撑其他方法的基础方法</li>
+<li><strong>requests.get()</strong><br>获取HTML网页的主要信息，对应HTTP对资源操作中的GET<br>返回一个Response对象</li>
+<li><strong>requests.head()</strong><br>获取HTML网页头信息的方法，对应于HTTP操作的HEAD</li>
+<li><strong>requests.post()</strong><br>对网页提交POST请求的方法，对应于HTTP的POST<br>HTTP协议对资源的操作中的POST为请求向URL位置的资源后附加新的数据</li>
+<li><strong>requests.put()</strong><br>向网页提交PUT请求的方法，对应于HTTP的PUT<br>HTTP中的PUT为请求向URL位置存储一个资源，覆盖原URL位置的资源</li>
+<li><strong>requests.patch()</strong><br>向网页提交局部修改的请求，对应于HTTP的PATCH<br>PATCH为请求局部更新URL位置的资源，即改变该处资源的部分内容</li>
+<li><strong>requests.delete()</strong><br>向HTML网页提交删除请求，对应于HTTP的DELETE<h2 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h2>当使用requests.get(url)时，会返回一个Response对象<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">type(r)</span><br><span class="line"><span class="comment">#返回&lt;class 'requests.models.Response'&gt;</span></span><br></pre></td></tr></table></figure>
+Response对象有以下几种属性<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r.status_code</td>
+<td>200表示成功访问</td>
+</tr>
+<tr>
+<td>r.text</td>
+<td>url对应的页面内容</td>
+</tr>
+<tr>
+<td>r.encoding</td>
+<td>从HTTP header中猜测的相应内容编码方式</td>
+</tr>
+<tr>
+<td>r.apparent_encoding</td>
+<td>从内容中分析出来的编码方式</td>
+</tr>
+<tr>
+<td>r.contente</td>
+<td>HTTP相应内容的二进制形式</td>
+</tr>
+<tr>
+<td>requests库中有个方法用于判断是否访问成功</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r.raise_for_status()</span><br><span class="line"><span class="comment">#如果不是两百，则失败</span></span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>##一个爬取网页的通用框架</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout = <span class="number">30</span>)</span><br><span class="line">        r.raise_for_status() <span class="comment">#如果状态不是200，引发HTTPError异常</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"产生异常"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>：</span><br><span class="line">    url = <span class="string">"http://www.baidu.com"</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>#BeautifulSoup</td>
+<td></td>
+</tr>
+<tr>
+<td>## 安装</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+<li><strong>安装</strong><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install bs4</span><br></pre></td></tr></table></figure></li>
+<li><strong>导入</strong><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br></pre></td></tr></table></figure>
+<h2 id="基于bs4库的HTML内容查找方法"><a href="#基于bs4库的HTML内容查找方法" class="headerlink" title="基于bs4库的HTML内容查找方法"></a>基于bs4库的HTML内容查找方法</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">soup.find_all(<span class="string">'a'</span>)<span class="comment">#查找所有a标签</span></span><br><span class="line">soup.find_all([<span class="string">'a'</span>,<span class="string">'b'</span>])<span class="comment">#查找a标签与b标签，a与b以列表形式作为参数。参数为true时，返回所有标签</span></span><br><span class="line"><span class="keyword">for</span> tag <span class="keyword">in</span> soup.find_all(<span class="literal">True</span>):</span><br><span class="line">    print(tag.name)</span><br><span class="line"><span class="comment">#显示以b开头的标签</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> tag <span class="keyword">in</span> soup.find_all(re.comile(<span class="string">'b'</span>)):</span><br><span class="line">    print(tag.name)<span class="comment">#会打印出b和body</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#打印出带有某个字符串的标签，如带有course的p标签</span></span><br><span class="line">soup.find_all(<span class="string">'p'</span>,<span class="string">'course'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#返回属性中id的值是link1的元素</span></span><br><span class="line">soup.find_all(id=<span class="string">'link1'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#以link开头的标签信息</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">soup.find_all(id=re.compile(<span class="string">'link'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#recursive</span></span><br><span class="line">soup.find_all(<span class="string">'a'</span>)</span><br><span class="line">soup.find_all(<span class="string">'a'</span>,recursive=<span class="literal">False</span>)<span class="comment">#改成False后，不对soup的子孙节点查询是否有a标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#string</span></span><br><span class="line">soup.find_all(string = <span class="string">"Basic Python"</span>)<span class="comment">#只能检索出['Basic Python']</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">soup.find_all(string = re.compile(<span class="string">"python"</span>))<span class="comment">#把含有python的检索出来</span></span><br></pre></td></tr></table></figure>
+##prettify方法<br>用prettify方法可以使HTML页面更友好地显示，标签不会挤在一团<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.prettify())</span><br><span class="line">print(soup.a.prettify())<span class="comment">#也可以单独提某个标签出来用这个方法，打印出来很清晰</span></span><br></pre></td></tr></table></figure>
+##HTML的内容遍历<br>###下行遍历<br>用到的BeautifulSoup对象的属性有<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>contents</td>
+<td>将所有儿子节点存入列表</td>
+</tr>
+<tr>
+<td>children</td>
+<td>子节点的迭代类型，用于循环遍历儿子节点</td>
+</tr>
+<tr>
+<td>descendants</td>
+<td>子孙节点的迭代类型</td>
+</tr>
+<tr>
+<td>标签树的下行遍历</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.head)</span><br><span class="line">print(soup.head.contents)</span><br><span class="line">print(soup.body.contents)<span class="comment">#子节点的列表</span></span><br><span class="line">print(len(soup.body.contents))<span class="comment">#可用len函数获取body的儿子节点的数量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历儿子节点</span></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.children:</span><br><span class="line">    print(child)</span><br><span class="line"><span class="comment">#遍历子孙节点</span></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.descendants:</span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>###上行遍历</td>
+<td></td>
+</tr>
+<tr>
+<td>上行遍历用到的属性</td>
+<td></td>
+</tr>
+<tr>
+<td>属性</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>节点的父亲标签</td>
+</tr>
+<tr>
+<td>parents</td>
+<td>节点先辈标签的迭代类型</td>
+</tr>
+<tr>
+<td>标签树的上行遍历</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.title.parent)</span><br><span class="line">print(soup.html.parent)<span class="comment">#html的父亲就是自己</span></span><br><span class="line">print(soup.parent)<span class="comment">#soup的父亲为空</span></span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"><span class="comment">#遍历时也会遍历到soup自己，此时parent为none，就不能打印</span></span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>###平行遍历</td>
+<td></td>
+</tr>
+<tr>
+<td>所有的平行遍历必须发生在同一个父节点下的各节点间</td>
+<td></td>
+</tr>
+<tr>
+<td>平行遍历时用到的属性</td>
+<td></td>
+</tr>
+<tr>
+<td>属性</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>next_sibling</td>
+<td>返回 按照HTML文本顺序 的下一给平行节点标签</td>
+</tr>
+<tr>
+<td>previous_sibling</td>
+<td>返回 按照HTML文本顺序的 上一个平行节点标签</td>
+</tr>
+<tr>
+<td>next_siblings</td>
+<td>迭代类型。返回 按照HTML文本顺序的 后续所有平行节点标签</td>
+</tr>
+<tr>
+<td>previous_siblings</td>
+<td>迭代类型。返回 按照HTML文本顺序的 前续所有平行节点标签</td>
+</tr>
+<tr>
+<td>标签树的平行遍历</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">print(soup.a.next_sibling)</span><br><span class="line">print(soup.a.next_sibling.next_sibling)<span class="comment">#a的下一个标签的下一个标签</span></span><br><span class="line">print(soup.a.previous_sibling)<span class="comment">#a标签的前一个平行节点</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历后续节点</span></span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.next_siblings:</span><br><span class="line">    print(sibling)</span><br><span class="line"><span class="comment">#遍历前续节点</span></span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.previous_siblings:</span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>#正则表达式与re库</td>
+<td></td>
+</tr>
+<tr>
+<td>##正则表达式</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p><strong>正则表达式的常用操作符</strong><br>|操作符|说明|实例|<br>|—|—|—|<br>|{m}|扩展前一个字符m次|ab{2}c表示abbc|<br>|{m，n}|扩展前一个字符m至n次，含n|ab{1，2}c表示abc、abbc|<br>|^|匹配字符串开头|^abc表示abc且在一个字符串的开头|<br>|$|匹配字符串结尾|abc$表示且在一个字符串的结尾|<br>|()|分组标记，内部只能用|操作符|(abc)表示abc，(abc|def)表示abc、def|<br>|\d|数字，等价于[0-9]||<br>|\w|单词字符，等价于[A-Za-z0-9_]||<br><strong>经典正则表达式实例</strong><br>|表达式|含义|<br>|—|—|<br>|^[A-Za-z]|由26个字母组成的字符串|<br>|^[A-Za-z0-9]+$|由26个字母和数字组成的字符串|<br>|^-?\d+$|整数形式的字符串|<br>|^[0-9]<em>[1-9][0-9]</em>$|正整数形式的字符串|<br>|[1-9]\d{5}|中国境内邮政编码，六位|<br>|[\u4e00-\u9fa5]|匹配中文字符|<br>|\d{3}-\d{8}|\d{4}-\d{7}|国内电话号码，010-68913536|<br>##Re库<br>###主要函数</p>
+<ol>
+<li><strong>re.rearch()</strong><br>在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)<span class="comment">#search函数返回的是match对象</span></span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">	print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#返回100081</span></span><br><span class="line">print(type(match))<span class="comment">#检查match的类型</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>re.match()</strong><br>从一个字符串的开始位置起匹配正则表达式，返回match对象<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.match(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)</span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">	print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#此时match是空，从头开始匹配不了，所以要加if语句判断match是不是空的，把这种情况排除。</span></span><br><span class="line"><span class="comment">#返回100081</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>re.findall()</strong><br>搜索字符串，以列表类型返回全部能匹配的子串<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">ls = re.findall(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT100081 TSU100084'</span>)</span><br><span class="line">print(ls)</span><br><span class="line"><span class="comment">#返回['100081', '100084']</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>re.split()</strong><br>将一个字符串按照正则表达式结果进行分割，返回列表类型<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.split(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT100081 TSU100084'</span>))</span><br><span class="line"><span class="comment">#返回['BIT', ' TSU', '']</span></span><br><span class="line">print(re.split(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT100081 TSU100084'</span>, maxsplit=<span class="number">1</span>))</span><br><span class="line"><span class="comment">#maxsplit为最大分割数，剩余部分作为最后一个元素输出</span></span><br><span class="line"><span class="comment">#返回['BIT', ' TSU100084']</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>re.finditer()</strong><br>搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是match对象<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> re.finditer(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT100081 TSU100084'</span>):</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		print(m.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#迭代地获得结果，对每个结果单独计数</span></span><br><span class="line"><span class="comment">#返回100081</span></span><br><span class="line">    <span class="comment">#100084</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>re.sub()</strong><br>在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.sub(<span class="string">r'[1-9]\d&#123;5&#125;'</span>, <span class="string">':zipcode'</span>, <span class="string">'BIT100081 TSU100084'</span>))</span><br><span class="line"><span class="comment">#返回BIT:zipcode TSU:zipcode</span></span><br></pre></td></tr></table></figure>
+###Re库的一种等价用法<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#函数式用法：一次性操作</span></span><br><span class="line">rst = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure>
+等价于<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#面向对象用法：编译后的多次操作</span></span><br><span class="line">pat = re.compile(<span class="string">r'[1-9]\d&#123;5&#125;'</span>)</span><br><span class="line">rst = pat.search(<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>compile函数：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">regex = re.compile(pattern,flags=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>将正则表达式的字符串形式编译成正则表达式对象</p>
+<ul>
+<li>pattern：正则表达式的字符串或原生字符串表示</li>
+<li>flags：正则表达式使用时的控制标记<br>###Match对象</li>
+</ul>
+<ol>
+<li><strong>属性</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.string</td>
+<td>待匹配的文本</td>
+</tr>
+<tr>
+<td>.re</td>
+<td>匹配时使用的pattern对象（正则表达式）</td>
+</tr>
+<tr>
+<td>.pos</td>
+<td>正则表达式搜索文本的开始位置</td>
+</tr>
+<tr>
+<td>.endpos</td>
+<td>正则表达式搜索文本的结束位置</td>
+</tr>
+<tr>
+<td>2. <strong>方法</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.group(0)</td>
+<td>获得匹配后的字符串</td>
+</tr>
+<tr>
+<td>.start()</td>
+<td>匹配字符串在原始字符串的开始位置</td>
+</tr>
+<tr>
+<td>.end()</td>
+<td>匹配字符串在原始字符串的结束位置</td>
+</tr>
+<tr>
+<td>.span()</td>
+<td>返回(.start(),.end())</td>
+</tr>
+<tr>
+<td>3. <strong>实例</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT100081 TSU100084'</span>)</span><br><span class="line">print(m.string)<span class="comment">#输出BIT100081 TSU100084</span></span><br><span class="line"></span><br><span class="line">print(m.re)</span><br><span class="line"><span class="comment">#看看程序输出的正则表达式，是带compile的</span></span><br><span class="line"><span class="comment">#输出re.compile('[1-9]\\d&#123;5&#125;')</span></span><br><span class="line"></span><br><span class="line">print(m.pos)</span><br><span class="line"><span class="comment">#搜索字符串的开始位置</span></span><br><span class="line"><span class="comment">#输出0</span></span><br><span class="line"></span><br><span class="line">print(m.endpos)</span><br><span class="line"><span class="comment">#搜索字符串的结束位置</span></span><br><span class="line"><span class="comment">#输出19</span></span><br><span class="line"></span><br><span class="line">print(m.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#看看匹配结果，会储存在group0中，match对象只返回第一次匹配的结果</span></span><br><span class="line"><span class="comment">#输出100081</span></span><br><span class="line"></span><br><span class="line">print(m.start())</span><br><span class="line"><span class="comment">#匹配结果的起始位置</span></span><br><span class="line"><span class="comment">#输出3</span></span><br><span class="line"></span><br><span class="line">print(m.end())</span><br><span class="line"><span class="comment">#匹配结果的终止位置</span></span><br><span class="line"><span class="comment">#输出9</span></span><br><span class="line"></span><br><span class="line">print(m.span())</span><br><span class="line"><span class="comment">#匹配结果的起始位置与终止位置的关系</span></span><br><span class="line"><span class="comment">#输出（3，9）</span></span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>###Match对象的贪婪匹配与最小匹配</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.rearch(<span class="string">r'PY.*N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#PY.*N表示以PY开头，以N结尾，中间任意的字符串</span></span><br><span class="line">print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#贪婪匹配：re库默认采用贪婪匹配，即输出匹配最长的子串.所以不加任何东西会输出PYANBNCNDN</span></span><br><span class="line"></span><br><span class="line">match = re.rearch(<span class="string">r'PY.*?N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#最小匹配：在*后面加一个？，会输出最短的子串，即PYAN</span></span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>最小匹配操作符</td>
+<td></td>
+</tr>
+<tr>
+<td>操作符</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>*?</td>
+<td>前一次字符0次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>前一个字符1次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td>??</td>
+<td>前一个字符0次或1次扩展，最小匹配</td>
+</tr>
+<tr>
+<td>{m,n}?</td>
+<td>扩展前一个字符m至n次（含n），最小匹配</td>
+</tr>
+<tr>
+<td>#Scrapy</td>
+<td></td>
+</tr>
+<tr>
+<td>##Scrapy的安装</td>
+<td></td>
+</tr>
+<tr>
+<td>+ <strong>参考：</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>[Python爬虫Scrapy框架学习第1课 Win10系统下scrapy安装和环境搭建]( <a href="https://blog.csdn.net/weixin_42057995/article/details/89431533" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42057995/article/details/89431533</a></td>
+<td></td>
+</tr>
+<tr>
+<td>)</td>
+<td></td>
+</tr>
+<tr>
+<td>1. 安装wheel</td>
+<td></td>
+</tr>
+<tr>
+<td>打开cmd，输入<code>pip3 install wheel</code></td>
+<td></td>
+</tr>
+<tr>
+<td>2. 安装lxml</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 打开cmd，输入<code>pip3 install lxml</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td>这种方法速度极慢，经常出现time out，推荐下一种</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 下载文件</td>
+<td></td>
+</tr>
+<tr>
+<td>①打开cmd，输入python，可得python的版本和位数.</td>
+<td></td>
+</tr>
+<tr>
+<td>(虽然我的电脑是64位，但是python显示on win32，所以我下载win32的whl文件才没有报错)</td>
+<td></td>
+</tr>
+<tr>
+<td>②打开<a href="https://pypi.org/project/lxml/#files" target="_blank" rel="noopener">lxml的下载地址</a>下载对应的文件</td>
+<td></td>
+</tr>
+<tr>
+<td>③打开cmd，输入pip3 install 文件所在全路径\lxml-4.3.3-cp37-cp37m-win32.whl</td>
+<td></td>
+</tr>
+<tr>
+<td>3. 安装PyOpenssl</td>
+<td></td>
+</tr>
+<tr>
+<td>像安装lxml一样找到对应版本下载，再在cmd中输入路径/xxx.whl</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/pyOpenSSL/#files" target="_blank" rel="noopener">PyOpenssl的下载地址</a></td>
+<td></td>
+</tr>
+<tr>
+<td>4. 安装Twisted</td>
+<td></td>
+</tr>
+<tr>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">Twisted的下载地址</a></td>
+<td></td>
+</tr>
+<tr>
+<td>5. 安装Pywin32</td>
+<td></td>
+</tr>
+<tr>
+<td>找到合适的版本安装，是exe文件，一路next下去就行</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mhammond/pywin32/releases" target="_blank" rel="noopener">Pywin32的下载地址</a></td>
+<td></td>
+</tr>
+<tr>
+<td>6. 安装Scrapy</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 输入<code>pip3 install scrapy</code></td>
+<td></td>
+</tr>
+<tr>
+<td>速度极慢，经常出错，建议不要尝试直接使用国内镜像源</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 输入<code>pip install scrapy -i http://mirrors.aliyun.com/pypi/simple/</code></td>
+<td></td>
+</tr>
+<tr>
+<td>##Scrapy框架简介</td>
+<td></td>
+</tr>
+<tr>
+<td>Scrapy框架是5+2结构，由五个主要模块与两个中间键组成</td>
+<td></td>
+</tr>
+<tr>
+<td>###五个主要模块</td>
+<td></td>
+</tr>
+<tr>
+<td>1. Scheduler</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 对所有爬取请求进行调度管理</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 不需要用户修改</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Engine（核心）</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 不需要用户修改</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 控制所有模块之间的数据流</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 根据条件触发事件</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Downloader</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 根据请求下载网页</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 不需要用户修改</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Spider</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 解析Downloader返回的响应（Response）</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 产生爬取页（scraped item）</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 产生额外的爬取请求（Request）</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 需要用户编写配置代码</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Item-Piplines</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 以流水线方式处理Spider产生的爬取项</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 由一组操作顺序组成，类似流水线，每个操作是一个Item Pipeline类型</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 可能操作包括：清理、检验和查重爬取项中的HTML数据、将数据存储到数据库</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 需要用户编写配置代码</td>
+<td></td>
+</tr>
+<tr>
+<td>###两个中间键</td>
+<td></td>
+</tr>
+<tr>
+<td>1. Spider-middleware</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 目的：对请求和爬取项在处理</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 功能：修改，丢弃，新增请求或爬取项</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 用户可以编写配置代码</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Downloader-middleware</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 目的：实施Engine、Scheduler和Downloader之间进行用户可配置的控制</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 功能：修改、丢弃、新增请求或响应</td>
+<td></td>
+</tr>
+<tr>
+<td>+ 用户可以编写配置代码</td>
+<td></td>
+</tr>
+<tr>
+<td>###三条数据流的路径</td>
+<td></td>
+</tr>
+<tr>
+<td>1. 路径1</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Engine从Spider获得了爬取用户的请求request，可以理解为一个url</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Engine又将请求转发给了Scheduler</td>
+<td></td>
+</tr>
+<tr>
+<td>2. 路径2</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Engine从Scheduler获得下一个要爬取的网路请求，是真实的要去网络上爬取的请求，通过中间键发给Downloader</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Downloader拿到请求后，连接互联网并爬取网页。将爬取到的内容封装成一个Response对象，通过中间键、Engine发给Spiders</td>
+<td></td>
+</tr>
+<tr>
+<td>3. 路径3</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Spider处理从Downloader获得的响应，也就是爬取的内容。产生了两个数据类型：爬取项（item）与新的爬取请求（爬取后发现了新的需要爬取的链接），将它们发送给Engine</td>
+<td></td>
+</tr>
+<tr>
+<td>+ Engine将items发送给Item-Piplines，将request发给Scheduler进行调度，为后期的数据处理与再次启动爬取请求提供了数据来源。</td>
+<td></td>
+</tr>
+<tr>
+<td>##Scrapy的使用步骤</td>
+<td></td>
+</tr>
+<tr>
+<td>1. 创建一个工程和Spider模板</td>
+<td></td>
+</tr>
+<tr>
+<td>2. 编写Spider编写Spider</td>
+<td></td>
+</tr>
+<tr>
+<td>3. 编写Item Pipeline编写Item Pipeline</td>
+<td></td>
+</tr>
+<tr>
+<td>4. 优化配置策略优化配置策略</td>
+<td></td>
+</tr>
+<tr>
+<td>##Scrapy的常用命令</td>
+<td></td>
+</tr>
+<tr>
+<td>命令</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>startproject</td>
+<td>创建一个新工程</td>
+</tr>
+<tr>
+<td>genspider</td>
+<td>创建一个爬虫</td>
+</tr>
+<tr>
+<td>settings</td>
+<td>获得爬虫配置信息</td>
+</tr>
+<tr>
+<td>crawl</td>
+<td>运行一个爬虫</td>
+</tr>
+<tr>
+<td>list</td>
+<td>列出工程中所有爬虫</td>
+</tr>
+<tr>
+<td>shell</td>
+<td>启动URL调试命令行</td>
+</tr>
+<tr>
+<td>##Scrapy与requests的对比</td>
+<td></td>
+</tr>
+<tr>
+<td>requests</td>
+<td>Scrapy</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>页面级爬虫</td>
+<td>网站级爬虫</td>
+</tr>
+<tr>
+<td>功能库</td>
+<td>框架</td>
+</tr>
+<tr>
+<td>并发性考虑不足，性能较差</td>
+<td>并发性好，性能较高</td>
+</tr>
+<tr>
+<td>重点为页面下载</td>
+<td>重点为爬虫结构</td>
+</tr>
+<tr>
+<td>定制灵活</td>
+<td>一般定制灵活，深度定制困难</td>
+</tr>
+<tr>
+<td>简单</td>
+<td>困难</td>
+</tr>
+</tbody></table>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">http://yoursite.com/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/02/07/%E4%B8%AA%E4%BA%BA%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/"><span>个人作业总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/';
+  this.page.identifier = '2020/02/08/python爬虫学习总结/';
+  this.page.title = 'python爬虫学习总结';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
