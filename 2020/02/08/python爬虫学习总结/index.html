@@ -8,12 +8,11 @@
     noSupport: '浏览器不支持'
   }
 } </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
-</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests库的七个主要方法与HTTP协议对资源的操作的关系"><span class="toc-number">1.</span> <span class="toc-text">Requests库的七个主要方法与HTTP协议对资源的操作的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Response对象"><span class="toc-number">2.</span> <span class="toc-text">Response对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于bs4库的HTML内容查找方法"><span class="toc-number">4.</span> <span class="toc-text">基于bs4库的HTML内容查找方法</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">3</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">python爬虫学习总结</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-08</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/02/08/python爬虫学习总结/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>#Requests </p>
-<p>##安装 </p>
-<ol>
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Requests"><span class="toc-number">1.</span> <span class="toc-text">Requests</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests库的七个主要方法与HTTP协议对资源的操作的关系"><span class="toc-number">1.2.</span> <span class="toc-text">Requests库的七个主要方法与HTTP协议对资源的操作的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Response对象"><span class="toc-number">1.3.</span> <span class="toc-text">Response对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个爬取网页的通用框架"><span class="toc-number">1.4.</span> <span class="toc-text">一个爬取网页的通用框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BeautifulSoup"><span class="toc-number">2.</span> <span class="toc-text">BeautifulSoup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-1"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于bs4库的HTML内容查找方法"><span class="toc-number">2.2.</span> <span class="toc-text">基于bs4库的HTML内容查找方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prettify方法"><span class="toc-number">2.3.</span> <span class="toc-text">prettify方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML的内容遍历"><span class="toc-number">2.4.</span> <span class="toc-text">HTML的内容遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下行遍历"><span class="toc-number">2.4.1.</span> <span class="toc-text">下行遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上行遍历"><span class="toc-number">2.4.2.</span> <span class="toc-text">上行遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平行遍历"><span class="toc-number">2.4.3.</span> <span class="toc-text">平行遍历</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式与re库"><span class="toc-number">3.</span> <span class="toc-text">正则表达式与re库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式"><span class="toc-number">3.1.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Re库"><span class="toc-number">3.2.</span> <span class="toc-text">Re库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要函数"><span class="toc-number">3.2.1.</span> <span class="toc-text">主要函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Re库的一种等价用法"><span class="toc-number">3.2.2.</span> <span class="toc-text">Re库的一种等价用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Match对象"><span class="toc-number">3.2.3.</span> <span class="toc-text">Match对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Match对象的贪婪匹配与最小匹配"><span class="toc-number">3.2.4.</span> <span class="toc-text">Match对象的贪婪匹配与最小匹配</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scrapy"><span class="toc-number">4.</span> <span class="toc-text">Scrapy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy的安装"><span class="toc-number">4.1.</span> <span class="toc-text">Scrapy的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy框架简介"><span class="toc-number">4.2.</span> <span class="toc-text">Scrapy框架简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#五个主要模块"><span class="toc-number">4.2.1.</span> <span class="toc-text">五个主要模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两个中间键"><span class="toc-number">4.2.2.</span> <span class="toc-text">两个中间键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三条数据流的路径"><span class="toc-number">4.2.3.</span> <span class="toc-text">三条数据流的路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy的使用步骤"><span class="toc-number">4.3.</span> <span class="toc-text">Scrapy的使用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy的常用命令"><span class="toc-number">4.4.</span> <span class="toc-text">Scrapy的常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy与requests的对比"><span class="toc-number">4.5.</span> <span class="toc-text">Scrapy与requests的对比</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">3</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">python爬虫学习总结</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-08</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/02/08/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/02/08/python爬虫学习总结/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
 <li><p><strong>安装</strong> </p>
 <p> 管理员权限打开cmd，输入 </p>
-<pre><code><figure class="highlight plain"><figcaption><span>install requests```</span></figcaption><table><tr><td class="code"><pre><span class="line">    如果总是出现time out的报错，切换成国内镜像源，如清华、百度和阿里云的进行安装。</span><br><span class="line"></span><br><span class="line">2. **导入**</span><br><span class="line"></span><br><span class="line">    &#96;&#96;&#96;python</span><br><span class="line">    import requests</span><br></pre></td></tr></table></figure></code></pre></li>
+ <figure class="highlight plain"><figcaption><span>install requests```</span></figcaption><table><tr><td class="code"><pre><span class="line">    </span><br><span class="line">    如果总是出现time out的报错，切换成国内镜像源，如清华、百度和阿里云的进行安装。</span><br><span class="line"></span><br><span class="line">2. **导入**</span><br><span class="line"></span><br><span class="line">    &#96;&#96;&#96;python</span><br><span class="line">    import requests</span><br></pre></td></tr></table></figure>
+</li>
 <li><p><strong>测试</strong></p>
 <p> 尝试抓取百度的网页</p>
  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">print(r.status_code)</span><br><span class="line"><span class="comment">#若返回200，则访问正常。</span></span><br><span class="line">print(r.encoding) </span><br><span class="line"><span class="comment">#encoding是从HTTP header中猜测出来的编码方式。</span></span><br><span class="line">print(r.apparent_encoding)</span><br><span class="line"><span class="comment">#apparent_encoding是从内容中分析出来的编码方式</span></span><br><span class="line">r.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="comment">#为了防止出现乱码，将encoding=apparent_encoding</span></span><br><span class="line">print(r.text)</span><br><span class="line"><span class="comment">#抓取出了百度网页的内容，为html格式</span></span><br></pre></td></tr></table></figure>
@@ -78,11 +77,9 @@
 <p>requests库中有个方法用于判断是否访问成功</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r.raise_for_status()</span><br><span class="line"><span class="comment">#如果不是两百，则失败</span></span><br></pre></td></tr></table></figure>
 
-<p>##一个爬取网页的通用框架</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout = <span class="number">30</span>)</span><br><span class="line">        r.raise_for_status() <span class="comment">#如果状态不是200，引发HTTPError异常</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"产生异常"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>：</span><br><span class="line">    url = <span class="string">"http://www.baidu.com"</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
+<h2 id="一个爬取网页的通用框架"><a href="#一个爬取网页的通用框架" class="headerlink" title="一个爬取网页的通用框架"></a>一个爬取网页的通用框架</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout = <span class="number">30</span>)</span><br><span class="line">        r.raise_for_status() <span class="comment">#如果状态不是200，引发HTTPError异常</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"产生异常"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>：</span><br><span class="line">    url = <span class="string">"http://www.baidu.com"</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
 
-<p>#BeautifulSoup</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<h1 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h1><h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><ol>
 <li><p><strong>安装</strong></p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install bs4</span><br></pre></td></tr></table></figure>
 </li>
@@ -92,13 +89,10 @@
 </li>
 </ol>
 <h2 id="基于bs4库的HTML内容查找方法"><a href="#基于bs4库的HTML内容查找方法" class="headerlink" title="基于bs4库的HTML内容查找方法"></a>基于bs4库的HTML内容查找方法</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">soup.find_all(<span class="string">'a'</span>)<span class="comment">#查找所有a标签</span></span><br><span class="line">soup.find_all([<span class="string">'a'</span>,<span class="string">'b'</span>])<span class="comment">#查找a标签与b标签，a与b以列表形式作为参数。参数为true时，返回所有标签</span></span><br><span class="line"><span class="keyword">for</span> tag <span class="keyword">in</span> soup.find_all(<span class="literal">True</span>):</span><br><span class="line">    print(tag.name)</span><br><span class="line"><span class="comment">#显示以b开头的标签</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> tag <span class="keyword">in</span> soup.find_all(re.comile(<span class="string">'b'</span>)):</span><br><span class="line">    print(tag.name)<span class="comment">#会打印出b和body</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#打印出带有某个字符串的标签，如带有course的p标签</span></span><br><span class="line">soup.find_all(<span class="string">'p'</span>,<span class="string">'course'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#返回属性中id的值是link1的元素</span></span><br><span class="line">soup.find_all(id=<span class="string">'link1'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#以link开头的标签信息</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">soup.find_all(id=re.compile(<span class="string">'link'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#recursive</span></span><br><span class="line">soup.find_all(<span class="string">'a'</span>)</span><br><span class="line">soup.find_all(<span class="string">'a'</span>,recursive=<span class="literal">False</span>)<span class="comment">#改成False后，不对soup的子孙节点查询是否有a标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#string</span></span><br><span class="line">soup.find_all(string = <span class="string">"Basic Python"</span>)<span class="comment">#只能检索出['Basic Python']</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">soup.find_all(string = re.compile(<span class="string">"python"</span>))<span class="comment">#把含有python的检索出来</span></span><br></pre></td></tr></table></figure>
-<p>##prettify方法</p>
-<p>用prettify方法可以使HTML页面更友好地显示，标签不会挤在一团</p>
+<h2 id="prettify方法"><a href="#prettify方法" class="headerlink" title="prettify方法"></a>prettify方法</h2><p>用prettify方法可以使HTML页面更友好地显示，标签不会挤在一团</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.prettify())</span><br><span class="line">print(soup.a.prettify())<span class="comment">#也可以单独提某个标签出来用这个方法，打印出来很清晰</span></span><br></pre></td></tr></table></figure>
 
-<p>##HTML的内容遍历</p>
-<p>###下行遍历</p>
-<p>用到的BeautifulSoup对象的属性有</p>
+<h2 id="HTML的内容遍历"><a href="#HTML的内容遍历" class="headerlink" title="HTML的内容遍历"></a>HTML的内容遍历</h2><h3 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h3><p>用到的BeautifulSoup对象的属性有</p>
 <table>
 <thead>
 <tr>
@@ -122,8 +116,7 @@
 <p>标签树的下行遍历</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.head)</span><br><span class="line">print(soup.head.contents)</span><br><span class="line">print(soup.body.contents)<span class="comment">#子节点的列表</span></span><br><span class="line">print(len(soup.body.contents))<span class="comment">#可用len函数获取body的儿子节点的数量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历儿子节点</span></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.children:</span><br><span class="line">    print(child)</span><br><span class="line"><span class="comment">#遍历子孙节点</span></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.descendants:</span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
 
-<p>###上行遍历</p>
-<p>上行遍历用到的属性</p>
+<h3 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h3><p>上行遍历用到的属性</p>
 <table>
 <thead>
 <tr>
@@ -143,8 +136,7 @@
 <p>标签树的上行遍历</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line">print(soup.title.parent)</span><br><span class="line">print(soup.html.parent)<span class="comment">#html的父亲就是自己</span></span><br><span class="line">print(soup.parent)<span class="comment">#soup的父亲为空</span></span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"><span class="comment">#遍历时也会遍历到soup自己，此时parent为none，就不能打印</span></span><br></pre></td></tr></table></figure>
 
-<p>###平行遍历</p>
-<p>所有的平行遍历必须发生在同一个父节点下的各节点间<br>平行遍历时用到的属性</p>
+<h3 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h3><p>所有的平行遍历必须发生在同一个父节点下的各节点间<br>平行遍历时用到的属性</p>
 <table>
 <thead>
 <tr>
@@ -172,9 +164,7 @@
 <p>标签树的平行遍历</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">"https://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">print(soup.a.next_sibling)</span><br><span class="line">print(soup.a.next_sibling.next_sibling)<span class="comment">#a的下一个标签的下一个标签</span></span><br><span class="line">print(soup.a.previous_sibling)<span class="comment">#a标签的前一个平行节点</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历后续节点</span></span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.next_siblings:</span><br><span class="line">    print(sibling)</span><br><span class="line"><span class="comment">#遍历前续节点</span></span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.previous_siblings:</span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
 
-<p>#正则表达式与re库</p>
-<p>##正则表达式</p>
-<p><strong>正则表达式的常用操作符</strong></p>
+<h1 id="正则表达式与re库"><a href="#正则表达式与re库" class="headerlink" title="正则表达式与re库"></a>正则表达式与re库</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p><strong>正则表达式的常用操作符</strong></p>
 <table>
 <thead>
 <tr>
@@ -256,9 +246,7 @@
 <td>国内电话号码，010-68913536</td>
 </tr>
 </tbody></table>
-<p>##Re库</p>
-<p>###主要函数</p>
-<ol>
+<h2 id="Re库"><a href="#Re库" class="headerlink" title="Re库"></a>Re库</h2><h3 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h3><ol>
 <li><p><strong>re.rearch()</strong></p>
 <p> 在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象</p>
  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)<span class="comment">#search函数返回的是match对象</span></span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">    print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#返回100081</span></span><br><span class="line">print(type(match))<span class="comment">#检查match的类型</span></span><br></pre></td></tr></table></figure>
@@ -284,8 +272,7 @@
 
 </li>
 </ol>
-<p>###Re库的一种等价用法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#函数式用法：一次性操作</span></span><br><span class="line">rst = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Re库的一种等价用法"><a href="#Re库的一种等价用法" class="headerlink" title="Re库的一种等价用法"></a>Re库的一种等价用法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#函数式用法：一次性操作</span></span><br><span class="line">rst = re.search(<span class="string">r'[1-9]\d&#123;5&#125;'</span>,<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure>
 
 <p>等价于</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#面向对象用法：编译后的多次操作</span></span><br><span class="line">pat = re.compile(<span class="string">r'[1-9]\d&#123;5&#125;'</span>)</span><br><span class="line">rst = pat.search(<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure>
@@ -298,8 +285,7 @@
 <li>pattern：正则表达式的字符串或原生字符串表示</li>
 <li>flags：正则表达式使用时的控制标记</li>
 </ul>
-<p>###Match对象</p>
-<ol>
+<h3 id="Match对象"><a href="#Match对象" class="headerlink" title="Match对象"></a>Match对象</h3><ol>
 <li><p><strong>属性</strong></p>
 <table>
 <thead>
@@ -357,8 +343,7 @@
 
 </li>
 </ol>
-<p>###Match对象的贪婪匹配与最小匹配</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.rearch(<span class="string">r'PY.*N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#PY.*N表示以PY开头，以N结尾，中间任意的字符串</span></span><br><span class="line">print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#贪婪匹配：re库默认采用贪婪匹配，即输出匹配最长的子串.所以不加任何东西会输出PYANBNCNDN</span></span><br><span class="line"></span><br><span class="line">match = re.rearch(<span class="string">r'PY.*?N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#最小匹配：在*后面加一个？，会输出最短的子串，即PYAN</span></span><br></pre></td></tr></table></figure>
+<h3 id="Match对象的贪婪匹配与最小匹配"><a href="#Match对象的贪婪匹配与最小匹配" class="headerlink" title="Match对象的贪婪匹配与最小匹配"></a>Match对象的贪婪匹配与最小匹配</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.rearch(<span class="string">r'PY.*N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#PY.*N表示以PY开头，以N结尾，中间任意的字符串</span></span><br><span class="line">print(match.group(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#贪婪匹配：re库默认采用贪婪匹配，即输出匹配最长的子串.所以不加任何东西会输出PYANBNCNDN</span></span><br><span class="line"></span><br><span class="line">match = re.rearch(<span class="string">r'PY.*?N'</span>, <span class="string">'PYANBNCNDN'</span>)</span><br><span class="line"><span class="comment">#最小匹配：在*后面加一个？，会输出最短的子串，即PYAN</span></span><br></pre></td></tr></table></figure>
 
 <p>最小匹配操作符</p>
 <table>
@@ -385,9 +370,7 @@
 <td>扩展前一个字符m至n次（含n），最小匹配</td>
 </tr>
 </tbody></table>
-<p>#Scrapy</p>
-<p>##Scrapy的安装</p>
-<ul>
+<h1 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h1><h2 id="Scrapy的安装"><a href="#Scrapy的安装" class="headerlink" title="Scrapy的安装"></a>Scrapy的安装</h2><ul>
 <li><p><strong>参考：</strong></p>
 <p>  <a href="https://blog.csdn.net/weixin_42057995/article/details/89431533" target="_blank" rel="noopener">Python爬虫Scrapy框架学习第1课 Win10系统下scrapy安装和环境搭建</a>  </p>
 </li>
@@ -422,10 +405,8 @@
 <li>输入<code>pip3 install scrapy</code><br>速度极慢，经常出错，建议不要尝试直接使用国内镜像源</li>
 <li>输入<code>pip install scrapy -i http://mirrors.aliyun.com/pypi/simple/</code></li>
 </ul>
-<p>##Scrapy框架简介</p>
-<p>Scrapy框架是5+2结构，由五个主要模块与两个中间键组成</p>
-<p>###五个主要模块</p>
-<ol>
+<h2 id="Scrapy框架简介"><a href="#Scrapy框架简介" class="headerlink" title="Scrapy框架简介"></a>Scrapy框架简介</h2><p>Scrapy框架是5+2结构，由五个主要模块与两个中间键组成</p>
+<h3 id="五个主要模块"><a href="#五个主要模块" class="headerlink" title="五个主要模块"></a>五个主要模块</h3><ol>
 <li><p>Scheduler</p>
 <ul>
 <li>对所有爬取请求进行调度管理</li>
@@ -462,8 +443,7 @@
 </ul>
 </li>
 </ol>
-<p>###两个中间键</p>
-<ol>
+<h3 id="两个中间键"><a href="#两个中间键" class="headerlink" title="两个中间键"></a>两个中间键</h3><ol>
 <li><p>Spider-middleware</p>
 <ul>
 <li>目的：对请求和爬取项在处理</li>
@@ -479,8 +459,7 @@
 </ul>
 </li>
 </ol>
-<p>###三条数据流的路径</p>
-<ol>
+<h3 id="三条数据流的路径"><a href="#三条数据流的路径" class="headerlink" title="三条数据流的路径"></a>三条数据流的路径</h3><ol>
 <li><p>路径1</p>
 <ul>
 <li>Engine从Spider获得了爬取用户的请求request，可以理解为一个url</li>
@@ -500,8 +479,7 @@
 </ul>
 </li>
 </ol>
-<p>##Scrapy的使用步骤</p>
-<ol>
+<h2 id="Scrapy的使用步骤"><a href="#Scrapy的使用步骤" class="headerlink" title="Scrapy的使用步骤"></a>Scrapy的使用步骤</h2><ol>
 <li><p>创建一个工程和Spider模板</p>
 </li>
 <li><p>编写Spider编写Spider</p>
@@ -511,8 +489,7 @@
 <li><p>优化配置策略优化配置策略</p>
 </li>
 </ol>
-<p>##Scrapy的常用命令</p>
-<table>
+<h2 id="Scrapy的常用命令"><a href="#Scrapy的常用命令" class="headerlink" title="Scrapy的常用命令"></a>Scrapy的常用命令</h2><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -528,7 +505,7 @@
 <tr>
 <td>genspider</td>
 <td>创建一个爬虫</td>
-<td>scrapy genspider [options]<name><domain></td>
+<td>scrapy genspider [options]&lt; name&gt;&lt; domain&gt;</td>
 </tr>
 <tr>
 <td>settings</td>
@@ -551,8 +528,7 @@
 <td>scrapy shell[url]</td>
 </tr>
 </tbody></table>
-<p>##Scrapy与requests的对比</p>
-<table>
+<h2 id="Scrapy与requests的对比"><a href="#Scrapy与requests的对比" class="headerlink" title="Scrapy与requests的对比"></a>Scrapy与requests的对比</h2><table>
 <thead>
 <tr>
 <th>requests</th>
