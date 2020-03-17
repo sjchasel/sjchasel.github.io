@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/03/01/%E9%BB%84%E8%80%81%E5%B8%88%E7%9A%84%E6%89%93%E6%B2%B9%E8%AF%97%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2020-03-17T11:59:04.641Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/03/17/leetcode%E8%AE%B0%E5%BD%95/</loc>
     
     <lastmod>2020-03-17T11:51:12.373Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://yoursite.com/2020/03/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E5%91%A8-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%841/</loc>
     
     <lastmod>2020-03-02T10:17:05.809Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/03/01/%E9%BB%84%E8%80%81%E5%B8%88%E7%9A%84%E6%89%93%E6%B2%B9%E8%AF%97%E8%AE%B0%E5%BD%95/</loc>
-    
-    <lastmod>2020-03-01T12:42:18.334Z</lastmod>
     
   </url>
   
