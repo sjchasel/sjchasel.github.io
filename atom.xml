@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-10-21T11:31:32.484Z</updated>
+  <updated>2020-10-23T12:11:45.212Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>20201018-1023总结</title>
+    <link href="http://yoursite.com/2020/10/22/20201018-1023%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2020/10/22/20201018-1023%E6%80%BB%E7%BB%93/</id>
+    <published>2020-10-21T16:00:00.000Z</published>
+    <updated>2020-10-23T12:11:45.212Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="This-week’s-progress"><a href="#This-week’s-progress" class="headerlink" title="This week’s progress"></a>This week’s progress</h1><ul><li>Title-Guided Encoding for Keyphrase Generation</li><li>code</li></ul><h1 id="Title-Guided-Encoding-for-Keyphrase-Generation"><a href="#Title-Guided-Encoding-for-Keyphrase-Generation" class="headerlink" title="Title-Guided Encoding for Keyphrase Generation"></a>Title-Guided Encoding for Keyphrase Generation</h1><h2 id="Research-Objective"><a href="#Research-Objective" class="headerlink" title="Research Objective"></a>Research Objective</h2><p>pay more attention to the leading role of title when generating keyphrase</p><h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><p>In traditional methods for keyphrase prediction, the document title and the document main body are treated equally. But actually, title has a leading role to the whole document. Exsiting methods consequently fail to sufficiently utilize the already summarized information in titles.</p><h2 id="Method-s"><a href="#Method-s" class="headerlink" title="Method(s)"></a>Method(s)</h2><p><img src="https://i.loli.net/2020/10/23/vaCS54mwGYQy6qZ.png" alt="image.png"><br><img src="https://i.loli.net/2020/10/23/gjtfmEzPxo3rA2S.png" alt="image.png"><br><img src="https://i.loli.net/2020/10/23/pxeka4VHcgJYT1S.png" alt="image.png"></p><h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><h3 id="Experiment-Settings"><a href="#Experiment-Settings" class="headerlink" title="Experiment Settings"></a>Experiment Settings</h3><h5 id="Training-datasets"><a href="#Training-datasets" class="headerlink" title="Training datasets"></a>Training datasets</h5><p>KP20k</p><h5 id="Testing-datasets"><a href="#Testing-datasets" class="headerlink" title="Testing datasets:"></a>Testing datasets:</h5><p><img src="https://i.loli.net/2020/10/23/DuMeQbhX5EZ87Sw.png" alt="image.png"><br>The same as meng’s</p><h5 id="baseline"><a href="#baseline" class="headerlink" title="baseline:"></a>baseline:</h5><ol><li>traditional extraction baselines:two unsupervised models including TF-IDF and TextRank, and one supervised model Maui </li><li>present keyphrase prediction task:CopyRNN and CopyCNN </li></ol><ul><li>evaluation metric:recall and F-measure (F1)<h3 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h3>Present Keyphrase Predicting<br>Absent Keyphrase Predicting<br>Keyphrase Predicting on Various Title Length Ratios<br>Ablation Study<br>Case Study</li></ul><h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>(I think)<br>Compared to copyRNN, how the author uses the information of the title is that the model calculates the attention score for context(include main body and title) and title so not only does this enhance the title information, but it also uses the title to locate important information in the main body.</p><h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><h2 id="前期配置"><a href="#前期配置" class="headerlink" title="前期配置"></a>前期配置</h2><p>看到了这个博客：<a href="https://zhuanlan.zhihu.com/p/29876774" target="_blank" rel="noopener">神经机器翻译工具——OpenNMT</a><br>开开心心按照这些指令安装，在cmd里输入第一条，没报任何错，就是下载得有点久（两个小时之内没出任何错）。第一条下载完后，后面的无法执行了，一搜…好像无法在windows上安装…</p><p>找到OpenNMT的GitHub：<a href="https://github.com/OpenNMT/OpenNMT" target="_blank" rel="noopener">https://github.com/OpenNMT/OpenNMT</a><br>它说torch版的已经不维护了，好吧，那我去看<a href="https://github.com/OpenNMT/OpenNMT-py" target="_blank" rel="noopener">pytorch</a>的。</p><p>第一步安装的很顺利，但是一些高级功能安装失败了</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.opt.txt</span><br></pre></td></tr></table></figure><h2 id="呜呜呜官方的例子又是在Linux下运行的"><a href="#呜呜呜官方的例子又是在Linux下运行的" class="headerlink" title="呜呜呜官方的例子又是在Linux下运行的"></a>呜呜呜官方的例子又是在Linux下运行的</h2><h4 id="Step-1-Prepare-the-data"><a href="#Step-1-Prepare-the-data" class="headerlink" title="Step 1: Prepare the data"></a>Step 1: Prepare the data</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;opennmt-trainingdata&#x2F;toy-ende.tar.gz</span><br><span class="line">tar xf toy-ende.tar.gz</span><br><span class="line">cd toy-ende</span><br></pre></td></tr></table></figure><p>build a YAML configuration file to specify the data that will be used:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># toy_en_de.yaml</span><br><span class="line"></span><br><span class="line">## Where the samples will be written</span><br><span class="line">save_data: toy-ende&#x2F;run&#x2F;example</span><br><span class="line">## Where the vocab(s) will be written</span><br><span class="line">src_vocab: toy-ende&#x2F;run&#x2F;example.vocab.src</span><br><span class="line">tgt_vocab: toy-ende&#x2F;run&#x2F;example.vocab.tgt</span><br><span class="line"># Prevent overwriting existing files in the folder</span><br><span class="line">overwrite: False</span><br><span class="line"></span><br><span class="line"># Corpus opts:</span><br><span class="line">data:</span><br><span class="line">    corpus_1:</span><br><span class="line">        path_src: toy-ende&#x2F;src-train.txt</span><br><span class="line">        path_tgt: toy-ende&#x2F;tgt-train.txt</span><br><span class="line">    valid:</span><br><span class="line">        path_src: toy-ende&#x2F;src-val.txt</span><br><span class="line">        path_tgt: toy-ende&#x2F;tgt-val.txt</span><br><span class="line">...</span><br></pre></td></tr></table></figure><p>build the vocab(s)</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">onmt_build_vocab -config toy_en_de.yaml -n_sample 10000</span><br></pre></td></tr></table></figure><h4 id="Step-2-Train-the-model"><a href="#Step-2-Train-the-model" class="headerlink" title="Step 2: Train the model"></a>Step 2: Train the model</h4><p>添加以下信息到yaml配置文件中</p><ul><li>the vocabulary path(s) that will be used: can be that generated by onmt_build_vocab;</li><li>training specific parameters.</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># toy_en_de.yaml</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"># Vocabulary files that were just created</span><br><span class="line">src_vocab: toy-ende&#x2F;run&#x2F;example.vocab.src</span><br><span class="line">tgt_vocab: toy-ende&#x2F;run&#x2F;example.vocab.tgt</span><br><span class="line"></span><br><span class="line"># Train on a single GPU</span><br><span class="line">world_size: 1</span><br><span class="line">gpu_ranks: [0]</span><br><span class="line"></span><br><span class="line"># Where to save the checkpoints</span><br><span class="line">save_model: toy-ende&#x2F;run&#x2F;model</span><br><span class="line">save_checkpoint_steps: 500</span><br><span class="line">train_steps: 1000</span><br><span class="line">valid_steps: 500</span><br></pre></td></tr></table></figure><p>run!</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">onmt_train -config toy_en_de.yaml</span><br></pre></td></tr></table></figure><h4 id="Step-3-Translate"><a href="#Step-3-Translate" class="headerlink" title="Step 3: Translate"></a>Step 3: Translate</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">onmt_translate -model toy-ende&#x2F;run&#x2F;model_step_1000.pt -src toy-ende&#x2F;src-test.txt -output toy-ende&#x2F;pred_1000.txt -gpu 0 -verbose</span><br></pre></td></tr></table></figure><p>输出在toy-ende/pred_1000.txt中</p><h2 id="meng的代码"><a href="#meng的代码" class="headerlink" title="meng的代码"></a>meng的代码</h2><p>打开了readme，里面有运行步骤。查了一下是bash命令（？），又要在Linux上运行！但是我电脑里有git bash。尝试了一下在代码文件夹右击使用git bash，输入第一条命令</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> kp_convert.sh</span><br></pre></td></tr></table></figure><p>后，窗口运行了起来，然后提示我没有装torch…不是很懂，我点击进入论文给的地址，作者吐槽了这些框架(CUDA?什么的)的版本一大堆，说自己后悔用这个写了，现在准备发布个pytorch的。点击进pytorch又说不支持使用这个，又跳到了我现在下载的这个代码库，也是one size does not fit all的代码库。明明写的是built on OpenNMT-py，却要我下torch！</p><p>搜了一圈，安装torch的教程全是在Ubuntu上的，决定安装Ubuntu了。<a href="https://mp.weixin.qq.com/s/045wrbdv92PkUQn2abddvA" target="_blank" rel="noopener">安装教程</a></p><p>存储空间不够，又开始分盘。（整个名著阅读课都在分盘）涉及到c盘，每个步骤都小心翼翼的。</p><p>开始安装Ubuntu了，好像要安十多个小时…</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;This-week’s-progress&quot;&gt;&lt;a href=&quot;#This-week’s-progress&quot; class=&quot;headerlink&quot; title=&quot;This week’s progress&quot;&gt;&lt;/a&gt;This week’s progress&lt;/h1&gt;&lt;
+      
+    
+    </summary>
+    
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>主成分分析（PCA）详解</title>
@@ -526,32 +554,6 @@
     
     
       <category term="读书笔记" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>attention模型</title>
-    <link href="http://yoursite.com/2020/05/21/attention%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://yoursite.com/2020/05/21/attention%E6%A8%A1%E5%9E%8B/</id>
-    <published>2020-05-20T16:00:00.000Z</published>
-    <updated>2020-05-22T16:33:09.984Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h1><p>为了解决编码器-解码器框架的弊端，提出了Attention模型。它与编码器解码器不同的是，它在输出时，会产生一个“注意力范围”表示接下来输出的时候需要重点关注哪些部分，然后根据关注的重点产生下一个输出。<br><img src="https://img-blog.csdn.net/20160120181841922" alt=""><br>编码器输出一个向量的序列，解码时从向量序列中挑选子集进行处理。所以就不会出现信息不完全、被覆盖、被稀释的现象。每一步输出都可以充分利用输入序列的信息。</p><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>注意力模型在模拟人脑。我们在看一幅画时，看似在看整幅画，但其实眼睛重点观察的是其中一部分。也就是说人的注意力在这幅画上并不是平均分配，而是有侧重的。这也是一种资源分配。我们把注意力放在重要的部分，对不重要的部分视而不见。</p><p><img src="https://img-blog.csdn.net/20171210213743273" alt=""></p><h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>如上面的框架图所示。输入句子X=（X1，X2，……Xm），中间语义（Context）为C=F（X1，X2，…Xm），要得到Y=（Y1，Y2，……Yn）的输出。经过attention模型输出的是</p><p><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725172528160-1674801547.png" alt=""></p><p>每次生成的Y用的C都是不同的。<br>例如输入：Tom chase Jerry时，编码器解码器框架用同样的语义编码C逐步生成“汤姆”，“追逐”，“杰瑞”。而Attention模型的语义编码每步都不同，如下</p><p><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725172807965-229297997.png" alt=""><br><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725172819615-687461066.png" alt=""><br><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725172832683-119490313.png" alt=""><br>其中</p><ul><li>f2是编码器中的变换函数</li><li>g是根据单词的中间语义合并成整个句子中间语义的函数</li></ul><p>它们的关系是：</p><p><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725173022804-1513949577.png" alt=""></p><p>Tx是句子长度，α是权值，hj=f2（“单词”）<br>整个过程如下</p><p><img src="https://images2018.cnblogs.com/blog/1335117/201807/1335117-20180725173159867-1650626703.png" alt=""></p><h1 id="本质思想"><a href="#本质思想" class="headerlink" title="本质思想"></a>本质思想</h1><p>计算Query与Key的相关性，得到Key对应的Value的权重。对Value进行加权求和，得到了Attention数值。这个过程可以表示为</p><p><img src="https://img-blog.csdn.net/20171210214835727" alt=""></p><ul><li>Lx：输入句子的长度</li></ul><p>有如下就几个阶段</p><p><img src="https://img-blog.csdn.net/20171210214910845" alt=""></p><ul><li>Query:需要输出的Target中的某个元素</li><li>&lt;Key,Value&gt;:输入的Source由一系列&lt;Key,Value&gt;数据对构成</li><li>F(Q,K)：是计算Key和Query相关性的函数</li><li>s：计算Query与Key相关性后得到的原始数值</li><li>a：s归一化后的数值</li><li>*：权重×value的结果</li><li>Attention Value：加权求和后得到的Attention数值</li></ul><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/u011734144/article/details/80230633" target="_blank" rel="noopener">Encoder-Decoder模型和Attention模型</a></p><p><a href="https://www.cnblogs.com/jiangxinyang/p/9367497.html" target="_blank" rel="noopener">深度学习之Attention Model（注意力模型）</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;产生原因&quot;&gt;&lt;a href=&quot;#产生原因&quot; class=&quot;headerlink&quot; title=&quot;产生原因&quot;&gt;&lt;/a&gt;产生原因&lt;/h1&gt;&lt;p&gt;为了解决编码器-解码器框架的弊端，提出了Attention模型。它与编码器解码器不同的是，它在输出时，会产生一个“注意力范围
-      
-    
-    </summary>
-    
-    
-    
-      <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
-    
-      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
