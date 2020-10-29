@@ -136,7 +136,68 @@
 <p>（噢，突然想到作者只有一个，而读者指定的关键短语应该是由很多个读者去指定，所以读者指定的才那么多。但这也可以说明只由作者指定的是不够的，需要expansion，毕竟使用搜索引擎的人大部分还是阅读这篇文章的读者。）</p>
 <p>（继续补充想到的…那么如何证明这些关键短语都是好的呢？不同读者指定的关键短语也许意思全都重复了，只是短语没有完全相同。不过我们无法以读者检索文献时的满意度来评估一个模型，只能通过这些“标准答案”，在这个数据集里，标准答案就是作者和读者指定的这些短语）</p>
 <p>不知道王翠学姐上次有没有汇报评估指标到底是怎么评估的呢？F@10这种不满10个关键短语要怎么办？expansion可以帮助模型效果的评估吗？</p>
-<p>目前我能想到的就是这些了，然后去看看模型怎么办。<br>首先是相关论文中的模型<br>|论文名|模型及作用|<br>|—|—|<br>|deep keyphrase generation|RNN：生成短语<br>注意力机制：用于优化模型<br>复制机制：用于增强原文词汇的出现概率|<br>| title-guided|主要是基于GRU的序列到序列模型，体现title引导的是注意力机制中（因为注意力机制是相似度越大的越重要嘛？），它把context拆成title和body，计算context与title的相似度。这样title的信息被增强了一边，也将body里关于title的信息着重体现了出来|<br>以上两篇用的词汇表好像都是出现频率最高的5w个单词<br>|论文名|模型及作用|<br>|—|—|<br>|Automatic Keyphrase Extraction via Topic Decomposition|用了一提取文档主题的模型（LDA），把文档的主题加入对关键短语的排序考虑中|<br>|Keyphrase Generation A Text Summarization Struggle|其中提到Pointer-Generator network (POINTCOV) depicted in Figure 3 of See et al. (2017) is similar to ABS. It is composed of an attention-based encoder that produces the context vector. The decoder is extended with a pointer-generator model that computes a probability pgenfrom the context vector, the decoder states, and the decoder output. That probability is used as a switch to decide if the next word is to be generated or copied from the input. This model is thus a compromise between abstractive and extractive (copying words from input) models. Another extension is the coverage mechanism for avoiding word repetitions in the summary, a common problem of encoder-decoder summarizers (Tu et al., 2016).|<br>|Keyphrase Generation with Correlation Constraints|覆盖向量：解决重复问题|<br>|Neural Keyphrase Generation via Reinforcement Learning with Adaptive Rewards|感觉和我们的主题有点相似：they（exsiting methods） still suffer from the problem of generating too few keyphrases.  To address this problem, we propose a reinforcement learning (RL) approach for keyphrase generation, with an adaptive reward function that encourages a model to generate both sufficient and accurate keyphrases.他觉得前人虽然有根据文档不同，生成关键短语个数也发生改变的方法，但他统计了一下发现这个方法倾向于生成更少的关键短语。并且他提出的新的评估方法是，只要生成的关键短语意思对了就可以（比如生成的是支持向量机，而答案是SVM，那么也算正确）。他是从不同的来源提取标准答案的变体，只要有一个对上了，那么就生成正确。那么我们的expansion，从扩展关键短语的角度来说也能这样促进评估效果吗？GRU、自适应奖励函数等（奖励生成更多短语）|<br>|Incorporating Linguistic Constraints into Keyphrase Generation|又是覆盖向量解决重复问题|<br>|Incorporating Copying Mechanism in Sequence-to-Sequence Learning|第一次把复制机制加入序列到序列模型，是为了决定何时进行复制操作，有些专有人名、地名是无法生成的|<br>|Keyphrase Generation for Scientific Document Retrieval|可以作为我们后面评估模型的方法？这是把各个模型放在真实的文档检索下评估他们的效果|<br>|Semi-Supervised Learning for Neural Keyphrase Generation||<br>|Topic-Aware Neural Keyphrase Generation for Social Media Language||</p>
+<p>目前我能想到的就是这些了，然后去看看模型怎么办。<br>首先是相关论文中的模型</p>
+<table>
+<thead>
+<tr>
+<th>论文名</th>
+<th>模型及作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>deep keyphrase generation</td>
+<td>RNN：生成短语<br>注意力机制：用于优化模型<br>复制机制：用于增强原文词汇的出现概率</td>
+</tr>
+<tr>
+<td>title-guided</td>
+<td>主要是基于GRU的序列到序列模型，体现title引导的是注意力机制中（因为注意力机制是相似度越大的越重要嘛？），它把context拆成title和body，计算context与title的相似度。这样title的信息被增强了一边，也将body里关于title的信息着重体现了出来</td>
+</tr>
+</tbody></table>
+<p>以上两篇用的词汇表好像都是出现频率最高的5w个单词</p>
+<table>
+<thead>
+<tr>
+<th>论文名</th>
+<th>模型及作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Automatic Keyphrase Extraction via Topic Decomposition</td>
+<td>用了一提取文档主题的模型（LDA），把文档的主题加入对关键短语的排序考虑中</td>
+</tr>
+<tr>
+<td>Keyphrase Generation A Text Summarization Struggle</td>
+<td>其中提到Pointer-Generator network (POINTCOV) depicted in Figure 3 of See et al. (2017) is similar to ABS. It is composed of an attention-based encoder that produces the context vector. The decoder is extended with a pointer-generator model that computes a probability pgenfrom the context vector, the decoder states, and the decoder output. That probability is used as a switch to decide if the next word is to be generated or copied from the input. This model is thus a compromise between abstractive and extractive (copying words from input) models. Another extension is the coverage mechanism for avoiding word repetitions in the summary, a common problem of encoder-decoder summarizers (Tu et al., 2016).</td>
+</tr>
+<tr>
+<td>Keyphrase Generation with Correlation Constraints</td>
+<td>覆盖向量：解决重复问题</td>
+</tr>
+<tr>
+<td>Neural Keyphrase Generation via Reinforcement Learning with Adaptive Rewards</td>
+<td>感觉和我们的主题有点相似：they（exsiting methods） still suffer from the problem of generating too few keyphrases.  To address this problem, we propose a reinforcement learning (RL) approach for keyphrase generation, with an adaptive reward function that encourages a model to generate both sufficient and accurate keyphrases.他觉得前人虽然有根据文档不同，生成关键短语个数也发生改变的方法，但他统计了一下发现这个方法倾向于生成更少的关键短语。并且他提出的新的评估方法是，只要生成的关键短语意思对了就可以（比如生成的是支持向量机，而答案是SVM，那么也算正确）。他是从不同的来源提取标准答案的变体，只要有一个对上了，那么就生成正确。那么我们的expansion，从扩展关键短语的角度来说也能这样促进评估效果吗？GRU、自适应奖励函数等（奖励生成更多短语）</td>
+</tr>
+<tr>
+<td>Incorporating Linguistic Constraints into Keyphrase Generation</td>
+<td>又是覆盖向量解决重复问题</td>
+</tr>
+<tr>
+<td>Incorporating Copying Mechanism in Sequence-to-Sequence Learning</td>
+<td>第一次把复制机制加入序列到序列模型，是为了决定何时进行复制操作，有些专有人名、地名是无法生成的</td>
+</tr>
+<tr>
+<td>Keyphrase Generation for Scientific Document Retrieval</td>
+<td>可以作为我们后面评估模型的方法？这是把各个模型放在真实的文档检索下评估他们的效果</td>
+</tr>
+<tr>
+<td>Semi-Supervised Learning for Neural Keyphrase Generation</td>
+<td></td>
+</tr>
+<tr>
+<td>Topic-Aware Neural Keyphrase Generation for Social Media Language</td>
+<td></td>
+</tr>
+</tbody></table>
 <p>我们的模型</p>
 <ul>
 <li>需要控制不出现太多重复意思的短语（吗？用于信息检索的话，好像不需要控制。还是说能联想同义词应该是搜索引擎解决的事情呢？）</li>
