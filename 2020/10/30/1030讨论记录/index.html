@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="20201029-1030讨论记录"><meta name="keywords" content="NLP,论文,总结"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>20201029-1030讨论记录 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Deep-Keyphrase-generation"><span class="toc-number">1.</span> <span class="toc-text">Deep Keyphrase generation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Incorporating-Copying-Mechanism-in-Sequence-to-Sequence-Learning"><span class="toc-number">2.</span> <span class="toc-text">Incorporating Copying Mechanism in Sequence-to-Sequence Learning</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Title-Guided-Encoding-for-Keyphrase-Generation※"><span class="toc-number">3.</span> <span class="toc-text">Title-Guided Encoding for Keyphrase Generation※</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#An-Integrated-Approach-for-Keyphrase-Generation-via-Exploring-the-Power-of-Retrieval-and-Extraction"><span class="toc-number">4.</span> <span class="toc-text">An Integrated Approach for Keyphrase Generation via Exploring the Power of Retrieval and Extraction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Topic-Aware-Neural-Keyphrase-Generation-for-Social-Media-Language"><span class="toc-number">5.</span> <span class="toc-text">Topic-Aware Neural Keyphrase Generation for Social Media Language</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">6.</span> <span class="toc-text">！！！！！！就算不想看模型也要看！！！要对以上模型做个整理，找到其中的相同和不同！！！！！！</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">40</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">20201029-1030讨论记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-10-30</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/10/30/1030%E8%AE%A8%E8%AE%BA%E8%AE%B0%E5%BD%95/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/10/30/1030讨论记录/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>呜呜呜，看论文的模型太难了！！也不想熬夜了，剩下一点时间就整理一下这两天讨论的问题吧。</p>
+<h1 id="Deep-Keyphrase-generation"><a href="#Deep-Keyphrase-generation" class="headerlink" title="Deep Keyphrase generation"></a>Deep Keyphrase generation</h1><p>需要进一步熟悉和了解的：</p>
+<ol>
+<li>GRU的输入是什么，具体公式是什么</li>
+<li>copy的具体公式、目标函数（meng的论文里没写目标函数）和看看copy的代码（或许会对理解公式和meng的代码有帮助）</li>
+</ol>
+<h1 id="Incorporating-Copying-Mechanism-in-Sequence-to-Sequence-Learning"><a href="#Incorporating-Copying-Mechanism-in-Sequence-to-Sequence-Learning" class="headerlink" title="Incorporating Copying Mechanism in Sequence-to-Sequence Learning"></a>Incorporating Copying Mechanism in Sequence-to-Sequence Learning</h1><p>需要进一步了解的：</p>
+<ol>
+<li>训练集、验证集、测试集的具体作用</li>
+<li>超参数的概念，在哪里确定</li>
+<li>最大似然函数（Hum模型）</li>
+<li>ROUGE</li>
+</ol>
+<p>下一步要做的：</p>
+<ol>
+<li>问作者要代码</li>
+<li>看看Cho（2014）（第一次用seq2seq解决问题），找找第一个词是如何生成的</li>
+<li>第九个公式里的p（概率）是怎么计算的</li>
+<li>Location-based Addressing部分看懂</li>
+</ol>
+<h1 id="Title-Guided-Encoding-for-Keyphrase-Generation※"><a href="#Title-Guided-Encoding-for-Keyphrase-Generation※" class="headerlink" title="Title-Guided Encoding for Keyphrase Generation※"></a>Title-Guided Encoding for Keyphrase Generation※</h1><p>需要注意的地方：</p>
+<ol>
+<li>利用注意力机制改变词向量的计算方式，每个词向量都有title的信息 </li>
+</ol>
+<p>对我们模型的帮助：</p>
+<ol>
+<li>我们可以改变为用注意力机制改变词向量的计算方式，使得每个词向量都有已知关键短语的信息</li>
+</ol>
+<h1 id="An-Integrated-Approach-for-Keyphrase-Generation-via-Exploring-the-Power-of-Retrieval-and-Extraction"><a href="#An-Integrated-Approach-for-Keyphrase-Generation-via-Exploring-the-Power-of-Retrieval-and-Extraction" class="headerlink" title="An Integrated Approach for Keyphrase Generation via Exploring the Power of Retrieval and Extraction"></a>An Integrated Approach for Keyphrase Generation via Exploring the Power of Retrieval and Extraction</h1><p>需要注意的：</p>
+<ol>
+<li>KE如何加入复制机制？</li>
+<li>如何加入外部信息 </li>
+</ol>
+<p>对我们模型的帮助：</p>
+<ol>
+<li>我们可以利用已知关键短语，确定类似于主题的东西，获得一些外部信息也将其加入</li>
+</ol>
+<h1 id="Topic-Aware-Neural-Keyphrase-Generation-for-Social-Media-Language"><a href="#Topic-Aware-Neural-Keyphrase-Generation-for-Social-Media-Language" class="headerlink" title="Topic-Aware Neural Keyphrase Generation for Social Media Language"></a>Topic-Aware Neural Keyphrase Generation for Social Media Language</h1><p>需要注意的：</p>
+<ol>
+<li>如何得到主题</li>
+<li>得到的主题是什么形式</li>
+<li>如何利用主题</li>
+</ol>
+<blockquote>
+<blockquote>
+<p><strong><h1>！！！！！！就算不想看模型也要看！！！要对以上模型做个整理，找到其中的相同和不同！！！！！！</h1></strong></p>
+</blockquote>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/10/30/1030%E8%AE%A8%E8%AE%BA%E8%AE%B0%E5%BD%95/">http://yoursite.com/2020/10/30/1030%E8%AE%A8%E8%AE%BA%E8%AE%B0%E5%BD%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a><a class="post-meta__tags" href="/tags/%E6%80%BB%E7%BB%93/">总结</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/10/24/20201024-1030/"><span>20201024-10230总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2020/10/30/1030%E8%AE%A8%E8%AE%BA%E8%AE%B0%E5%BD%95/';
+  this.page.identifier = '2020/10/30/1030讨论记录/';
+  this.page.title = '20201029-1030讨论记录';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
