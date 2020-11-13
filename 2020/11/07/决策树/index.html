@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="决策树"><meta name="keywords" content="机器学习,数据挖掘"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>决策树 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#决策树是什么"><span class="toc-number">1.</span> <span class="toc-text">决策树是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#决策树的构造过程"><span class="toc-number">2.</span> <span class="toc-text">决策树的构造过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择"><span class="toc-number">2.1.</span> <span class="toc-text">特征选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#决策树生成"><span class="toc-number">2.2.</span> <span class="toc-text">决策树生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#决策树剪枝"><span class="toc-number">2.3.</span> <span class="toc-text">决策树剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预剪枝"><span class="toc-number">2.3.1.</span> <span class="toc-text">预剪枝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后剪枝"><span class="toc-number">2.3.2.</span> <span class="toc-text">后剪枝</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#评价"><span class="toc-number">3.</span> <span class="toc-text">评价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-number">3.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优点"><span class="toc-number">3.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缺点"><span class="toc-number">3.3.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#各类算法介绍"><span class="toc-number">4.</span> <span class="toc-text">各类算法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ID3算法"><span class="toc-number">4.1.</span> <span class="toc-text">ID3算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">4.1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法原理"><span class="toc-number">4.1.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息熵"><span class="toc-number">4.1.2.1.</span> <span class="toc-text">信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-number">4.1.2.2.</span> <span class="toc-text">信息增益</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调包实现"><span class="toc-number">4.1.3.</span> <span class="toc-text">调包实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评价-1"><span class="toc-number">4.1.4.</span> <span class="toc-text">评价</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#优点-1"><span class="toc-number">4.1.4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缺点："><span class="toc-number">4.1.4.2.</span> <span class="toc-text">缺点：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C4-5的生成算法"><span class="toc-number">4.2.</span> <span class="toc-text">C4.5的生成算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法原理-1"><span class="toc-number">4.2.2.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调包实现-1"><span class="toc-number">4.2.3.</span> <span class="toc-text">调包实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评价-2"><span class="toc-number">4.2.4.</span> <span class="toc-text">评价</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hunt’s-Algorithm-one-of-the-earliest"><span class="toc-number">4.3.</span> <span class="toc-text">Hunt’s Algorithm (one of the earliest)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CART-基尼系数Gini-index，-二叉树"><span class="toc-number">4.4.</span> <span class="toc-text">CART (基尼系数Gini index， 二叉树 )</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">46</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">决策树</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-07</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/07/%E5%86%B3%E7%AD%96%E6%A0%91/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/07/决策树/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="决策树是什么"><a href="#决策树是什么" class="headerlink" title="决策树是什么"></a>决策树是什么</h1><blockquote>
+<p>决策树学习采用的是自顶向下的递归方法，其基本思想是以信息熵为度量构造一颗熵值下降最快的树，到叶子节点处，熵值为0。其具有可读性、分类速度快的优点，是一种有监督学习。最早提及决策树思想的是Quinlan在1986年提出的ID3算法和1993年提出的C4.5算法，以及Breiman等人在1984年提出的CART算法。</p>
+</blockquote>
+<p>举一个🌰<br><img src="https://pics7.baidu.com/feed/f11f3a292df5e0fec68aa5010925ffae5fdf72ef.jpeg?token=aff212fc4226b25d38977f93a44b368d" alt="决策树例子"><br>以此说明相关概念</p>
+<ul>
+<li><p>根结点(Root Node)：它表示整个样本集合，并且该节点可以进一步划分成两个或多个子集/没有入边, 有零条或多条出边。即发送邮件域名地址未myEmployer.com的所有邮件。</p>
+</li>
+<li><p>拆分(Splitting)：表示将一个结点拆分成多个子集的过程。在方形的节点上，根据是否符合条件拆分成各类邮件。</p>
+</li>
+<li><p>决策结点(Decision Node)/内部结点：当一个子结点进一步被拆分成多个子节点时，这个子节点就叫做决策结点/恰有一条入边和两条或多条出边<br>。就是方形的结点，根据这个结点的条件来做决策。</p>
+</li>
+<li><p>叶子结点(Leaf/Terminal Node)：无法再拆分的结点被称为叶子结点/有一条入边，但没有出边。就是最后的子集。</p>
+</li>
+<li><p>分支/子树(Branch/Sub-Tree)：一棵决策树的一部分就叫做分支或子树。比如：<br><img src="https://i.loli.net/2020/11/07/1zKWJgPw2S6meZu.png" alt="image.png"></p>
+</li>
+<li><p>父结点和子结点(Paren and Child Node)：一个结点被拆分成多个子节点，这个结点就叫做父节点；其拆分后的子结点也叫做子结点。在上图中，方形结点是父节点，椭圆形结点是子结点。</p>
+</li>
+</ul>
+<hr>
+<p>可以很容易地看出这颗决策树的决策过程：</p>
+<ol>
+<li>首先检测发送邮件域名地址；</li>
+<li>如果地址为com，则放置于 <strong>“无聊时需要阅读的邮件”</strong> 分类；</li>
+<li>如果不是这个地址，那么再次检测；</li>
+<li>检查邮件是否有单词“曲棍球”；</li>
+<li>包含单词“曲棍球”，则放置于 <strong>“需要及时处理的朋友邮件”</strong> 分类；</li>
+<li>不包含单词“曲棍球”，则放置于 <strong>“无需阅读的垃圾邮件”</strong> 分类。</li>
+</ol>
+<h1 id="决策树的构造过程"><a href="#决策树的构造过程" class="headerlink" title="决策树的构造过程"></a>决策树的构造过程</h1><h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><p>数据集中有很多特征，那么如何选取特征作为分裂的依据，有助于最终结果的提高呢？需要有一些可量化的方法来评估特征选的好不好，可以通过以下算法来评估：</p>
+<ul>
+<li>Hunt’s Algorithm (one of the earliest)</li>
+<li>ID3 (信息增益Information gain , 多叉树)</li>
+<li>C4.5 (增益比率Gain ration， 多叉树)</li>
+<li>CART (基尼系数Gini index， 二叉树 )</li>
+<li>其它，如SLIQ, SPRINT </li>
+</ul>
+<p>这么评估特征选取的方法的目的都是使用某特征对数据集划分之后，各数据子集的纯度要比划分钱的数据集D的纯度高（也就是不确定性要比划分前数据集的不确定性低）。</p>
+<h2 id="决策树生成"><a href="#决策树生成" class="headerlink" title="决策树生成"></a>决策树生成</h2><p>根据选择的特征评估标准，从上至下递归地生成子节点，直到数据集不可分则停止决策树停止生长。这个过程实际上就是使用满足划分准则的特征不断的将数据集划分成纯度更高，不确定行更小的子集的过程。对于当前数据集的每一次划分，都希望根据某个特征划分之后的各个子集的纯度更高，不确定性更小。</p>
+<h2 id="决策树剪枝"><a href="#决策树剪枝" class="headerlink" title="决策树剪枝"></a>决策树剪枝</h2><h3 id="预剪枝"><a href="#预剪枝" class="headerlink" title="预剪枝"></a>预剪枝</h3><p>在决策树构造时就进行剪枝。方法是，在构造的过程中对节点进行评估，如果对某个节点进行划分，在验证集中不能带来准确性的提升，那么对这个节点进行划分就没有意义，这时就会把当前节点作为叶节点，不对其进行划分。</p>
+<h3 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h3><p>在生成决策树之后再进行剪枝。通常会从决策树的叶节点开始，逐层向上对每个节点进行评估。如果剪掉这个节点子树，与保留该节点子树在分类准确性上差别不大，或者剪掉该节点子树，能在验证集中带来准确性的提升，那么就可以把该节点子树进行剪枝。方法是：用这个节点子树的叶子节点来替代该节点，类标记为这个节点子树中最频繁的那个类。</p>
+<h1 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>构建分类模型的非参数方法<br>不要求任何先验假设, 不假定类和其他属性服从一定的概率分布</li>
+<li>贪心的、自顶向下的递归划分策略建立决策树<br>找到最佳的决策树是NP完全问题 </li>
+<li>决策边界是直线(平面), 平行于“坐标轴”<br><img src="https://i.loli.net/2020/11/07/CNIzdKjWqlPh4Q2.png" alt=""></li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>快速建立模型, 快速分类<br>如果数据集可以放在内存，建立决策树很快<br>分类时间复杂度：最坏情况下为O(w)，其中w是树的最大深度 </li>
+<li>分类准确率高<br>特别适合维度不高的数据集</li>
+<li>决策树相对容易解释<br>小型决策树容易解释</li>
+<li>对于噪声的干扰具有相当好的鲁棒性<br>可以采用避免过拟合的方法</li>
+<li>不受冗余属性、不相关属性影响<br>自动选择最好的属性进行划分</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>数据碎片（data fragmentation）问题<br>在叶结点, 记录可能太少, 对于叶结点代表的类, 不能做出具有统计意义的判决</li>
+<li>子树可能在决策树中重复多次<br>使得决策树过于复杂, 难以解释 </li>
+<li>对未知的测试数据未必有好的分类、泛化能力，即可能发生过拟合现象，此时可采用剪枝或随机森林。</li>
+<li>平行于坐标轴的边界限制了决策树的能力(本质是线性分类器）<br>以下是一个需要斜边界的例子<br><img src="https://i.loli.net/2020/11/07/GxVrFHA17ohlMUs.png" alt="image.png"></li>
+</ul>
+<h1 id="各类算法介绍"><a href="#各类算法介绍" class="headerlink" title="各类算法介绍"></a>各类算法介绍</h1><h2 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>ID3算法以信息论为基础，以信息增益和信息熵作为特征选择的衡量标准，每次选择的特征都是信息增益最大的属性。当分到无属性可以选择时结束。</p>
+<h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><h4 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h4><p>香农将其定义为离散随机时间出现的概率，一个系统越是有序，信息熵就越低，反之一个系统越是混乱，它的信息熵就越高。所以信息熵可以认为是系统有序化程度的一个度量。<br>$$Entropy(S)=-\sum^m_{i=1}p(u_i)log_2p(u_i)$$<br>其中$p(u_i)=\frac{|u_i|}{|S|}$，即$p(u_i)$为类别$u_i$在样本$S$中出现的概率。</p>
+<blockquote>
+<p>信息熵是什么？ 的知乎视频讲的太好了！！！</p>
+</blockquote>
+<h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4><p>信息增益是对每个属性而言的，有这个属性和没有这个属性，系统的信息熵的差值就是信息增益。因此它可以反映一个属性的重要程度。</p>
+<p>$$IG(S|T)=Entropy(S)-\sum_{value(T)}\frac{|S_v|}{|S|}Entropy(S_v)$$</p>
+<ul>
+<li>$IG(S|T)：$加入属性$T$后，系统$S$的信息增益</li>
+<li>$value(T)：$属性$T$取值的集合</li>
+<li>$v：$属性$T$取值集合中的一个值</li>
+<li>$S_v：S$中属性$T$为$v$的样例的集合（根据属性$T$划分的子集）</li>
+<li>$|S_v|：S_v$中样例的个数</li>
+</ul>
+<p>因此式子的前半段就是系统S的信息熵，后半段是根据属性T对系统分组，为每组的信息熵分配一个权重，组内样例越大权重越大，这些权重相加等于1，把每组的信息熵加权求和就是后半段的值。前半段-后半段就是用属性T分组后信息熵会如何变化。若不用属性T分组的信息熵更大，信息增益就是正数…(好像有某个定理证了信息增益一定非负)。若用属性T分组后系统的信息熵越小，说明这个属性使得系统变得更有序了，信息增益就越大。因此我们是选择使得信息增益最大的属性。</p>
+<h3 id="调包实现"><a href="#调包实现" class="headerlink" title="调包实现"></a>调包实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier <span class="keyword">as</span> DTC, export_graphviz</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> graphviz</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X = datasets.load_iris().data</span><br><span class="line">y = datasets.load_iris().target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dtc = DTC(criterion=<span class="string">'entropy'</span>,max_depth=<span class="number">3</span>)    <span class="comment"># 初始化决策树对象，基于信息熵</span></span><br><span class="line">dtc.fit(X, y)    <span class="comment"># 训练模型</span></span><br><span class="line">print(<span class="string">'输出准确率：'</span>, dtc.score(X,y))</span><br></pre></td></tr></table></figure>
+<p>输出准确率： 0.9733333333333334</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可视化决策树，导出dot文件，使用Graphviz才能转换为.pdf或.png格式</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'tree.dot'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:  </span><br><span class="line">    f = export_graphviz(dtc, feature_names=datasets.load_iris().feature_names, out_file=<span class="literal">None</span>)</span><br><span class="line">graph = graphviz.Source(f)</span><br><span class="line">graph.render(<span class="string">r'iris'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2020/11/08/GE7z5NZVU8vjg3J.png" alt="image.png"></p>
+<h3 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h3><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>理论清晰，方法简单，学习能力较强<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4></li>
+<li>信息增益的计算比较依赖于特征数目比较多的特征</li>
+<li>ID3为非递增算法<blockquote>
+<p>啥意思？</p>
+</blockquote>
+</li>
+<li>ID3为单变量决策树</li>
+<li>抗糙性差</li>
+</ul>
+<h2 id="C4-5的生成算法"><a href="#C4-5的生成算法" class="headerlink" title="C4.5的生成算法"></a>C4.5的生成算法</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>C4.5算法的提出是针对ID3算法的缺点。ID3算法用信息增益作为选择特征的标准，就会偏向于选择取值较多的特征。因为特征的取值越多（数据划分地更细），子集的纯度就越高，不确定性（熵）越小，信息增益越大。但是这样选出来的属性可能没有意义，因为最后可能会划分成每个子结点都只有一个样本。<br>C4.5算法是用信息增益率来取代信息增益作为特征选择的衡量标准。</p>
+<h3 id="算法原理-1"><a href="#算法原理-1" class="headerlink" title="算法原理"></a>算法原理</h3><p>只介绍一个信息增益率：</p>
+<h3 id="调包实现-1"><a href="#调包实现-1" class="headerlink" title="调包实现"></a>调包实现</h3><h3 id="评价-2"><a href="#评价-2" class="headerlink" title="评价"></a>评价</h3><h2 id="Hunt’s-Algorithm-one-of-the-earliest"><a href="#Hunt’s-Algorithm-one-of-the-earliest" class="headerlink" title="Hunt’s Algorithm (one of the earliest)"></a>Hunt’s Algorithm (one of the earliest)</h2><h2 id="CART-基尼系数Gini-index，-二叉树"><a href="#CART-基尼系数Gini-index，-二叉树" class="headerlink" title="CART (基尼系数Gini index， 二叉树 )"></a>CART (基尼系数Gini index， 二叉树 )</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shuwoom.com/?p=1452" target="_blank" rel="noopener">机器学习之-常见决策树算法(ID3、C4.5、CART)</a><br><a href="https://baijiahao.baidu.com/s?id=1669031487336565105&wfr=spider&for=pc" target="_blank" rel="noopener">机器学习必修：决策树算法(Decision Tree)</a><br><a href="https://www.cnblogs.com/molieren/articles/10664954.html" target="_blank" rel="noopener">决策树</a><br>磊磊的PPT<br><a href="https://blog.csdn.net/keyue123/article/details/82253538" target="_blank" rel="noopener">决策树算法：ID3</a><br><a href="https://www.jianshu.com/p/7ac73fe5b180" target="_blank" rel="noopener">决策树算法（一）ID3算法</a><br><a href="https://www.zhihu.com/question/22178202" target="_blank" rel="noopener">信息熵是什么？</a><br><a href="https://www.cnblogs.com/eugene0/p/11432431.html" target="_blank" rel="noopener">决策树算法小结(二) C4.5原理及代码实现</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/07/%E5%86%B3%E7%AD%96%E6%A0%91/">http://yoursite.com/2020/11/07/%E5%86%B3%E7%AD%96%E6%A0%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/11/13/20201107-1113%E6%80%BB%E7%BB%93/"><i class="fa fa-chevron-left">  </i><span>20201107-1113总结</span></a></div><div class="next-post pull-right"><a href="/2020/11/05/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95!!%E2%80%94%E2%80%94%E4%B8%80%E4%BA%9B%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><span>优化方法！！——一些前置知识</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2020/11/07/%E5%86%B3%E7%AD%96%E6%A0%91/';
+  this.page.identifier = '2020/11/07/决策树/';
+  this.page.title = '决策树';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
