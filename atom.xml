@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-13T08:52:56.724Z</updated>
+  <updated>2020-11-15T07:16:55.242Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>20201114-1119总结</title>
+    <link href="http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/</id>
+    <published>2020-11-14T16:00:00.000Z</published>
+    <updated>2020-11-15T07:16:55.242Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="关于模型的问题"><a href="#关于模型的问题" class="headerlink" title="关于模型的问题"></a>关于模型的问题</h1><h2 id="根据topic、integrate、cross三篇论文看看如何把外部信息加入"><a href="#根据topic、integrate、cross三篇论文看看如何把外部信息加入" class="headerlink" title="根据topic、integrate、cross三篇论文看看如何把外部信息加入"></a>根据topic、integrate、cross三篇论文看看如何把外部信息加入</h2><h2 id="看attention-is-all-you-need"><a href="#看attention-is-all-you-need" class="headerlink" title="看attention is all you need"></a>看attention is all you need</h2><h2 id="加入层次结构（需要再读读title）"><a href="#加入层次结构（需要再读读title）" class="headerlink" title="加入层次结构（需要再读读title）"></a>加入层次结构（需要再读读title）</h2><h2 id="看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的"><a href="#看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的" class="headerlink" title="看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的"></a>看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的</h2><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="配环境"><a href="#配环境" class="headerlink" title="配环境"></a>配环境</h2><h2 id="看代码"><a href="#看代码" class="headerlink" title="看代码"></a>看代码</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;关于模型的问题&quot;&gt;&lt;a href=&quot;#关于模型的问题&quot; class=&quot;headerlink&quot; title=&quot;关于模型的问题&quot;&gt;&lt;/a&gt;关于模型的问题&lt;/h1&gt;&lt;h2 id=&quot;根据topic、integrate、cross三篇论文看看如何把外部信息加入&quot;&gt;&lt;a hr
+      
+    
+    </summary>
+    
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手推一个SVM</title>
+    <link href="http://yoursite.com/2020/11/15/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/"/>
+    <id>http://yoursite.com/2020/11/15/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</id>
+    <published>2020-11-14T16:00:00.000Z</published>
+    <updated>2020-11-15T06:51:12.034Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>20201103-1106总结</title>
@@ -509,49 +554,6 @@
       <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逻辑回归算法</title>
-    <link href="http://yoursite.com/2020/08/12/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/"/>
-    <id>http://yoursite.com/2020/08/12/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/</id>
-    <published>2020-08-12T15:22:08.851Z</published>
-    <updated>2020-08-12T15:22:08.851Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>20200801-0807一周总结</title>
-    <link href="http://yoursite.com/2020/08/07/20200801-0807%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2020/08/07/20200801-0807%E6%80%BB%E7%BB%93/</id>
-    <published>2020-08-06T16:00:00.000Z</published>
-    <updated>2020-08-07T03:59:06.956Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="This-week’s-progress"><a href="#This-week’s-progress" class="headerlink" title="This week’s progress"></a>This week’s progress</h1><ul><li>Deep Keyphrase Generation</li><li>Single Document Keyphrase Extraction Using Neighborhood Knowledge(Deep Keyphrase Generation提到了ExpandRank算法，因为这个名字去看了看)</li></ul><h1 id="Deep-Keyphrase-Generation"><a href="#Deep-Keyphrase-Generation" class="headerlink" title="Deep Keyphrase Generation"></a>Deep Keyphrase Generation</h1><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We summarize a text according to its content. But existing approaches just based on features such as frequency of the word, ignoring real meaning of a text’s content. So author utilize an encoder-decoder framework based on RNN and introduce copy mechanism. This way you can generate words that do not exist in the source text and improve the effect of key phrase generation.</p><h2 id="Research-Objective"><a href="#Research-Objective" class="headerlink" title="Research Objective"></a>Research Objective</h2><p>Propose a new keyphrases generation model which can predict absent keyphrases and can utilize syntactic features to  achieve the effect of understanding the semantics of the text.</p><h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><p>Most of the existing keyphrase extraction algorithms follow this two steps:</p><ol><li>acquire a list of keyphrase candidates</li><li>rank the candidates</li></ol><p>But these approaches have two problems:</p><ol><li>Cannot generate keyphrases that are not in the source text</li><li>Keyphrases are generated only according to text structure(Such as which two words often appear together), which cannot reveal the semantics of the text<h2 id="Method-s"><a href="#Method-s" class="headerlink" title="Method(s)"></a>Method(s)</h2><img src="https://i.loli.net/2020/08/07/c52P7euqCaXMNKx.png" alt="image.png"><h3 id="encoder"><a href="#encoder" class="headerlink" title="encoder"></a>encoder</h3>Encoder compresses the source text to a hidden representation.<br><img src="https://i.loli.net/2020/08/07/8uG5qoceWMOZNmP.png" alt="image.png"><h3 id="decoder"><a href="#decoder" class="headerlink" title="decoder"></a>decoder</h3>Decoder generate keyphrases form hidden representation.<br><img src="https://i.loli.net/2020/08/07/6HsgJohkMzSEfr4.png" alt="image.png"><h3 id="attention-mechanism"><a href="#attention-mechanism" class="headerlink" title="attention mechanism"></a>attention mechanism</h3>Use attention mechanism to acquire context vector c.<br><img src="https://i.loli.net/2020/08/07/EZresCjtYqOBLx3.png" alt="image.png"><h3 id="copy-mechanism"><a href="#copy-mechanism" class="headerlink" title="copy mechanism"></a>copy mechanism</h3>Copy mechanism can make model generate absent keyphrases.<br><img src="https://i.loli.net/2020/08/07/f4aE3s6gk2BTpzL.png" alt="image.png"><h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><h3 id="datasets"><a href="#datasets" class="headerlink" title="datasets"></a>datasets</h3><h4 id="Training-Dataset"><a href="#Training-Dataset" class="headerlink" title="Training Dataset"></a>Training Dataset</h4>author crawled 567830 articles and used 527830 articles of them to train model.<h4 id="Testing-Dataset"><a href="#Testing-Dataset" class="headerlink" title="Testing Dataset"></a>Testing Dataset</h4>KP20k(20000 articles of them) and other datasets<h3 id="baseline"><a href="#baseline" class="headerlink" title="baseline"></a>baseline</h3>Tf-Idf、TextRank、SingleRank、ExpandRank<h3 id="Evaluation-Metric"><a href="#Evaluation-Metric" class="headerlink" title="Evaluation Metric"></a>Evaluation Metric</h3></li></ol><ul><li>macro-averaged precision</li><li>recall </li><li>F-measure (F1)<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>CopyRNN can performs well on predicting present keyphrases and can generate absent keyphrases.<h2 id=""><a href="#" class="headerlink" title="?"></a>?</h2></li><li>只看这篇论文看不太懂复制机制如何生成源文本中不存在的词，之后在仔细看看复制机制那篇论文。对RNN也要再看看</li><li>An interesting bad case, “rich content” coordinates with a keyphrase “video metadata”, and the CopyRNN mistakenly puts it into prediction.</li><li>数据有3g，下了好几次都失败。chrome说错误原因是因为权限不够？</li><li>好多文件和代码，太迷茫了。还要补一补pytorch</li></ul><h1 id="Single-Document-Keyphrase-Extraction-Using-Neighborhood-Knowledge"><a href="#Single-Document-Keyphrase-Extraction-Using-Neighborhood-Knowledge" class="headerlink" title="Single Document Keyphrase Extraction Using Neighborhood Knowledge"></a>Single Document Keyphrase Extraction Using Neighborhood Knowledge</h1><h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><p>The author propose a new algorithm called ExpandRank which does not extract keywords based on information from single articles, but rather takes into account other articles in the same domain. Efficiency of keyphrases extraction has increased because articles in the same domain can provide more information for the target document.</p><h2 id="Research-Objective-1"><a href="#Research-Objective-1" class="headerlink" title="Research Objective"></a>Research Objective</h2><p>In order to improve the efficiency of keyphrase extraction, texts in the same domain should be considered when extracting keyphrases from a single text.</p><h2 id="Background-and-Problems"><a href="#Background-and-Problems" class="headerlink" title="Background and Problems"></a>Background and Problems</h2><p>Existing keyphrase extraction methods are based on the single content of a single article. But in fact, multiple articles in the same domain can corroborate each other and provide more information about each other’s keyphrases.</p><h2 id="Method-s-1"><a href="#Method-s-1" class="headerlink" title="Method(s)"></a>Method(s)</h2><p><img src="https://i.loli.net/2020/08/07/qMtDirHO2hgKB9N.png" alt="image.png"><br>2中<br>a）rank all the words in all documents<br>b）rank words in document d<sub>0</sub> according to the results in step a)</p><h2 id="Evaluation-1"><a href="#Evaluation-1" class="headerlink" title="Evaluation"></a>Evaluation</h2><ul><li>precision </li><li>F1<br>Analyze the effect of some parameter such as size of window changes on the results.</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;This-week’s-progress&quot;&gt;&lt;a href=&quot;#This-week’s-progress&quot; class=&quot;headerlink&quot; title=&quot;This week’s progress&quot;&gt;&lt;/a&gt;This week’s progress&lt;/h1&gt;&lt;
-      
-    
-    </summary>
-    
-    
-    
-      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
-    
-      <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
-    
-      <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
