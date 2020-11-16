@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="线性回归与逻辑回归"><meta name="keywords" content="机器学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>线性回归与逻辑回归 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线性回归"><span class="toc-number">1.</span> <span class="toc-text">线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思想"><span class="toc-number">1.1.</span> <span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解析解公式推导"><span class="toc-number">1.2.</span> <span class="toc-text">解析解公式推导</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一元（一个x只有一个属性）"><span class="toc-number">1.2.1.</span> <span class="toc-text">一元（一个x只有一个属性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多元（一个x有多个属性）"><span class="toc-number">1.2.2.</span> <span class="toc-text">多元（一个x有多个属性）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降优化"><span class="toc-number">1.3.</span> <span class="toc-text">梯度下降优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现——自己写"><span class="toc-number">1.4.</span> <span class="toc-text">代码实现——自己写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现———调包"><span class="toc-number">1.5.</span> <span class="toc-text">代码实现———调包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.6.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归-对数几率回归"><span class="toc-number">2.</span> <span class="toc-text">逻辑回归&#x2F;对数几率回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思想-1"><span class="toc-number">2.1.</span> <span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式推导"><span class="toc-number">2.2.</span> <span class="toc-text">公式推导</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对数几率函数"><span class="toc-number">2.2.1.</span> <span class="toc-text">对数几率函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数估计过程"><span class="toc-number">2.2.2.</span> <span class="toc-text">参数估计过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现——自己写-1"><span class="toc-number">2.3.</span> <span class="toc-text">代码实现——自己写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现———调包-1"><span class="toc-number">2.4.</span> <span class="toc-text">代码实现———调包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考-1"><span class="toc-number">2.5.</span> <span class="toc-text">参考</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">线性回归与逻辑回归</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-05</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/05/线性回归与逻辑回归/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcxMTAyMDA1MjEwNzgx?x-oss-process=image/format,png" alt=""></p>
+<h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>已知一组数据：$D={(x_i,y_i)}(i=1…m)$。如果它的图像是这样：<br><img src="https://img-blog.csdn.net/20180829213312304?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Fsd18xMjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""><br>我们希望找到一条直线能够拟合这些点，使得之后我们输入$x_i$可以得到比较准确的$y_i$。<br>直线可以表示为</p>
+<script type="math/tex; mode=display">y=kx+b</script><p>当k和b取到不同的值时，会产生不同的直线。如何选取最合适的直线，就是线性回归要做的事。我们希望能量化一条直线的好坏/适合程度，因此我们会有一个损失函数，损失函数的值越小，说明这条直线越好。线性回归的问题就变成了一个最小化损失函数的问题。<br>由于我们已经知道了一批输入和正确的输出，因此我们可以计算用函数计算出来的$y$和真实的$y$的差距，来作为我们的损失函数。</p>
+<h2 id="解析解公式推导"><a href="#解析解公式推导" class="headerlink" title="解析解公式推导"></a>解析解公式推导</h2><h3 id="一元（一个x只有一个属性）"><a href="#一元（一个x只有一个属性）" class="headerlink" title="一元（一个x只有一个属性）"></a>一元（一个x只有一个属性）</h3><p>已知样本点为：$D={(x<em>i,y_i)}^m</em>{i-1}$。<br>线性回归需要学习到的是</p>
+<script type="math/tex; mode=display">f(x_i)=w_i*x_i+b</script><p>使得$f(x_i)≈y_i$</p>
+<hr>
+<p>使用最小二乘法，即用均方误差作为损失函数：</p>
+<script type="math/tex; mode=display">E_(\omega,b)=\sum_{i=1}^m(f(x_i)-y_i)=\sum_{i=1}^m(y_i-\omega*x_i-b)^2</script><p>参数$\omega$和$b$通过最小化损失函数求得，即</p>
+<script type="math/tex; mode=display">(\omega^*,b^*)=\mathop{argmin}_{(\omega,b)}E</script><hr>
+<p>这个损失函数很简单，可以对其求偏导，另偏导等于0。</p>
+<ol>
+<li><script type="math/tex; mode=display">\frac{\partial E_{(\omega,b)}}{\partial \omega}
+=\frac{\partial \sum_{i=1}^m(y_i-\omega x_i-b)^2}{\partial \omega}</script><script type="math/tex; mode=display">=\frac{\sum_{i=1}^m \partial (y_i-\omega x_i-b)^2}{\partial \omega}
+=\sum_{i=1}^m -2x_i(y_i-\omega x_i-b)</script><script type="math/tex; mode=display">=\sum_{i=1}^m 2[\omega x_i^2+(b-y_i)x_i]=0</script></li>
+<li></li>
+</ol>
+<script type="math/tex; mode=display">\frac{\partial E_{(\omega,b)}}{\partial b}=\frac{\partial \sum_{i=1}^m(y_i-\omega x_i-b)^2}{\partial b}</script><script type="math/tex; mode=display">=\frac{\sum_{i=1}^m \partial (y_i-\omega x_i-b)^2}{\partial b}=2[mb-\sum_{i=1}^m(y_i-\omega x_i)]=0</script><hr>
+<p>联立两等式求$(\omega,b)$<br>由第一个式子</p>
+<script type="math/tex; mode=display">\sum_{i=1}^m 2[\omega x_i^2+(b-y_i)x_i]=0</script><p>化简得</p>
+<script type="math/tex; mode=display">\sum\omega x_i^2=\sum(y_i-b)x_i</script><p>由第二个式子</p>
+<script type="math/tex; mode=display">2[mb-\sum_{i=1}^m(y_i-\omega x_i)]=0</script><p>化简得</p>
+<script type="math/tex; mode=display">mb=\sum^m_{i=1}y_i-\omega\sum^m_{i=1}x_i</script><p>两边同时除以m，因为$\frac{1}{m}\sum^m<em>{i=1}y_i=\overline{y}$、$\frac{1}{m}\sum^m</em>{i=1}x_i=\overline{x}$<br>公式可化为</p>
+<script type="math/tex; mode=display">b=\overline{y}-\omega\overline{x}</script><p>将此式带入第一个式子的化简结果</p>
+<script type="math/tex; mode=display">\sum^m_{i=1}\omega x_i^2=\sum^m_{i=1}(y_i-\overline{y}+\omega\overline{x})</script><script type="math/tex; mode=display">\sum^m_{i=1}\omega x_i^2=\sum^m_{i=1}x_i y_i-\sum^m_{i=1}x_i\overline{y}+\omega\sum^m_{i=1}\overline{x}x_i</script><script type="math/tex; mode=display">\omega(\sum^m_{i=1}x_i^2-\sum^m_{i=1}\overline{x}x_i)=\sum^m_{i=1}x_iy_i-\sum^m_{i=1}x_i\overline{y}</script><p>得到</p>
+<script type="math/tex; mode=display">\omega=\frac{\sum^m_{i=1}x_iy_i-\overline{y}\sum^m_{i=1}x_i}{\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_i}</script><p>又$b=\overline{y}-\omega\overline{x}$，将$\omega$代入可得到</p>
+<script type="math/tex; mode=display">b=\frac{\overline{y}\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_iy_i}{\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_i}</script><p>这样就求出了一元线性回归最小二乘法的解析解</p>
+<h3 id="多元（一个x有多个属性）"><a href="#多元（一个x有多个属性）" class="headerlink" title="多元（一个x有多个属性）"></a>多元（一个x有多个属性）</h3><p>我们需要学习的模型：</p>
+<script type="math/tex; mode=display">f(\pmb{x_i})=\pmb{w}^T\pmb{x_i}+b，使得f(\pmb{x_i})≈y_i</script><p>也可以用最小二乘法，我们将参数和数据向量/矩阵化：<br><img src="https://i.loli.net/2020/11/09/phRByTANdQYfsF8.png" alt="image.png"><br>损失函数就表达为<br><img src="https://i.loli.net/2020/11/09/gsetVC6TriaAK54.png" alt="image.png"><br>与一元的情况类似，对其进行求解<br><img src="https://i.loli.net/2020/11/09/jfUJ9gOSaK2NVeu.png" alt="image.png"><br>当不满秩时（<strong>X</strong>的列数多于行数，数据集中特征的数量大于样本的数量），就可能有多对另损失函数最小化的参数。我们引入正则项来选取最好的参数（一般是使模型不那么复杂的参数）。</p>
+<h2 id="梯度下降优化"><a href="#梯度下降优化" class="headerlink" title="梯度下降优化"></a>梯度下降优化</h2><p>对于$w^<em>,b^</em>=arg\mathop{min}_{(\omega,b)}L(w,b)$</p>
+<ul>
+<li>随机选取初始的$w^0$和$b^0$</li>
+<li>计算</li>
+</ul>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial w}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}</script><p>更新</p>
+<script type="math/tex; mode=display">w^1=w^0-\eta\frac{\partial L}{\partial w}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">b^1=b^0-\eta\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}</script><ul>
+<li><p>计算</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial w}|_{w=w^1,b=b^1}</script><script type="math/tex; mode=display">\frac{\partial L}{\partial b}|_{w=w^1,b=b^1}</script><p>更新</p>
+<script type="math/tex; mode=display">w^2=w^1-\eta\frac{\partial L}{\partial w}|_{w=w^1,b=b^1}</script><script type="math/tex; mode=display">b^2=b^1-\eta\frac{\partial L}{\partial b}|_{w=w^1,b=b^1}</script></li>
+<li><p>重复以上步骤，可以找到一对使$L$较小的$（w,b）$（满足退出条件就退出）</p>
+<h2 id="代码实现——自己写"><a href="#代码实现——自己写" class="headerlink" title="代码实现——自己写"></a>代码实现——自己写</h2></li>
+</ul>
+<h2 id="代码实现———调包"><a href="#代码实现———调包" class="headerlink" title="代码实现———调包"></a>代码实现———调包</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>西瓜书<br>南瓜书<br><a href="https://blog.csdn.net/juwikuang/article/details/78420337" target="_blank" rel="noopener">python机器学习手写算法系列——线性回归</a><br><a href="https://www.cnblogs.com/q735613050/p/7474449.html" target="_blank" rel="noopener">Markdown公式（二）</a><br><a href="https://www.cnblogs.com/sienbo/p/10403330.html" target="_blank" rel="noopener">LinearRegression（线性回归）</a></p>
+<h1 id="逻辑回归-对数几率回归"><a href="#逻辑回归-对数几率回归" class="headerlink" title="逻辑回归/对数几率回归"></a>逻辑回归/对数几率回归</h1><h2 id="基本思想-1"><a href="#基本思想-1" class="headerlink" title="基本思想"></a>基本思想</h2><p>在线性回归中，最后的公式是</p>
+<script type="math/tex; mode=display">y=\pmb{w}^T\pmb{x}+b</script><p>但还可以将其推广至广义线性模型：</p>
+<script type="math/tex; mode=display">y=g^{-1}(\pmb{w}^T\pmb{x}+b)</script><p>其中$g(·)$被称为联系函数，它单调可微。一个🌰如下</p>
+<hr>
+<p>如果我们的输出y是在指数尺度上变化，那么为了使模型更好用，我们可以直接把输出y的对数作为线性模型逼近的目标，即：</p>
+<script type="math/tex; mode=display">ln y=\pmb{w}^T\pmb{x}+b</script><p>也就是$y$变成了$e^{\pmb{w}^T+b}$<br><img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3712334182,1769327380&amp;fm=15&amp;gp=0.jpg" alt=""></p>
+<hr>
+<p>如果我们的问题不再是需要连续值的回归问题，而是分类问题，我们就可以用广义线性模型。我们需要找到一个函数将真实的分类的y和模型的输出联系起来。<br>最理想的函数是单位阶跃函数，但是它不可微，因此对数几率函数是一个常用的函数。</p>
+<p>单位阶跃函数：</p>
+<script type="math/tex; mode=display">y=\left\{
+\begin{aligned}
+0,z<0;\\
+0.5,z=0;\\
+1,z>0,
+\end{aligned}
+\right.</script><h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="对数几率函数"><a href="#对数几率函数" class="headerlink" title="对数几率函数"></a>对数几率函数</h3><hr>
+<p><strong>知识补充：Sigmoid函数</strong><br>形似S形的函数是Sigmoid函数。对率函数是此类函数中最重要的一个。<br>————来自西瓜书（为什么我没有搜到其他形式的Sigmoid函数呢？</p>
+<p>并且在一个知乎专栏<a href="https://zhuanlan.zhihu.com/p/74874291" target="_blank" rel="noopener">【机器学习】逻辑回归（非常详细）</a>里写道<br><img src="https://i.loli.net/2020/11/09/AnvqKXrO1EIo6g5.png" alt="image.png"></p>
+<hr>
+<p><img src="https://i.loli.net/2020/11/09/VM4QBxg7KCakvwj.png" alt="image.png"></p>
+<p>我们逼近的目标是x的真实分类的对数几率。这个方法的优点：</p>
+<ul>
+<li>不需要事先假设数据分布</li>
+<li>不仅可以得到类别，还可以得到近似概率预测</li>
+<li>目标函数是任意阶可导的凸函数——优化起来太方便了</li>
+</ul>
+<h3 id="参数估计过程"><a href="#参数估计过程" class="headerlink" title="参数估计过程"></a>参数估计过程</h3><p>我们用极大似然估计来求得参数。</p>
+<p>将$y$视为后验概率，即</p>
+<h2 id="代码实现——自己写-1"><a href="#代码实现——自己写-1" class="headerlink" title="代码实现——自己写"></a>代码实现——自己写</h2><h2 id="代码实现———调包-1"><a href="#代码实现———调包-1" class="headerlink" title="代码实现———调包"></a>代码实现———调包</h2><h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p>西瓜书<br>南瓜书<br><a href="https://zhuanlan.zhihu.com/p/74874291" target="_blank" rel="noopener">【机器学习】逻辑回归（非常详细）</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">http://yoursite.com/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/11/05/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95!!%E2%80%94%E2%80%94%E4%B8%80%E4%BA%9B%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><i class="fa fa-chevron-left">  </i><span>优化方法！！——一些前置知识</span></a></div><div class="next-post pull-right"><a href="/2020/11/04/%E3%80%8A%E6%80%9D%E8%80%83%EF%BC%8C%E5%BF%AB%E4%B8%8E%E6%85%A2%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"><span>《思考，快与慢》读后感</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/';
+  this.page.identifier = '2020/11/05/线性回归与逻辑回归/';
+  this.page.title = '线性回归与逻辑回归';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

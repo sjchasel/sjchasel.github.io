@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="手推一个SVM"><meta name="keywords" content="机器学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>手推一个SVM | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hard-margin-SVM"><span class="toc-number">2.</span> <span class="toc-text">hard-margin SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM的提出"><span class="toc-number">2.1.</span> <span class="toc-text">SVM的提出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#间隔概念的解释"><span class="toc-number">2.2.</span> <span class="toc-text">间隔概念的解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数间隔"><span class="toc-number">2.2.1.</span> <span class="toc-text">函数间隔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#几何间隔"><span class="toc-number">2.2.2.</span> <span class="toc-text">几何间隔</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入对偶问题"><span class="toc-number">3.</span> <span class="toc-text">引入对偶问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">手推一个SVM</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-16</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/16/手推一个SVM/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>SVM有三宝：间隔、对偶、核技巧（让SVM可以从欧氏空间映射到高维空间，从而实现非线性分类）  </p>
+<p>SVM的分类：  </p>
+<ol>
+<li>hard-margin SVM</li>
+<li>soft-margin SVM</li>
+<li>kernel SVM</li>
+</ol>
+<h1 id="hard-margin-SVM"><a href="#hard-margin-SVM" class="headerlink" title="hard-margin SVM"></a>hard-margin SVM</h1><h2 id="SVM的提出"><a href="#SVM的提出" class="headerlink" title="SVM的提出"></a>SVM的提出</h2><p>最初SVM的提出是为了解决二分类问题。它是一个纯粹的判别模型，与概率无关。如图，给定一系列数据集$D={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),…,(\pmb{x}_m,y_m)},y_i∈{-1,+1}$，SVM要找到一个<a href="https://www.jianshu.com/p/ba02b92baaaf" target="_blank" rel="noopener">超平面</a>将不同类的样本分开。但是像线性回归的模型一样有很多条线可以划分，这里也有很多个超平面能将两类样本分开。我们仍然是需要有一个对超平面的评价标准。先说答案，最中间的超平面（红色的那条线）是最好的。  </p>
+<p><img src="https://i.loli.net/2020/11/16/v2hdQftXVWUwYi9.png" alt="image.png">  </p>
+<p>如果选择其他的黑色的线，比如这条。  </p>
+<p><img src="https://i.loli.net/2020/11/16/Ao6Mg8eTRYqnKGC.png" alt="image.png"></p>
+<p>由于超平面离样本点太近了，如果一点细微扰动使得样本点挪了一点点位置，就会被分错类。这就说明这个模型的抗干扰能力不强，也就是鲁棒性不强。因此我们想找到的超平面离样本点很远，也就是要最大化样本点与超平面的间隔。</p>
+<p>模型可表示为：</p>
+<script type="math/tex; mode=display">max\ margin(w,b)</script><script type="math/tex; mode=display">s.t.\left\{
+\begin{matrix}
+ w^Tx_i+b＞0，y_i=1 \\
+ w^Tx_i+b＜0，y_i=-1
+\end{matrix}
+\right.</script><p>因此约束条件也可以写为  </p>
+<script type="math/tex; mode=display">s.t.\ y_i(w^T+b)＞0</script><p>我们将margin定义为所有点到直线的距离(distance)中的最小的那个距离。</p>
+<script type="math/tex; mode=display">margin(w,b)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}distance(w,b,x_i)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}\frac{1}{||w||}|w^Tx_i+b|</script><p>那么模型可写成</p>
+<script type="math/tex; mode=display">\underset{w,b}{max}\ \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ \frac{1}{||w||}|w^Tx_i+b|</script><script type="math/tex; mode=display">s.t.\ y_i(w^Tx_i+b)>0</script><p>因为$||w||$是个常数，$|y_i|=1$且$y_i(w^Tx_i+b)&gt;0$，因此模型的目标函数可以替换为：</p>
+<script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||} \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ y_i(w^Tx_i+b)</script><p>接下来要做的操作是：令$y_i(w^Tx_i+b)=\gamma=1$<br>约束条件也可以化为  </p>
+<p>$$$$</p>
+<h2 id="间隔概念的解释"><a href="#间隔概念的解释" class="headerlink" title="间隔概念的解释"></a>间隔概念的解释</h2><h3 id="函数间隔"><a href="#函数间隔" class="headerlink" title="函数间隔"></a>函数间隔</h3><h3 id="几何间隔"><a href="#几何间隔" class="headerlink" title="几何间隔"></a>几何间隔</h3><h1 id="引入对偶问题"><a href="#引入对偶问题" class="headerlink" title="引入对偶问题"></a>引入对偶问题</h1><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>写这篇博客的时候在修改自己网站上的公式显示，看到了一些用同一个主题的人的博客，xdl如何添加音乐。那我就在这个博客里试一试吧！</p>
+
+        <div id="aplayer-QEyccApB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-QEyccApB"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "粒子们",
+              author: "于贞",
+              url: "http://music.163.com/song/media/outer/url?id=1457329446.mp3",
+              pic: "",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/">http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"><span>20201114-1119总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/';
+  this.page.identifier = '2020/11/16/手推一个SVM/';
+  this.page.title = '手推一个SVM';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

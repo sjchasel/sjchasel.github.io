@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-15T07:16:55.242Z</updated>
+  <updated>2020-11-16T13:04:40.859Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,19 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>20201114-1119总结</title>
-    <link href="http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/</id>
-    <published>2020-11-14T16:00:00.000Z</published>
-    <updated>2020-11-15T07:16:55.242Z</updated>
+    <title>手推一个SVM</title>
+    <link href="http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/"/>
+    <id>http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</id>
+    <published>2020-11-15T16:00:00.000Z</published>
+    <updated>2020-11-16T13:04:40.859Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="关于模型的问题"><a href="#关于模型的问题" class="headerlink" title="关于模型的问题"></a>关于模型的问题</h1><h2 id="根据topic、integrate、cross三篇论文看看如何把外部信息加入"><a href="#根据topic、integrate、cross三篇论文看看如何把外部信息加入" class="headerlink" title="根据topic、integrate、cross三篇论文看看如何把外部信息加入"></a>根据topic、integrate、cross三篇论文看看如何把外部信息加入</h2><h2 id="看attention-is-all-you-need"><a href="#看attention-is-all-you-need" class="headerlink" title="看attention is all you need"></a>看attention is all you need</h2><h2 id="加入层次结构（需要再读读title）"><a href="#加入层次结构（需要再读读title）" class="headerlink" title="加入层次结构（需要再读读title）"></a>加入层次结构（需要再读读title）</h2><h2 id="看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的"><a href="#看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的" class="headerlink" title="看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的"></a>看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的</h2><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="配环境"><a href="#配环境" class="headerlink" title="配环境"></a>配环境</h2><h2 id="看代码"><a href="#看代码" class="headerlink" title="看代码"></a>看代码</h2>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>SVM有三宝：间隔、对偶、核技巧（让SVM可以从欧氏空间映射到高维空间，从而实现非线性分类）  </p><p>SVM的分类：  </p><ol><li>hard-margin SVM</li><li>soft-margin SVM</li><li>kernel SVM</li></ol><h1 id="hard-margin-SVM"><a href="#hard-margin-SVM" class="headerlink" title="hard-margin SVM"></a>hard-margin SVM</h1><h2 id="SVM的提出"><a href="#SVM的提出" class="headerlink" title="SVM的提出"></a>SVM的提出</h2><p>最初SVM的提出是为了解决二分类问题。它是一个纯粹的判别模型，与概率无关。如图，给定一系列数据集$D={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),…,(\pmb{x}_m,y_m)},y_i∈{-1,+1}$，SVM要找到一个<a href="https://www.jianshu.com/p/ba02b92baaaf" target="_blank" rel="noopener">超平面</a>将不同类的样本分开。但是像线性回归的模型一样有很多条线可以划分，这里也有很多个超平面能将两类样本分开。我们仍然是需要有一个对超平面的评价标准。先说答案，最中间的超平面（红色的那条线）是最好的。  </p><p><img src="https://i.loli.net/2020/11/16/v2hdQftXVWUwYi9.png" alt="image.png">  </p><p>如果选择其他的黑色的线，比如这条。  </p><p><img src="https://i.loli.net/2020/11/16/Ao6Mg8eTRYqnKGC.png" alt="image.png"></p><p>由于超平面离样本点太近了，如果一点细微扰动使得样本点挪了一点点位置，就会被分错类。这就说明这个模型的抗干扰能力不强，也就是鲁棒性不强。因此我们想找到的超平面离样本点很远，也就是要最大化样本点与超平面的间隔。</p><p>模型可表示为：</p><script type="math/tex; mode=display">max\ margin(w,b)</script><script type="math/tex; mode=display">s.t.\left\{\begin{matrix} w^Tx_i+b＞0，y_i=1 \\ w^Tx_i+b＜0，y_i=-1\end{matrix}\right.</script><p>因此约束条件也可以写为  </p><script type="math/tex; mode=display">s.t.\ y_i(w^T+b)＞0</script><p>我们将margin定义为所有点到直线的距离(distance)中的最小的那个距离。</p><script type="math/tex; mode=display">margin(w,b)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}distance(w,b,x_i)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}\frac{1}{||w||}|w^Tx_i+b|</script><p>那么模型可写成</p><script type="math/tex; mode=display">\underset{w,b}{max}\ \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ \frac{1}{||w||}|w^Tx_i+b|</script><script type="math/tex; mode=display">s.t.\ y_i(w^Tx_i+b)>0</script><p>因为$||w||$是个常数，$|y_i|=1$且$y_i(w^Tx_i+b)&gt;0$，因此模型的目标函数可以替换为：</p><script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||} \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ y_i(w^Tx_i+b)</script><p>接下来要做的操作是：令$y_i(w^Tx_i+b)=\gamma=1$<br>约束条件也可以化为  </p><p>$$$$</p><h2 id="间隔概念的解释"><a href="#间隔概念的解释" class="headerlink" title="间隔概念的解释"></a>间隔概念的解释</h2><h3 id="函数间隔"><a href="#函数间隔" class="headerlink" title="函数间隔"></a>函数间隔</h3><h3 id="几何间隔"><a href="#几何间隔" class="headerlink" title="几何间隔"></a>几何间隔</h3><h1 id="引入对偶问题"><a href="#引入对偶问题" class="headerlink" title="引入对偶问题"></a>引入对偶问题</h1><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>写这篇博客的时候在修改自己网站上的公式显示，看到了一些用同一个主题的人的博客，xdl如何添加音乐。那我就在这个博客里试一试吧！</p>        <div id="aplayer-QEyccApB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-QEyccApB"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "粒子们",              author: "于贞",              url: "http://music.163.com/song/media/outer/url?id=1457329446.mp3",              pic: "",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;关于模型的问题&quot;&gt;&lt;a href=&quot;#关于模型的问题&quot; class=&quot;headerlink&quot; title=&quot;关于模型的问题&quot;&gt;&lt;/a&gt;关于模型的问题&lt;/h1&gt;&lt;h2 id=&quot;根据topic、integrate、cross三篇论文看看如何把外部信息加入&quot;&gt;&lt;a hr
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20201114-1119总结</title>
+    <link href="http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/</id>
+    <published>2020-11-14T16:00:00.000Z</published>
+    <updated>2020-11-16T12:10:37.872Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="关于模型的问题"><a href="#关于模型的问题" class="headerlink" title="关于模型的问题"></a>关于模型的问题</h1><h2 id="根据topic、integrate、cross三篇论文看看如何把外部信息加入"><a href="#根据topic、integrate、cross三篇论文看看如何把外部信息加入" class="headerlink" title="根据topic、integrate、cross三篇论文看看如何把外部信息加入"></a>根据topic、integrate、cross三篇论文看看如何把外部信息加入</h2><h2 id="看attention-is-all-you-need"><a href="#看attention-is-all-you-need" class="headerlink" title="看attention is all you need"></a>看attention is all you need</h2><p>这也太难了….</p><h2 id="加入层次结构（需要再读读title）"><a href="#加入层次结构（需要再读读title）" class="headerlink" title="加入层次结构（需要再读读title）"></a>加入层次结构（需要再读读title）</h2><h2 id="看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的"><a href="#看Semi-Supervised-Learning-for-Neural-Keyphrase-Generation对于之前没有过的任务是如何设计实验的" class="headerlink" title="看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的"></a>看Semi-Supervised Learning for Neural Keyphrase Generation对于之前没有过的任务是如何设计实验的</h2><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="配环境"><a href="#配环境" class="headerlink" title="配环境"></a>配环境</h2><h2 id="看代码"><a href="#看代码" class="headerlink" title="看代码"></a>看代码</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
       
     
     </summary>
@@ -41,23 +65,6 @@
       <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
     
       <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>手推一个SVM</title>
-    <link href="http://yoursite.com/2020/11/15/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/"/>
-    <id>http://yoursite.com/2020/11/15/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</id>
-    <published>2020-11-14T16:00:00.000Z</published>
-    <updated>2020-11-15T06:51:12.034Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -140,6 +147,30 @@
       <category term="优化方法" scheme="http://yoursite.com/tags/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/"/>
     
       <category term="数学" scheme="http://yoursite.com/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>线性回归与逻辑回归</title>
+    <link href="http://yoursite.com/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
+    <id>http://yoursite.com/2020/11/05/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</id>
+    <published>2020-11-04T16:00:00.000Z</published>
+    <updated>2020-11-16T12:10:24.087Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h1><p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcxMTAyMDA1MjEwNzgx?x-oss-process=image/format,png" alt=""></p><h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>已知一组数据：$D={(x_i,y_i)}(i=1…m)$。如果它的图像是这样：<br><img src="https://img-blog.csdn.net/20180829213312304?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Fsd18xMjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""><br>我们希望找到一条直线能够拟合这些点，使得之后我们输入$x_i$可以得到比较准确的$y_i$。<br>直线可以表示为</p><script type="math/tex; mode=display">y=kx+b</script><p>当k和b取到不同的值时，会产生不同的直线。如何选取最合适的直线，就是线性回归要做的事。我们希望能量化一条直线的好坏/适合程度，因此我们会有一个损失函数，损失函数的值越小，说明这条直线越好。线性回归的问题就变成了一个最小化损失函数的问题。<br>由于我们已经知道了一批输入和正确的输出，因此我们可以计算用函数计算出来的$y$和真实的$y$的差距，来作为我们的损失函数。</p><h2 id="解析解公式推导"><a href="#解析解公式推导" class="headerlink" title="解析解公式推导"></a>解析解公式推导</h2><h3 id="一元（一个x只有一个属性）"><a href="#一元（一个x只有一个属性）" class="headerlink" title="一元（一个x只有一个属性）"></a>一元（一个x只有一个属性）</h3><p>已知样本点为：$D={(x<em>i,y_i)}^m</em>{i-1}$。<br>线性回归需要学习到的是</p><script type="math/tex; mode=display">f(x_i)=w_i*x_i+b</script><p>使得$f(x_i)≈y_i$</p><hr><p>使用最小二乘法，即用均方误差作为损失函数：</p><script type="math/tex; mode=display">E_(\omega,b)=\sum_{i=1}^m(f(x_i)-y_i)=\sum_{i=1}^m(y_i-\omega*x_i-b)^2</script><p>参数$\omega$和$b$通过最小化损失函数求得，即</p><script type="math/tex; mode=display">(\omega^*,b^*)=\mathop{argmin}_{(\omega,b)}E</script><hr><p>这个损失函数很简单，可以对其求偏导，另偏导等于0。</p><ol><li><script type="math/tex; mode=display">\frac{\partial E_{(\omega,b)}}{\partial \omega}=\frac{\partial \sum_{i=1}^m(y_i-\omega x_i-b)^2}{\partial \omega}</script><script type="math/tex; mode=display">=\frac{\sum_{i=1}^m \partial (y_i-\omega x_i-b)^2}{\partial \omega}=\sum_{i=1}^m -2x_i(y_i-\omega x_i-b)</script><script type="math/tex; mode=display">=\sum_{i=1}^m 2[\omega x_i^2+(b-y_i)x_i]=0</script></li><li></li></ol><script type="math/tex; mode=display">\frac{\partial E_{(\omega,b)}}{\partial b}=\frac{\partial \sum_{i=1}^m(y_i-\omega x_i-b)^2}{\partial b}</script><script type="math/tex; mode=display">=\frac{\sum_{i=1}^m \partial (y_i-\omega x_i-b)^2}{\partial b}=2[mb-\sum_{i=1}^m(y_i-\omega x_i)]=0</script><hr><p>联立两等式求$(\omega,b)$<br>由第一个式子</p><script type="math/tex; mode=display">\sum_{i=1}^m 2[\omega x_i^2+(b-y_i)x_i]=0</script><p>化简得</p><script type="math/tex; mode=display">\sum\omega x_i^2=\sum(y_i-b)x_i</script><p>由第二个式子</p><script type="math/tex; mode=display">2[mb-\sum_{i=1}^m(y_i-\omega x_i)]=0</script><p>化简得</p><script type="math/tex; mode=display">mb=\sum^m_{i=1}y_i-\omega\sum^m_{i=1}x_i</script><p>两边同时除以m，因为$\frac{1}{m}\sum^m<em>{i=1}y_i=\overline{y}$、$\frac{1}{m}\sum^m</em>{i=1}x_i=\overline{x}$<br>公式可化为</p><script type="math/tex; mode=display">b=\overline{y}-\omega\overline{x}</script><p>将此式带入第一个式子的化简结果</p><script type="math/tex; mode=display">\sum^m_{i=1}\omega x_i^2=\sum^m_{i=1}(y_i-\overline{y}+\omega\overline{x})</script><script type="math/tex; mode=display">\sum^m_{i=1}\omega x_i^2=\sum^m_{i=1}x_i y_i-\sum^m_{i=1}x_i\overline{y}+\omega\sum^m_{i=1}\overline{x}x_i</script><script type="math/tex; mode=display">\omega(\sum^m_{i=1}x_i^2-\sum^m_{i=1}\overline{x}x_i)=\sum^m_{i=1}x_iy_i-\sum^m_{i=1}x_i\overline{y}</script><p>得到</p><script type="math/tex; mode=display">\omega=\frac{\sum^m_{i=1}x_iy_i-\overline{y}\sum^m_{i=1}x_i}{\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_i}</script><p>又$b=\overline{y}-\omega\overline{x}$，将$\omega$代入可得到</p><script type="math/tex; mode=display">b=\frac{\overline{y}\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_iy_i}{\sum^m_{i=1}x_i^2-\overline{x}\sum^m_{i=1}x_i}</script><p>这样就求出了一元线性回归最小二乘法的解析解</p><h3 id="多元（一个x有多个属性）"><a href="#多元（一个x有多个属性）" class="headerlink" title="多元（一个x有多个属性）"></a>多元（一个x有多个属性）</h3><p>我们需要学习的模型：</p><script type="math/tex; mode=display">f(\pmb{x_i})=\pmb{w}^T\pmb{x_i}+b，使得f(\pmb{x_i})≈y_i</script><p>也可以用最小二乘法，我们将参数和数据向量/矩阵化：<br><img src="https://i.loli.net/2020/11/09/phRByTANdQYfsF8.png" alt="image.png"><br>损失函数就表达为<br><img src="https://i.loli.net/2020/11/09/gsetVC6TriaAK54.png" alt="image.png"><br>与一元的情况类似，对其进行求解<br><img src="https://i.loli.net/2020/11/09/jfUJ9gOSaK2NVeu.png" alt="image.png"><br>当不满秩时（<strong>X</strong>的列数多于行数，数据集中特征的数量大于样本的数量），就可能有多对另损失函数最小化的参数。我们引入正则项来选取最好的参数（一般是使模型不那么复杂的参数）。</p><h2 id="梯度下降优化"><a href="#梯度下降优化" class="headerlink" title="梯度下降优化"></a>梯度下降优化</h2><p>对于$w^<em>,b^</em>=arg\mathop{min}_{(\omega,b)}L(w,b)$</p><ul><li>随机选取初始的$w^0$和$b^0$</li><li>计算</li></ul><script type="math/tex; mode=display">\frac{\partial L}{\partial w}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}</script><p>更新</p><script type="math/tex; mode=display">w^1=w^0-\eta\frac{\partial L}{\partial w}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">b^1=b^0-\eta\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}</script><ul><li><p>计算</p><script type="math/tex; mode=display">\frac{\partial L}{\partial w}|_{w=w^1,b=b^1}</script><script type="math/tex; mode=display">\frac{\partial L}{\partial b}|_{w=w^1,b=b^1}</script><p>更新</p><script type="math/tex; mode=display">w^2=w^1-\eta\frac{\partial L}{\partial w}|_{w=w^1,b=b^1}</script><script type="math/tex; mode=display">b^2=b^1-\eta\frac{\partial L}{\partial b}|_{w=w^1,b=b^1}</script></li><li><p>重复以上步骤，可以找到一对使$L$较小的$（w,b）$（满足退出条件就退出）</p><h2 id="代码实现——自己写"><a href="#代码实现——自己写" class="headerlink" title="代码实现——自己写"></a>代码实现——自己写</h2></li></ul><h2 id="代码实现———调包"><a href="#代码实现———调包" class="headerlink" title="代码实现———调包"></a>代码实现———调包</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>西瓜书<br>南瓜书<br><a href="https://blog.csdn.net/juwikuang/article/details/78420337" target="_blank" rel="noopener">python机器学习手写算法系列——线性回归</a><br><a href="https://www.cnblogs.com/q735613050/p/7474449.html" target="_blank" rel="noopener">Markdown公式（二）</a><br><a href="https://www.cnblogs.com/sienbo/p/10403330.html" target="_blank" rel="noopener">LinearRegression（线性回归）</a></p><h1 id="逻辑回归-对数几率回归"><a href="#逻辑回归-对数几率回归" class="headerlink" title="逻辑回归/对数几率回归"></a>逻辑回归/对数几率回归</h1><h2 id="基本思想-1"><a href="#基本思想-1" class="headerlink" title="基本思想"></a>基本思想</h2><p>在线性回归中，最后的公式是</p><script type="math/tex; mode=display">y=\pmb{w}^T\pmb{x}+b</script><p>但还可以将其推广至广义线性模型：</p><script type="math/tex; mode=display">y=g^{-1}(\pmb{w}^T\pmb{x}+b)</script><p>其中$g(·)$被称为联系函数，它单调可微。一个🌰如下</p><hr><p>如果我们的输出y是在指数尺度上变化，那么为了使模型更好用，我们可以直接把输出y的对数作为线性模型逼近的目标，即：</p><script type="math/tex; mode=display">ln y=\pmb{w}^T\pmb{x}+b</script><p>也就是$y$变成了$e^{\pmb{w}^T+b}$<br><img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3712334182,1769327380&amp;fm=15&amp;gp=0.jpg" alt=""></p><hr><p>如果我们的问题不再是需要连续值的回归问题，而是分类问题，我们就可以用广义线性模型。我们需要找到一个函数将真实的分类的y和模型的输出联系起来。<br>最理想的函数是单位阶跃函数，但是它不可微，因此对数几率函数是一个常用的函数。</p><p>单位阶跃函数：</p><script type="math/tex; mode=display">y=\left\{\begin{aligned}0,z<0;\\0.5,z=0;\\1,z>0,\end{aligned}\right.</script><h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="对数几率函数"><a href="#对数几率函数" class="headerlink" title="对数几率函数"></a>对数几率函数</h3><hr><p><strong>知识补充：Sigmoid函数</strong><br>形似S形的函数是Sigmoid函数。对率函数是此类函数中最重要的一个。<br>————来自西瓜书（为什么我没有搜到其他形式的Sigmoid函数呢？</p><p>并且在一个知乎专栏<a href="https://zhuanlan.zhihu.com/p/74874291" target="_blank" rel="noopener">【机器学习】逻辑回归（非常详细）</a>里写道<br><img src="https://i.loli.net/2020/11/09/AnvqKXrO1EIo6g5.png" alt="image.png"></p><hr><p><img src="https://i.loli.net/2020/11/09/VM4QBxg7KCakvwj.png" alt="image.png"></p><p>我们逼近的目标是x的真实分类的对数几率。这个方法的优点：</p><ul><li>不需要事先假设数据分布</li><li>不仅可以得到类别，还可以得到近似概率预测</li><li>目标函数是任意阶可导的凸函数——优化起来太方便了</li></ul><h3 id="参数估计过程"><a href="#参数估计过程" class="headerlink" title="参数估计过程"></a>参数估计过程</h3><p>我们用极大似然估计来求得参数。</p><p>将$y$视为后验概率，即</p><h2 id="代码实现——自己写-1"><a href="#代码实现——自己写-1" class="headerlink" title="代码实现——自己写"></a>代码实现——自己写</h2><h2 id="代码实现———调包-1"><a href="#代码实现———调包-1" class="headerlink" title="代码实现———调包"></a>代码实现———调包</h2><h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p>西瓜书<br>南瓜书<br><a href="https://zhuanlan.zhihu.com/p/74874291" target="_blank" rel="noopener">【机器学习】逻辑回归（非常详细）</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -528,32 +559,6 @@
       <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
     
       <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>李宏毅-机器学习-RNN</title>
-    <link href="http://yoursite.com/2020/08/13/%E6%9D%8E%E5%AE%8F%E6%AF%85-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A021/"/>
-    <id>http://yoursite.com/2020/08/13/%E6%9D%8E%E5%AE%8F%E6%AF%85-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A021/</id>
-    <published>2020-08-12T16:00:00.000Z</published>
-    <updated>2020-08-19T09:12:58.045Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2020/08/14/vjLwM2nR1I9CPf5.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/14/dIqp2XaC8l1iJEY.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/14/ylChPUjmcza5YE4.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/14/D6g42VFLUQHXi37.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/14/dGThpBnx1uRZaqo.png" alt="image.png"></p><p><img src="https://i.loli.net/2020/08/19/KkjsvX9yWVZ75eI.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/19/VRh6Fv7KPo43WGS.png" alt="image.png"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/08/14/vjLwM2nR1I9CPf5.png&quot; alt=&quot;image.png&quot;&gt;&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2020/08/14/dIqp2XaC8l1iJEY.
-      
-    
-    </summary>
-    
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
