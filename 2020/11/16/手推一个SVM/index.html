@@ -10,14 +10,14 @@
 } </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 <link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
 <script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hard-margin-SVM"><span class="toc-number">2.</span> <span class="toc-text">hard-margin SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM的提出"><span class="toc-number">2.1.</span> <span class="toc-text">SVM的提出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#间隔概念的解释"><span class="toc-number">2.2.</span> <span class="toc-text">间隔概念的解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数间隔"><span class="toc-number">2.2.1.</span> <span class="toc-text">函数间隔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#几何间隔"><span class="toc-number">2.2.2.</span> <span class="toc-text">几何间隔</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入对偶问题"><span class="toc-number">3.</span> <span class="toc-text">引入对偶问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">手推一个SVM</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-16</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/16/手推一个SVM/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>SVM有三宝：间隔、对偶、核技巧（让SVM可以从欧氏空间映射到高维空间，从而实现非线性分类）  </p>
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hard-margin-SVM"><span class="toc-number">2.</span> <span class="toc-text">Hard-margin SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM的提出"><span class="toc-number">2.1.</span> <span class="toc-text">SVM的提出</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入对偶问题"><span class="toc-number">3.</span> <span class="toc-text">引入对偶问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#求解"><span class="toc-number">3.1.</span> <span class="toc-text">求解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Soft-margin-SVM"><span class="toc-number">4.</span> <span class="toc-text">Soft-margin SVM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#核函数"><span class="toc-number">5.</span> <span class="toc-text">核函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">6.</span> <span class="toc-text">最后</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">手推一个SVM</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-16</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/16/手推一个SVM/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>SVM有三宝：间隔、对偶、核技巧（让SVM可以从欧氏空间映射到高维空间，从而实现非线性分类）  </p>
 <p>SVM的分类：  </p>
 <ol>
 <li>hard-margin SVM</li>
 <li>soft-margin SVM</li>
 <li>kernel SVM</li>
 </ol>
-<h1 id="hard-margin-SVM"><a href="#hard-margin-SVM" class="headerlink" title="hard-margin SVM"></a>hard-margin SVM</h1><h2 id="SVM的提出"><a href="#SVM的提出" class="headerlink" title="SVM的提出"></a>SVM的提出</h2><p>最初SVM的提出是为了解决二分类问题。它是一个纯粹的判别模型，与概率无关。如图，给定一系列数据集$D={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),…,(\pmb{x}_m,y_m)},y_i∈{-1,+1}$，SVM要找到一个<a href="https://www.jianshu.com/p/ba02b92baaaf" target="_blank" rel="noopener">超平面</a>将不同类的样本分开。但是像线性回归的模型一样有很多条线可以划分，这里也有很多个超平面能将两类样本分开。我们仍然是需要有一个对超平面的评价标准。先说答案，最中间的超平面（红色的那条线）是最好的。  </p>
+<h1 id="Hard-margin-SVM"><a href="#Hard-margin-SVM" class="headerlink" title="Hard-margin SVM"></a>Hard-margin SVM</h1><h2 id="SVM的提出"><a href="#SVM的提出" class="headerlink" title="SVM的提出"></a>SVM的提出</h2><p>最初SVM的提出是为了解决二分类问题。它是一个纯粹的判别模型，与概率无关。如图，给定一系列数据集$D={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),…,(\pmb{x}_m,y_m)},y_i∈{-1,+1}$，SVM要找到一个<a href="https://www.jianshu.com/p/ba02b92baaaf" target="_blank" rel="noopener">超平面</a>将不同类的样本分开。但是像线性回归的模型一样有很多条线可以划分，这里也有很多个超平面能将两类样本分开。我们仍然是需要有一个对超平面的评价标准。先说答案，最中间的超平面（红色的那条线）是最好的。  </p>
 <p><img src="https://i.loli.net/2020/11/16/v2hdQftXVWUwYi9.png" alt="image.png">  </p>
 <p>如果选择其他的黑色的线，比如这条。  </p>
 <p><img src="https://i.loli.net/2020/11/16/Ao6Mg8eTRYqnKGC.png" alt="image.png"></p>
@@ -32,16 +32,140 @@
 <script type="math/tex; mode=display">s.t.\ y_i(w^T+b)＞0</script><p>我们将margin定义为所有点到直线的距离(distance)中的最小的那个距离。</p>
 <script type="math/tex; mode=display">margin(w,b)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}distance(w,b,x_i)=\underset{i=1,...,N}{\underset{x_i}{\underset{w,b}{min}}}\frac{1}{||w||}|w^Tx_i+b|</script><p>那么模型可写成</p>
 <script type="math/tex; mode=display">\underset{w,b}{max}\ \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ \frac{1}{||w||}|w^Tx_i+b|</script><script type="math/tex; mode=display">s.t.\ y_i(w^Tx_i+b)>0</script><p>因为$||w||$是个常数，$|y_i|=1$且$y_i(w^Tx_i+b)&gt;0$，因此模型的目标函数可以替换为：</p>
-<script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||} \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ y_i(w^Tx_i+b)</script><p>接下来要做的操作是：令$y_i(w^Tx_i+b)=\gamma=1$<br>约束条件也可以化为  </p>
-<p>$$$$</p>
-<h2 id="间隔概念的解释"><a href="#间隔概念的解释" class="headerlink" title="间隔概念的解释"></a>间隔概念的解释</h2><h3 id="函数间隔"><a href="#函数间隔" class="headerlink" title="函数间隔"></a>函数间隔</h3><h3 id="几何间隔"><a href="#几何间隔" class="headerlink" title="几何间隔"></a>几何间隔</h3><h1 id="引入对偶问题"><a href="#引入对偶问题" class="headerlink" title="引入对偶问题"></a>引入对偶问题</h1><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>写这篇博客的时候在修改自己网站上的公式显示，看到了一些用同一个主题的人的博客，xdl如何添加音乐。那我就在这个博客里试一试吧！</p>
+<script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||} \underset{i=1,...,N}{\underset{w,b,x_i}{min}}\ y_i(w^Tx_i+b)</script><p>我们观察约束条件，它可以化为  </p>
+<script type="math/tex; mode=display">\exists\gamma>0,s.t.\underset{i=1,..,N}{\underset{y_i}{\underset{x_i}{min}}}y_i(w^Tx_i+b)=\gamma</script><p>那么目标函数就变成了  </p>
+<script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||} \gamma</script><p>令$\gamma=1$  </p>
+<p>这样做的原因是要固定目标函数的函数间隔。接下来对这些概念做一些解释。  </p>
+<hr>
+<p><strong>间隔概念的解释</strong></p>
+<p>考虑一个简单的情形：点$(x_i,y_i)$到$|ax+by+c=0|$的距离为  </p>
+<script type="math/tex; mode=display">d(x_i,y_i)=\frac{|ax_i+by_i+c|}{\sqrt{a^2+b^2}}</script><p>那么几何间隔就是：</p>
+<ul>
+<li>二维中：$d(x_i,y_i)$</li>
+<li>三维及以上：$\frac{1}{||w||}|w^Tx_i+b|$ 即点到超平面的距离</li>
+</ul>
+<p>函数间隔是：(未归一化的几何间隔)</p>
+<ul>
+<li>二维：$|ax_i+by_i+c|$</li>
+<li>三维及以上：$|w^Tx_i+b|$</li>
+</ul>
+<hr>
+<p>既然$\gamma$是一个大于0的数，那么我们取任何数都是对等式的目标没有影响的。如果不固定下来的话，让$w$和$b$同比例缩放时函数值就会改变，但是超平面却没有改变。比如$2w^Tx+2b=0$与$w^Tx+b=0$是一个超平面，但是$2w^Tx+2b=2(w^Tx+b)$。</p>
+<p>这样模型就变成了  </p>
+<script type="math/tex; mode=display">\underset{w,b}{max}\frac{1}{||w||}</script><script type="math/tex; mode=display">s.t.\ min\ y_i(w^Tx_i+b)=1</script><p>约束条件可以进一步化为  </p>
+<script type="math/tex; mode=display">s.t.\ y_i(w^Tx_1+b)≥1，i=1,...,N</script><p>再化成最小化问题的形式就是</p>
+<script type="math/tex; mode=display">min ||w||=min\frac{1}{2}||w||^2=min\frac{1}{2}w^Tw</script><script type="math/tex; mode=display">s.t.\ y_i(w^Tx_i+b)≥1， \forall i=1,..,N</script><blockquote>
+<p>注：有N个约束</p>
+</blockquote>
+<p>这是一个凸优化问题，一定能找到全局最优解。</p>
+<h1 id="引入对偶问题"><a href="#引入对偶问题" class="headerlink" title="引入对偶问题"></a>引入对偶问题</h1><p>为什么引入对偶问题：有时候$x$的维度很大，我们无法直接对这个问题进行优化求解，因此需要引入对偶问题。</p>
+<p>首先，我们现在的模型是  </p>
+<script type="math/tex; mode=display">\underset{w,b}{min}\frac{1}{2}w^Tw</script><script type="math/tex; mode=display">s.t.\ 1-y_i(w^Tx_i+b)≤0，for\ i=1,..,N</script><p>用拉格朗日乘子法  </p>
+<script type="math/tex; mode=display">L(w,b.\lambda)=\frac{1}{2}w^Tw+\sum^N_{i=1}\lambda_i(1-y_i(w^Tx_i+b))</script><p>其中$\lambda_i≥0$</p>
+<p>模型就化成了一个 <strong>无约束的问题</strong> （对w和b无约束）</p>
+<script type="math/tex; mode=display">\underset{w,b}{min}\ \underset{\lambda}{max}L(w,b,\lambda)</script><script type="math/tex; mode=display">s.t.\ \lambda_i≥0</script><hr>
+<p>**解释一下为什么$\underset{\lambda}{max}L(w,b,\lambda)$$</p>
+<script type="math/tex; mode=display">s.t.\ \lambda_i≥0$和$\frac{1}{2}w^Tw$等价**
 
-        <div id="aplayer-QEyccApB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+![image.png](https://i.loli.net/2020/11/16/cT36BbVRyJ8eGwL.png)
+
+---
+
+
+对偶问题就是  
+
+$$\underset{\lambda}{max}\ \underset{w,b}{min}\ L(w,b,\lambda)</script><script type="math/tex; mode=display">s.t.\ \lambda_i≥0</script><h2 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h2><p>开始求导以求解这个无约束优化问题</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial b} = \frac{\partial }{\partial b}[\sum^N_{i=1}\lambda_i-\sum^N_{i=1}\lambda_iy_i(w^Tx_i+b)]=\frac{\partial }{\partial b}[-\sum^N_{i=1}\lambda_iy_ib]=-\sum^N_{i=1}\lambda_iy_i=0</script><p>将其代入$L(w,b,\lambda)$</p>
+<script type="math/tex; mode=display">L(w,b,\lambda)=\frac{1}{2}w^Tw+\sum^N_{i=1}\lambda_i-\sum^N_{i=1}\lambda_iy_i(w^Tx_i+b)=\frac{1}{2}w^Tw+\sum^N_{i=1}\lambda_iy_iw^Tx_i</script><p>再求导</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial w}=\frac{1}{2}2w+\sum^N_{i=1}\lambda_iy_ix_i=0</script><p>解得最优点处的$w^*=\sum^N_{i=1}\lambda_iy_ix_i$</p>
+<p>将其代入$L$中得</p>
+<script type="math/tex; mode=display">L(w,b,\lambda)=\frac{1}{2}(\sum^N_{i=1}\lambda_iy_ix_i)^T(\sum^N_{j=1}\lambda_jy_jx_j)-\sum^N_{i=1}\lambda_iy_i(\sum^N_{j=1}\lambda_jy_jx_j)^T+\sum^N_{i=1}\lambda_i</script><p>若将这个公式分为三部分：(第一部分要乘1/2)</p>
+<ol>
+<li>$(\sum^N<em>{i=1}\lambda_iy_ix_i)^T(\sum^N</em>{j=1}\lambda_jy_jx_j)$</li>
+<li>$\sum^N<em>{i=1}\lambda_iy_i(\sum^N</em>{j=1}\lambda_jy_jx_j)^Tx_i$</li>
+<li>$\sum^N_{i=1}\lambda_i$</li>
+</ol>
+<p>第一部分可以化为  </p>
+<script type="math/tex; mode=display">(\sum^N_{i=1}\lambda_iy_ix_i)^T(\sum^N_{j=1}\lambda_jy_jx_j)
+=\sum^N_{i=1}\lambda_iy_ix_i^T\sum^N_{j=1}\lambda_jy_jx_j
+=\sum^N_{i=1}\sum^N_{j=1}\lambda_i\lambda_jy_iy_jx_i^Tx_j</script><p>第二部分可以化为</p>
+<script type="math/tex; mode=display">\sum^N_{i=1}\lambda_iy_i(\sum^N_{j=1}\lambda_jy_jx_j)^Tx_i
+=\sum^N_{i=1}\sum^N_{j=1}\lambda_i\lambda_jy_iy_jxj^Tx_i
+=\sum^N_{i=1}\sum^N_{j=1}\lambda_i\lambda_jy_iy_jxi^Tx_j</script><p>由于第一部分的系数为1/2，第二部分的系数为1，因此原式化为</p>
+<script type="math/tex; mode=display">-\frac{1}{2}\sum^N_{i=1}\sum^N_{j=1}\lambda_i\lambda_jy_iy_jxi^Tx_j+\sum^N_{i=1}\lambda_i</script><p>模型变成了</p>
+<script type="math/tex; mode=display">\underset{\lambda}{max}\ -\frac{1}{2}\sum^N_{i=1}\sum^N_{j=1}\lambda_i\lambda_jy_iy_jxi^Tx_j+\sum^N_{i=1}\lambda_i</script><script type="math/tex; mode=display">s.t.\ \lambda_i≥0</script><p>由于原问题与对偶问题有强对偶关系，满足KKT条件。我们利用KKT条件求出$w^<em>$与$b^</em>$</p>
+<hr>
+<p><strong>KKT条件</strong></p>
+<p><img src="https://i.loli.net/2020/11/17/Ejego5RdGZskbKS.png" alt="image.png"></p>
+<hr>
+<p>在此模型中</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\frac{\partial L}{\partial w}=0\ \frac{\partial L}{\partial b}=0\ & \\
+\lambda_i(1-y_i(w^Tx_i+b))=0& \\
+\lambda_i≥0\\
+1-y_i(w^Tx_i+b)≤0 
+\end{cases}</script><p>之前已经计算出了$w^*$，又</p>
+<script type="math/tex; mode=display">\exist\ (x_k,y_k),s.t.\ 1-y_k(w^Tx_k+b)=0</script><p>化简为  </p>
+<script type="math/tex; mode=display">y_k(w^Tx_k+b)=1</script><script type="math/tex; mode=display">y_k^2(w^Tx_k+b)=y_k</script><p>由于$y_k^2=1$</p>
+<script type="math/tex; mode=display">y_k=(w^Tx_k+b)</script><script type="math/tex; mode=display">b^*=y_k-w^Tx_k=y_k-\sum^N_{i=1}\lambda_iy_ix_i^Tx_k</script><p>$w^{<em>T}x+b^</em>$就是我们要找到的超平面了。<br>最终的参数值是部分满足$y_i(w^Tx_i+b)=1$向量的线性组合，这些向量也叫支撑向量。  </p>
+<p><img src="https://i.loli.net/2020/11/17/GmxocO4lJn58Xas.png" alt="image.png"></p>
+<h1 id="Soft-margin-SVM"><a href="#Soft-margin-SVM" class="headerlink" title="Soft-margin SVM"></a>Soft-margin SVM</h1><p>真实情况下的数据都是有噪声的，并不是完全可分。如果还用Hard-margin SVM直接对有噪声的数据进行分类，效果可能不太好，因此提出了Soft-margin SVM，它允许有一点点错误。</p>
+<p>目标函数由$min\ \frac{1}{2}w^Tw$变成了$min\ \frac{1}{2}w^Tw+loss$</p>
+<p>我们想到可以以分错类的个数作为$loss$，即</p>
+<script type="math/tex; mode=display">\sum^N_{i=1}I{y_i(w^Tx_i+b)＜1}</script><p>但它关于x不连续，函数性质不好。因此我们改写为$hinge\ loss$</p>
+<p>如果$y_i(w^Tx_i+b)≥1，loss=0$<br>如果$y_i(w^Tx_i+b)＜1，loss=1-y_i(w^Tx_i+b)$</p>
+<p>那么</p>
+<script type="math/tex; mode=display">loss=max\{0,1-y_i(w^Tx_i+b)\}</script><p>函数图像为<br><img src="https://pic4.zhimg.com/80/v2-3c6aa9626ee8e4609b0d7c5712baf624_1440w.jpg?source=1940ef5c" alt="hinge loss"></p>
+<p>令$max（0,1-y_i(w^Tx_i+b)）=\xi_i$</p>
+<p>显然$\xi_i≥0$，并且当$1-y_i(w^Tx_i+b)&gt;0$时，</p>
+<script type="math/tex; mode=display">1-y_i(w^Tx_i+b)=\xi_i</script><p>当$1-y_i(w^Tx_i+b)≤0$时，</p>
+<script type="math/tex; mode=display">\xi_i=0</script><p>综上</p>
+<script type="math/tex; mode=display">1-y_i(w^Tx_i+b)≤\xi_i\ →\ y_i(w^Tx_i+b)≥1-\xi_i</script><p>Soft-margin SVM的模型表示为</p>
+<script type="math/tex; mode=display">\underset{w,b,\xi_i}{min} \frac{1}{2}||w||^2+C\sum^m_{i=1}\xi_i</script><script type="math/tex; mode=display">s.t.\ y_i(w^Tx_i+b)≥1-\xi_i</script><script type="math/tex; mode=display">\xi_i≥0，i=1,2,..,m.</script><h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><p>核函数在SVM中的作用是针对非线性可分的问题，把低维数据映射到高维空间中变得更容易分类。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>线性可分</th>
+<th>允许犯一点点错误</th>
+<th>严格非线性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLA</td>
+<td>Pocket Algorithm</td>
+<td>多层感知机、DL</td>
+</tr>
+<tr>
+<td>Hard-margin SVM</td>
+<td>Soft-margin SVM</td>
+<td>核函数+PLA、核函数+Hard-margin SVM</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://i.loli.net/2020/11/17/LE9xquFlItDCdBA.png" alt="image.png"></p>
+<p>函数$\phi(x)$将$x$的维度变高。模型就变成了</p>
+<script type="math/tex; mode=display">\underset {w,b}{min} \frac{1}{2} w^Tw</script><script type="math/tex; mode=display">s.t.\ y_i(w^T\phi(x_i)+b)≥1,i=1,2,..,m.</script><p>仍然转换成对偶问题为</p>
+<script type="math/tex; mode=display">\underset{\alpha}{max}\sum^m_{i=1}\alpha_i-\frac{1}{2}\sum^m_{i=1}\sum^m_{j=1}\alpha_i\alpha_jy_iy_j\phi(x_i)^T\phi(x_j)</script><script type="math/tex; mode=display">s.t.\ \sum^m_{i=1} \alpha_iy_i=0,\alpha_i≥0，i=1,2,...,m.</script><p>经过映射后的x维度可能很高，甚至是无穷维，因此求$\phi(x_i)^T\phi(x_j)$很困难，我们想找到一个函数是这样的（这个函数就是核函数，这个过程叫做核技巧）：</p>
+<script type="math/tex; mode=display">K(x_i,x_j)=<\phi(x_i),\phi(x_j)>=\phi(x_i)^T\phi(x_j)</script><p>即通过计算核函数的值就可以得到高维度数据的内积。</p>
+<hr>
+<p><strong>核函数的定义</strong></p>
+<hr>
+<p>常用的核函数有</p>
+<ol>
+<li></li>
+</ol>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>写这篇博客的时候在修改自己网站上的公式显示，看到了一些用同一个主题的人的博客，xdl如何添加音乐。那我就在这个博客里试一试吧！</p>
+
+        <div id="aplayer-ixInkDDG" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-QEyccApB"),
+            element: document.getElementById("aplayer-ixInkDDG"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -49,13 +173,14 @@
               title: "粒子们",
               author: "于贞",
               url: "http://music.163.com/song/media/outer/url?id=1457329446.mp3",
-              pic: "",
+              pic: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1493461957,1365407990&fm=11&gp=0.jpg",
               lrc: ""
             }
           });
           window.aplayers || (window.aplayers = []);
           window.aplayers.push(ap);
-        </script></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/">http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"><span>20201114-1119总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+        </script>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/">http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/11/15/20201114-119%E6%80%BB%E7%BB%93/"><span>20201114-1119总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {
   this.page.url = 'http://yoursite.com/2020/11/16/%E6%89%8B%E6%8E%A8%E4%B8%80%E4%B8%AASVM/';
   this.page.identifier = '2020/11/16/手推一个SVM/';
