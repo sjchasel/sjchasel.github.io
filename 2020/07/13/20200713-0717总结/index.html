@@ -21,6 +21,7 @@
 <li>对象：文本字段</li>
 </ul>
 <p>用到的符号及含义：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -28,7 +29,8 @@
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>V</td>
 <td>专业领域</td>
 </tr>
@@ -44,7 +46,9 @@
 <td>T</td>
 <td>一组文本字段</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>OpenIE</li>
 </ul>
@@ -83,14 +87,16 @@
 <li>实验部分是不是该补充机器学习的知识，多看几篇？还是找出代码来结合着边看边做呢？<h1 id="PositionRank-An-Unsupervised-Approach-to-Keyphrase-Extraction-from-Scholarly-Documents"><a href="#PositionRank-An-Unsupervised-Approach-to-Keyphrase-Extraction-from-Scholarly-Documents" class="headerlink" title="PositionRank: An Unsupervised Approach to Keyphrase Extraction from Scholarly Documents"></a>PositionRank: An Unsupervised Approach to Keyphrase Extraction from Scholarly Documents</h1></li>
 </ol>
 <h2 id="主要内容-1"><a href="#主要内容-1" class="headerlink" title="主要内容"></a>主要内容</h2><p>快速提取关键词，明白文档内容的技术在总结、分类、推荐、聚类中有很大的作用。目前提取文献中关键词的方法主要为有监督的和无监督的。在有监督的方法中，这是一个分类问题，判断关键词是积极的还是消极的。有监督的效果虽然很好，但是需要人工标注的语料，得到大量的语料很难，因此人们对无监督的方法产生了更大的兴趣。无监督的方法是关键词的排序问题。单词是结点，单词之间的关系是边，用PageRank这样的模型得到单词的顺序，以排在前面的作为关键词。<br>这样的方法只考虑了文档的主题、出现了什么单词，而还有一些信息未考虑。因此作者想到把其他信息利用起来，他发现关键词经常出现在文档的开头，并且频率很高。他设计了一种无监督的方法，考虑单词的位置和出现的频率。<br>作者提出了一种无监督的基于图的模型——PositionRank。它将一个单词出现的所有位置的信息合并到一个有偏差的PageRank中，从而为关键词打分，这些关键词随后被用于对研究论文中的关键词打分和排名。<br>作者首次将位置信息运用在无监督方法中，更早出现的单词在模型中可以获得更大的概率，而不是均匀分布。</p>
-<h2 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h2><h3 id="构造图"><a href="#构造图" class="headerlink" title="构造图"></a>构造图</h3><table>
+<h2 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h2><h3 id="构造图"><a href="#构造图" class="headerlink" title="构造图"></a>构造图</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>符号</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>d</td>
 <td>目标文档</td>
 </tr>
@@ -110,7 +116,9 @@
 <td>m<sub>ij</sub></td>
 <td>权值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>若两个节点（单词）在长度为w的窗口中同时出现，那么它们之间就有一条边。边的权值根据两个单词同时出现在窗口中的次数来计算。图的有向或无向无所谓，作者构建了无向图。</p>
 <h3 id="位置偏重的PageRank"><a href="#位置偏重的PageRank" class="headerlink" title="位置偏重的PageRank"></a>位置偏重的PageRank</h3><p><img src="https://i.loli.net/2020/07/17/aG9wstdRIevf5AP.png" alt="image.png"></p>
 <h3 id="形成候选短语"><a href="#形成候选短语" class="headerlink" title="形成候选短语"></a>形成候选短语</h3><p>文档中具有连续位置的候选词组成短语。满足与正则表达式(形容词)*(名词)+匹配的长度为3的名词短语。短语中的单个单词的得分之和就是短语的评分，得分最高的短语输出。</p>
@@ -127,7 +135,7 @@
 <li>为什么要写轶事证据？</li>
 </ol>
 <h1 id="找引用了PositionRank的文献"><a href="#找引用了PositionRank的文献" class="headerlink" title="找引用了PositionRank的文献"></a>找引用了PositionRank的文献</h1><p>有40几篇文献引用了PositionRank，一个一个点开看好像没有看见是发表在老师提的几个顶会上的。<br>找了一个计算机相关会议排名（<a href="https://www.cnblogs.com/bincoding/p/11444232.html）" target="_blank" rel="noopener">https://www.cnblogs.com/bincoding/p/11444232.html）</a><br>把出现在这个网站中的会议的论文都留下了。<br><code>写这个博客的时候才发现原来我只查了目录（一）里的，还有目录（二）....</code><br>有WWW、AAAI、NAACL、european conference on information retrieval、pacific-asia conference on knowledge discovery and data mining、IEEE Access、applications of natural language to data bases、international conference on artificial intelligence、european conference on information retrieval、international conference on neural information processing、international conference on service oriented computing、pacific rim international conference on artificial intelligence、web intelligence、international joint conference on neural network中的</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/">http://yoursite.com/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a><a class="post-meta__tags" href="/tags/%E6%80%BB%E7%BB%93/">总结</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/07/20/TPR/"><i class="fa fa-chevron-left">  </i><span>Automatic Keyphrase Extraction via Topic Decomposition</span></a></div><div class="next-post pull-right"><a href="/2020/07/13/ZeroShotCeres%20Zero-Shot%20Relation%20Extraction/"><span>ZeroShotCeres: Zero-Shot Relation Extraction from Semi-Structured Webpages</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/">http://yoursite.com/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a><a class="post-meta__tags" href="/tags/%E6%80%BB%E7%BB%93/">总结</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/07/20/Keyphrase%20Generation%20A%20Text%20Summarization%20Struggle/"><i class="fa fa-chevron-left">  </i><span>Keyphrase Generation: A Text Summarization Struggle</span></a></div><div class="next-post pull-right"><a href="/2020/07/13/ZeroShotCeres%20Zero-Shot%20Relation%20Extraction/"><span>ZeroShotCeres: Zero-Shot Relation Extraction from Semi-Structured Webpages</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {
   this.page.url = 'http://yoursite.com/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/';
   this.page.identifier = '2020/07/13/20200713-0717总结/';

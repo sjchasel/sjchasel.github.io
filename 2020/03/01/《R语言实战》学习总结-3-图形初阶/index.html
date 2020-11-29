@@ -27,14 +27,16 @@
 <img src="http://tiebapic.baidu.com/forum/w%3D580/sign=faca2c569118367aad897fd51e728b68/20938418367adab40076fa3c9cd4b31c8601e4b2.jpg" alt="par"><h3 id="为高级绘图函数提供optionname-value的键值对"><a href="#为高级绘图函数提供optionname-value的键值对" class="headerlink" title="为高级绘图函数提供optionname=value的键值对"></a>为高级绘图函数提供optionname=value的键值对</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">plot(dose, drugA, type=<span class="string">"b"</span>, lty=<span class="number">2</span>, pch=<span class="number">17</span>)</span><br></pre></td></tr></table></figure>
 但不是所有绘图函数都适用这个方法<h2 id="符号和线条"><a href="#符号和线条" class="headerlink" title="符号和线条"></a>符号和线条</h2></li>
 </ul>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><table>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>pch</td>
 <td>点的符号</td>
 </tr>
@@ -50,11 +52,13 @@
 <td>lwd</td>
 <td>线条宽度，同样以默认值的相对大小来表示，如2表示为默认大小的2倍</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>pch:</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/4264437-95349164925a036e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/498" alt="pch"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4264437-95349164925a036e.png?imageMogr2/auto-orient/strip|imageView2/2/w/498" alt="pch"></p>
 <p>如果用21-25号的符号，还可以指定边界颜色（col=）和填充色（bg=）<br>lty:</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/4264437-c89d32b41279dd97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/623" alt="lty"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4264437-c89d32b41279dd97.png?imageMogr2/auto-orient/strip|imageView2/2/w/623" alt="lty"></p>
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">plot(dose, drugA, type=<span class="string">"b"</span>, lty=<span class="number">3</span>, lwd=<span class="number">3</span>, pch=<span class="number">15</span>, cex=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>线条类型为电线</li>
@@ -64,14 +68,16 @@
 </ul>
 <p><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=bd3073a0d91b9d168ac79a69c3dfb4eb/7f65cc1b9d16fdfa64a72791a38f8c5495ee7b15.jpg" alt="plot"></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.jianshu.com/p/d465185e4075" target="_blank" rel="noopener">R语言各个图形参数设置及其意义</a></p>
-<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><h3 id="参数表"><a href="#参数表" class="headerlink" title="参数表"></a>参数表</h3><table>
+<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><h3 id="参数表"><a href="#参数表" class="headerlink" title="参数表"></a>参数表</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>col</td>
 <td>默认的绘图颜色</td>
 </tr>
@@ -99,16 +105,17 @@
 <td>bg</td>
 <td>背景色</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="连续型颜色"><a href="#连续型颜色" class="headerlink" title="连续型颜色"></a>连续型颜色</h3><p>用函数<code>rainbow()</code>、<code>heat.colors()</code>、<code>terrain.colors()</code>、<code>topo.colors()</code>、<code>cm.colors()</code>等生成。<br>比如：</p>
 <ul>
 <li>函数<code>rainbow(10)</code>可以生成10种连续的彩虹型颜色</li>
 <li>函数<code>gray(0:10/10)</code>可以生成10阶灰度色。</li>
 </ul>
-<p>示例：</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">n &lt;- <span class="number">10</span></span><br><span class="line">mycolors &lt;- rainbow(n)</span><br><span class="line">pie(rep(<span class="number">1</span>, n), labels=mycolors, col=mycolors)</span><br><span class="line">mygrays &lt;- gray(<span class="number">0</span>:n/n)</span><br><span class="line">pie(rep(<span class="number">1</span>, n), labels=mygrays, col=mygrays)</span><br></pre></td></tr></table></figure>
-<p><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f2956971a63533faf5b6932698d2fdca/64b4b33533fa828b4d537d9cea1f4134960a5aec.jpg" alt="pie"></p>
+<p>示例：<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">n &lt;- <span class="number">10</span></span><br><span class="line">mycolors &lt;- rainbow(n)</span><br><span class="line">pie(rep(<span class="number">1</span>, n), labels=mycolors, col=mycolors)</span><br><span class="line">mygrays &lt;- gray(<span class="number">0</span>:n/n)</span><br><span class="line">pie(rep(<span class="number">1</span>, n), labels=mygrays, col=mygrays)</span><br></pre></td></tr></table></figure><br><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f2956971a63533faf5b6932698d2fdca/64b4b33533fa828b4d537d9cea1f4134960a5aec.jpg" alt="pie"></p>
 <h2 id="文本属性"><a href="#文本属性" class="headerlink" title="文本属性"></a>文本属性</h2><h3 id="参数表-1"><a href="#参数表-1" class="headerlink" title="参数表"></a>参数表</h3><p>用于指定文本大小的参数</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -116,7 +123,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>cex</td>
 <td>相对于默认的放大缩小倍数</td>
 </tr>
@@ -136,8 +144,11 @@
 <td>cex.sub</td>
 <td>图片副标题放大缩小倍数</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>用于指定字体族、字号和字样的参数</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -145,7 +156,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>font</td>
 <td>指定字体样式，1=常规，2=粗体，3=斜体，4=粗斜体，5=符号字体（以Adobe 符号编码表示）</td>
 </tr>
@@ -173,15 +185,19 @@
 <td>family</td>
 <td>绘制文本时使用的字体族。标准的取值为serif（衬线）、sans（无衬线）和mono（等宽）</td>
 </tr>
-</tbody></table>
-<h2 id="图形尺寸和边界大小"><a href="#图形尺寸和边界大小" class="headerlink" title="图形尺寸和边界大小"></a>图形尺寸和边界大小</h2><h3 id="参数表-2"><a href="#参数表-2" class="headerlink" title="参数表"></a>参数表</h3><table>
+</tbody>
+</table>
+</div>
+<h2 id="图形尺寸和边界大小"><a href="#图形尺寸和边界大小" class="headerlink" title="图形尺寸和边界大小"></a>图形尺寸和边界大小</h2><h3 id="参数表-2"><a href="#参数表-2" class="headerlink" title="参数表"></a>参数表</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>pin</td>
 <td>以英寸表示图形的图形尺寸</td>
 </tr>
@@ -193,9 +209,10 @@
 <td>mar</td>
 <td>以数值向量表示边界大小，顺序为下左上右，单位为英分。默认值为c(5,4,4,2)+0.1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#输入数据</span></span><br><span class="line">dose &lt;- c(<span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">45</span>, <span class="number">60</span>)</span><br><span class="line">drugA &lt;- c(<span class="number">16</span>, <span class="number">20</span>, <span class="number">27</span>, <span class="number">40</span>, <span class="number">60</span>)</span><br><span class="line">drugB &lt;- c(<span class="number">15</span>, <span class="number">18</span>, <span class="number">25</span>, <span class="number">31</span>, <span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存当前图形的参数设置（以便在之后恢复设置）</span></span><br><span class="line">opar &lt;- par(no.readonly=<span class="literal">TRUE</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改默认的图形参数</span></span><br><span class="line">par(pin=c(<span class="number">2</span>, <span class="number">3</span>))<span class="comment">#图位2英寸宽，3英寸高</span></span><br><span class="line">par(lwd=<span class="number">2</span>, cex=<span class="number">1.5</span>)<span class="comment">#线条的宽度为默认宽度的两倍，符号为默认大小的1.5倍</span></span><br><span class="line">par(cex.axis=<span class="number">.75</span>, font.axis=<span class="number">3</span>)<span class="comment">#坐标轴刻度文本为斜体，缩小为默认的75%</span></span><br><span class="line">plot(dose, drugA, type=<span class="string">"b"</span>, pch=<span class="number">19</span>, lty=<span class="number">2</span>, col=<span class="string">"red"</span>)<span class="comment">#用红色实心圆圈和虚线画图</span></span><br><span class="line">plot(dose, drugB, type=<span class="string">"b"</span>, pch=<span class="number">23</span>, lty=<span class="number">6</span>, col=<span class="string">"blue"</span>, bg=<span class="string">"green"</span>)<span class="comment">#用绿色填充的绿色菱形加蓝色边框和蓝色虚线画图</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#还原初始的图形参数设置</span></span><br><span class="line">par(opar)</span><br></pre></td></tr></table></figure>
-
 <figure class="half">
     <img src="http://tiebapic.baidu.com/forum/w%3D580/sign=8a0df661ae389b5038ffe05ab534e5f1/f7a4bb389b504fc269be5c7af2dde71191ef6d73.jpg" width="300"/>
     <img src="http://tiebapic.baidu.com/forum/w%3D580/sign=932093a239738bd4c421b239918a876c/92672c738bd4b31cce9578c490d6277f9f2ff8ab.jpg" width="300"/>
@@ -204,14 +221,8 @@
 <h2 id="添加文本、自定义坐标轴和图例"><a href="#添加文本、自定义坐标轴和图例" class="headerlink" title="添加文本、自定义坐标轴和图例"></a>添加文本、自定义坐标轴和图例</h2><p>一些高级绘图函数可以自行设定坐标轴加标题什么的，但不是所有的绘图函数都支持。有些函数已经包含了默认的标题和标签，可以在plot()或par()中加<code>ann=FALSE</code>来移除。</p>
 <h3 id="引例"><a href="#引例" class="headerlink" title="引例"></a>引例</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">plot(dose, drugA, type=<span class="string">"b"</span>,</span><br><span class="line">    col=<span class="string">"red"</span>, lty=<span class="number">2</span>, pch=<span class="number">2</span>, lwd=<span class="number">2</span>, </span><br><span class="line">    main=<span class="string">"Clinical Trials for Drug A"</span>, </span><br><span class="line">    sub=<span class="string">"This is hypothetical data"</span>, </span><br><span class="line">    xlab=<span class="string">"Dosage"</span>, ylab=<span class="string">"Drug Response"</span>,</span><br><span class="line">    xlim=c(<span class="number">0</span>, <span class="number">60</span>), ylim=c(<span class="number">0</span>, <span class="number">70</span>))</span><br></pre></td></tr></table></figure>
 <p><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=fe08797c06dfa9ecfd2e561f52d1f754/8fa613dfa9ec8a136ffc4c80e003918fa1ecc072.jpg" alt="drugA"></p>
-<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>使用格式</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">title(main=<span class="string">"main title"</span>, sub=<span class="string">"sub-title, </span></span><br><span class="line"><span class="string">      xlab="</span>x-axis label<span class="string">", ylab="</span>y-axis label<span class="string">")</span></span><br></pre></td></tr></table></figure>
-<p>也可以改变文本大小、字体、旋转角度和颜色，比如</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">title(main=<span class="string">"My Title"</span>, col.main=<span class="string">"red"</span>,<span class="comment"># 生成红色的标题</span></span><br><span class="line">            sub=<span class="string">"My Sub-title"</span>, col.sub=<span class="string">"blue"</span>, <span class="comment">#蓝色的副标题</span></span><br><span class="line">            xlab=<span class="string">"My X label"</span>, ylab=<span class="string">"My Y label"</span>,</span><br><span class="line">            col.lab=<span class="string">"green"</span>, cex.lab=<span class="number">0.75</span>)<span class="comment">#较默认大小小25%的绿色x轴、y轴标签</span></span><br></pre></td></tr></table></figure>
-<h3 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h3><h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>创建自定义的坐标轴格式:</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">axis(side, at=, labels=, pos=, lty=, col=, las, tck=, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure>
-<p>使用自定义的坐标轴时，要禁用函数自动生成的坐标轴。<br>例：</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x &lt;- c(<span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">y &lt;- x</span><br><span class="line">z &lt;- <span class="number">10</span>/x</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存当前的图形参数设置</span></span><br><span class="line">opar &lt;- par(no.readonly=<span class="literal">TRUE</span>)</span><br><span class="line"></span><br><span class="line">par(mar=c(<span class="number">5</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">8</span>) + <span class="number">0.1</span>)<span class="comment">#增加边界的大小</span></span><br><span class="line"><span class="comment">#mar控制绘图区别的大小，4个数字代表绘图区域距离下，左，上，右边界的行数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#绘制x对y的图形</span></span><br><span class="line">plot(x, y, type=<span class="string">"b"</span>,</span><br><span class="line">    pch=<span class="number">21</span>, col=<span class="string">"red"</span>,</span><br><span class="line">    yaxt=<span class="string">"n"</span>, lty=<span class="number">3</span>, ann=<span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#如果ann=FALSE，那么高水平绘图函数会调用函数plot.default使对坐标轴名称、整体图像名称不做任何注解。默认值为TRUE。</span></span><br><span class="line"></span><br><span class="line">lines(x, z, type=<span class="string">"b"</span>, pch=<span class="number">22</span>, col=<span class="string">"blue"</span>, lty=<span class="number">2</span>)<span class="comment">#添加x对1/x的直线</span></span><br><span class="line"></span><br><span class="line">axis(<span class="number">2</span>, at=x, labels=x, col.axis=<span class="string">"red"</span>, las=<span class="number">2</span>)<span class="comment">#绘制自定义的坐标轴</span></span><br><span class="line"><span class="comment">#las=2：标签垂直于坐标轴</span></span><br><span class="line"></span><br><span class="line">axis(<span class="number">4</span>, at=z, labels=round(z, digits=<span class="number">2</span>),</span><br><span class="line">    col.axis=<span class="string">"blue"</span>, las=<span class="number">2</span>, cex.axis=<span class="number">0.7</span>, tck=-<span class="number">.01</span>)</span><br><span class="line"><span class="comment">#at：一个数值型向量，表示需要绘制刻度线的位置</span></span><br><span class="line"><span class="comment">#tck=-0.1：刻度线在图形外侧，长度为绘图区域的一百分之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加标题和文本</span></span><br><span class="line">mtext(<span class="string">"y=10/x"</span>, side=<span class="number">4</span>, line=<span class="number">3</span>, cex.lab=<span class="number">1</span>, las=<span class="number">2</span>, col=<span class="string">"blue"</span>)</span><br><span class="line"></span><br><span class="line">title(<span class="string">"An example of creative axes"</span>,</span><br><span class="line">    xlab=<span class="string">"X values"</span>,</span><br><span class="line">    ylab=<span class="string">"Y=X"</span>)</span><br><span class="line"></span><br><span class="line">par(opar)</span><br></pre></td></tr></table></figure>
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>使用格式<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">title(main=<span class="string">"main title"</span>, sub=<span class="string">"sub-title, </span></span><br><span class="line"><span class="string">      xlab="</span>x-axis label<span class="string">", ylab="</span>y-axis label<span class="string">")</span></span><br></pre></td></tr></table></figure><br>也可以改变文本大小、字体、旋转角度和颜色，比如<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">title(main=<span class="string">"My Title"</span>, col.main=<span class="string">"red"</span>,<span class="comment"># 生成红色的标题</span></span><br><span class="line">            sub=<span class="string">"My Sub-title"</span>, col.sub=<span class="string">"blue"</span>, <span class="comment">#蓝色的副标题</span></span><br><span class="line">            xlab=<span class="string">"My X label"</span>, ylab=<span class="string">"My Y label"</span>,</span><br><span class="line">            col.lab=<span class="string">"green"</span>, cex.lab=<span class="number">0.75</span>)<span class="comment">#较默认大小小25%的绿色x轴、y轴标签</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h3><h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>创建自定义的坐标轴格式:<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">axis(side, at=, labels=, pos=, lty=, col=, las, tck=, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure><br>使用自定义的坐标轴时，要禁用函数自动生成的坐标轴。<br>例：<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x &lt;- c(<span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">y &lt;- x</span><br><span class="line">z &lt;- <span class="number">10</span>/x</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存当前的图形参数设置</span></span><br><span class="line">opar &lt;- par(no.readonly=<span class="literal">TRUE</span>)</span><br><span class="line"></span><br><span class="line">par(mar=c(<span class="number">5</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">8</span>) + <span class="number">0.1</span>)<span class="comment">#增加边界的大小</span></span><br><span class="line"><span class="comment">#mar控制绘图区别的大小，4个数字代表绘图区域距离下，左，上，右边界的行数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#绘制x对y的图形</span></span><br><span class="line">plot(x, y, type=<span class="string">"b"</span>,</span><br><span class="line">    pch=<span class="number">21</span>, col=<span class="string">"red"</span>,</span><br><span class="line">    yaxt=<span class="string">"n"</span>, lty=<span class="number">3</span>, ann=<span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#如果ann=FALSE，那么高水平绘图函数会调用函数plot.default使对坐标轴名称、整体图像名称不做任何注解。默认值为TRUE。</span></span><br><span class="line"></span><br><span class="line">lines(x, z, type=<span class="string">"b"</span>, pch=<span class="number">22</span>, col=<span class="string">"blue"</span>, lty=<span class="number">2</span>)<span class="comment">#添加x对1/x的直线</span></span><br><span class="line"></span><br><span class="line">axis(<span class="number">2</span>, at=x, labels=x, col.axis=<span class="string">"red"</span>, las=<span class="number">2</span>)<span class="comment">#绘制自定义的坐标轴</span></span><br><span class="line"><span class="comment">#las=2：标签垂直于坐标轴</span></span><br><span class="line"></span><br><span class="line">axis(<span class="number">4</span>, at=z, labels=round(z, digits=<span class="number">2</span>),</span><br><span class="line">    col.axis=<span class="string">"blue"</span>, las=<span class="number">2</span>, cex.axis=<span class="number">0.7</span>, tck=-<span class="number">.01</span>)</span><br><span class="line"><span class="comment">#at：一个数值型向量，表示需要绘制刻度线的位置</span></span><br><span class="line"><span class="comment">#tck=-0.1：刻度线在图形外侧，长度为绘图区域的一百分之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加标题和文本</span></span><br><span class="line">mtext(<span class="string">"y=10/x"</span>, side=<span class="number">4</span>, line=<span class="number">3</span>, cex.lab=<span class="number">1</span>, las=<span class="number">2</span>, col=<span class="string">"blue"</span>)</span><br><span class="line"></span><br><span class="line">title(<span class="string">"An example of creative axes"</span>,</span><br><span class="line">    xlab=<span class="string">"X values"</span>,</span><br><span class="line">    ylab=<span class="string">"Y=X"</span>)</span><br><span class="line"></span><br><span class="line">par(opar)</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>xaxt=”n”   禁用x轴的刻度线；yaxt=”n”   禁用y轴的刻度线；会留下框架线，只是去除了刻度。</li>
 <li>直接使用axes=FALSE可禁用全部坐标轴</li>
@@ -222,22 +233,19 @@
 </ul>
 </li>
 </ul>
-<h4 id="次要刻度线"><a href="#次要刻度线" class="headerlink" title="次要刻度线"></a>次要刻度线</h4><p>使用</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">library</span>(Hmisc)</span><br><span class="line">minor.tick(nx=n, ny=n, tick.ratio=n)</span><br></pre></td></tr></table></figure>
+<h4 id="次要刻度线"><a href="#次要刻度线" class="headerlink" title="次要刻度线"></a>次要刻度线</h4><p>使用<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">library</span>(Hmisc)</span><br><span class="line">minor.tick(nx=n, ny=n, tick.ratio=n)</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>nx、ny分别指定了X轴和Y轴每两条主刻度线之间通过次要刻度线划分得到的区间个数。</li>
 <li>tick.ratio表示次要刻度线相对于主刻度线的大小比例。</li>
 <li>可以用<code>par(&quot;tck&quot;)</code>获取当前的主刻度线大小<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在X轴的每两条主刻度线之间添加一条次要刻度线，在Y轴的每两条主刻度线之间添加两条次要刻度线</span></span><br><span class="line"><span class="comment">#次要刻度线是主刻度线的一半</span></span><br><span class="line">minor.tick(nx=<span class="number">2</span>, ny=<span class="number">3</span>, tick.ratio=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="参考线"><a href="#参考线" class="headerlink" title="参考线"></a>参考线</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">abline(h=yvalues, v=xvalues)</span><br></pre></td></tr></table></figure>
 实例：<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在y为1、5、7的位置添加了水平实线</span></span><br><span class="line">abline=(h=c(<span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>))</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在x为1、3、5、7、9的位置添加了垂直的蓝色虚线</span></span><br><span class="line">abline(v=seq(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>), lty=<span class="number">2</span>, col=<span class="string">"blue"</span>)</span><br></pre></td></tr></table></figure>
-
 <h3 id="添加图例"><a href="#添加图例" class="headerlink" title="添加图例"></a>添加图例</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">legend(location, title, legend, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure>
-
 <p>图例选项</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -245,7 +253,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>location</td>
 <td>有许多方式可以指定图例的位置。你可以直接给定图例左上角的x、 y坐标，也可以执行locator(1)，然后通过鼠标单击给出图例的位置，还可以使用关键字bottom、 bottomleft、left、 topleft、 top、 topright、 right、 bottomright或center放置图例。如果你使用了以上某个关键字，那么可以同时使用参数inset=指定图例向图形内侧移动的大小（以绘图区域大小的分数表示）</td>
 </tr>
@@ -260,19 +269,21 @@
 <tr>
 <td>…</td>
 <td></td>
+<td>其他选项。如果图例标示的是颜色不同的线条，需要指定col=加上颜色值组成的向量。如果图例标示的是符号不同的点，则需指定pch=加上符号的代码组成的向量。如果图例标示的是不同的线条宽度或线条类型，请使用lwd=或lty=加上宽度值或类型值组成的向量。要为图例创建颜色填充的盒形（常见于条形图、箱线图或饼图），需要使用参数fill=加上颜色</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="文本标注"><a href="#文本标注" class="headerlink" title="文本标注"></a>文本标注</h3><ul>
 <li>text()可以向绘图区域内部添加文本</li>
 </ul>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">text(location, <span class="string">"text to place"</span>, pos, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>mtext()可以向图形的四个边界之一添加文本</li>
 </ul>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mtext(<span class="string">"text to place"</span>, side, line=n, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure>
-
 <p>常用选项</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -280,7 +291,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>location</td>
 <td>文本的位置参数。可为一对x,y坐标，也可通过指定location为locator(1）使用鼠标交互式地确定摆放位置</td>
 </tr>
@@ -292,10 +304,10 @@
 <td>side</td>
 <td>指定用来放置文本的边。 1=下， 2=左， 3=上， 4=右。你可以指定参数line=来内移或外移文本，随着值的增加，文本将外移。也可使用adj=0将文本向左下对齐，或使用adj=1右上对齐</td>
 </tr>
-</tbody></table>
-<p>还可以用text()表示图形中的点。如</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">attach</span>(mtcars)</span><br><span class="line">plot(wt, mpg, </span><br><span class="line">    main=<span class="string">"Mileage vs. Car Weight"</span>,</span><br><span class="line">    xlab=<span class="string">"Weight"</span>, ylab=<span class="string">"Mileage"</span>,</span><br><span class="line">    pch=<span class="number">18</span>, col=<span class="string">"blue"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#为各个数据点右侧添加车辆型号</span></span><br><span class="line">text(wt, mpg,</span><br><span class="line">    row.names(mtcars), </span><br><span class="line">    cex=<span class="number">0.6</span>, pos=<span class="number">4</span>, col=<span class="string">"red"</span>)<span class="comment">#各点的标签大小缩小了40%，颜色为红色</span></span><br><span class="line"><span class="keyword">detach</span>(mtcars)</span><br></pre></td></tr></table></figure>
-<p><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=40d1b451b68b87d65042ab1737092860/5f8ba38b87d6277f6de234583f381f30e824fc6d.jpg" alt="文本"></p>
+</tbody>
+</table>
+</div>
+<p>还可以用text()表示图形中的点。如<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">attach</span>(mtcars)</span><br><span class="line">plot(wt, mpg, </span><br><span class="line">    main=<span class="string">"Mileage vs. Car Weight"</span>,</span><br><span class="line">    xlab=<span class="string">"Weight"</span>, ylab=<span class="string">"Mileage"</span>,</span><br><span class="line">    pch=<span class="number">18</span>, col=<span class="string">"blue"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#为各个数据点右侧添加车辆型号</span></span><br><span class="line">text(wt, mpg,</span><br><span class="line">    row.names(mtcars), </span><br><span class="line">    cex=<span class="number">0.6</span>, pos=<span class="number">4</span>, col=<span class="string">"red"</span>)<span class="comment">#各点的标签大小缩小了40%，颜色为红色</span></span><br><span class="line"><span class="keyword">detach</span>(mtcars)</span><br></pre></td></tr></table></figure><br><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=40d1b451b68b87d65042ab1737092860/5f8ba38b87d6277f6de234583f381f30e824fc6d.jpg" alt="文本"></p>
 <h3 id="数学标注"><a href="#数学标注" class="headerlink" title="数学标注"></a>数学标注</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">plotmath()</span><br></pre></td></tr></table></figure>
 <h1 id="组合多个图形"><a href="#组合多个图形" class="headerlink" title="组合多个图形"></a>组合多个图形</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h2 id="图形布局的精细控制"><a href="#图形布局的精细控制" class="headerlink" title="图形布局的精细控制"></a>图形布局的精细控制</h2></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/03/01/%E3%80%8AR%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-3-%E5%9B%BE%E5%BD%A2%E5%88%9D%E9%98%B6/">http://yoursite.com/2020/03/01/%E3%80%8AR%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-3-%E5%9B%BE%E5%BD%A2%E5%88%9D%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/R/">R</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/03/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E5%91%A8-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%841/"><i class="fa fa-chevron-left">  </i><span>数据结构第二周-线性结构1</span></a></div><div class="next-post pull-right"><a href="/2020/02/27/%E3%80%8AR%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-1/"><span>《R语言实战》学习总结-1-R语言介绍</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {

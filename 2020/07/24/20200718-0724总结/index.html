@@ -33,7 +33,7 @@
 <li>考虑文档d的主题分布，表示为每个主题z的pr（z | d）</li>
 </ol>
 <p><img src="https://i.loli.net/2020/07/20/BGd2KtvLNfaADx3.png" alt="image.png"></p>
-<ol start="3">
+<ol>
 <li>对候选短语（短语得分是短语中单词得分之和）进行综合排名后，我们选择前M作为文档d的关键短语。<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2></li>
 </ol>
 <h3 id="标记化"><a href="#标记化" class="headerlink" title="标记化"></a>标记化</h3><p>在Python中，标记化基本上是指将更大的文本体分成更小的行，单词甚至为非英语语言创建单词。各种标记化功能内置于nltk模块本身，可以在程序中使用。</p>
@@ -57,9 +57,8 @@
 <li>查询扩展和文档扩展的有效性互补，查询扩展更有效</li>
 <li>预测的关键短语数量的个数=5时效果最好</li>
 <li>目前无监督的关键词提取模型还有很多问题</li>
-<li>关键短语的跨域泛化还存在问题<h2 id="相关概念-2"><a href="#相关概念-2" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="Seq2Seq-序列到序列模型"><a href="#Seq2Seq-序列到序列模型" class="headerlink" title="Seq2Seq 序列到序列模型"></a>Seq2Seq 序列到序列模型</h3></li>
+<li>关键短语的跨域泛化还存在问题<h2 id="相关概念-2"><a href="#相关概念-2" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="Seq2Seq-序列到序列模型"><a href="#Seq2Seq-序列到序列模型" class="headerlink" title="Seq2Seq 序列到序列模型"></a>Seq2Seq 序列到序列模型</h3><strong>序列：</strong>语音数据、文本数据、视频数据都是有连续关系的数据，都可以视为序列（Sequence）<br><strong>序列到序列任务：</strong></li>
 </ul>
-<p><strong>序列：</strong>语音数据、文本数据、视频数据都是有连续关系的数据，都可以视为序列（Sequence）<br><strong>序列到序列任务：</strong></p>
 <ol>
 <li>输入与输出长度不定</li>
 <li>输入与输出具有顺序关系</li>

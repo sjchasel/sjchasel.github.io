@@ -9,66 +9,43 @@
   }
 } </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Torch、OpenNMT等"><span class="toc-number">1.</span> <span class="toc-text">安装Torch、OpenNMT等</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-10-27我又来了"><span class="toc-number">2.</span> <span class="toc-text">2020-10-27我又来了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装github"><span class="toc-number">2.0.1.</span> <span class="toc-text">安装github</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-10-29"><span class="toc-number">3.</span> <span class="toc-text">2020-10-29</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">3.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code"><span class="toc-number">3.2.</span> <span class="toc-text">code</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#preprocess-py"><span class="toc-number">3.2.1.</span> <span class="toc-text">preprocess.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#train-py"><span class="toc-number">3.2.2.</span> <span class="toc-text">train.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kp-gen-eval-py"><span class="toc-number">3.2.3.</span> <span class="toc-text">kp_gen_eval.py</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model"><span class="toc-number">3.3.</span> <span class="toc-text">model</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">20201024-10230总结</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-10-24</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/10/24/20201024-1030/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/10/24/20201024-1030/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>这篇博客分三大部分，第一部分是我配置环境的流水账，第二部分是我看不懂代码只好先机械地把框架搬运上来，第三部分是我关于模型的极其口语化的思考。</p>
-<h1 id="安装Torch、OpenNMT等"><a href="#安装Torch、OpenNMT等" class="headerlink" title="安装Torch、OpenNMT等"></a>安装Torch、OpenNMT等</h1><p>使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install OpenNMT-py</span><br></pre></td></tr></table></figure>
-<p>没有报错，但是使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 不带 sudo 运行以下命令：</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/torch/distro.git ~/torch --recursive</span><br><span class="line"><span class="built_in">cd</span> ~/torch; bash install-deps;</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
-<p>提示我要先安装git<br>于是</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure>
-<p>天那也没有报错，那么我继续git clone<br><img src="https://i.loli.net/2020/10/24/snWylE17JxGaYBP.png" alt="QQ图片20201024133412.png"><br>（继续等待…我的Ubuntu多努力啊<br><img src="https://i.loli.net/2020/10/24/r2j3TpPguc9LKkO.png" alt="QQ图片20201024142821.png"><br>它不动了？！</p>
+<h1 id="安装Torch、OpenNMT等"><a href="#安装Torch、OpenNMT等" class="headerlink" title="安装Torch、OpenNMT等"></a>安装Torch、OpenNMT等</h1><p>使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install OpenNMT-py</span><br></pre></td></tr></table></figure><br>没有报错，但是使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 不带 sudo 运行以下命令：</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/torch/distro.git ~/torch --recursive</span><br><span class="line"><span class="built_in">cd</span> ~/torch; bash install-deps;</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure><br>提示我要先安装git<br>于是<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure><br>天那也没有报错，那么我继续git clone<br><img src="https://i.loli.net/2020/10/24/snWylE17JxGaYBP.png" alt="QQ图片20201024133412.png"><br>（继续等待…我的Ubuntu多努力啊<br><img src="https://i.loli.net/2020/10/24/r2j3TpPguc9LKkO.png" alt="QQ图片20201024142821.png"><br>它不动了？！</p>
 <p>我直接往下进行，然而疯狂报错，试了几种方法也无法解决<br>错误是：<img src="https://i.loli.net/2020/10/24/P6pMtoFCz2wgKyD.png" alt="image.png"></p>
-<p>试了这条语句，倒是没有报错</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt --fix-broken install python-pycurl python-apt</span><br></pre></td></tr></table></figure>
-<p>那么我再install-deps看看</p>
+<p>试了这条语句，倒是没有报错<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt --fix-broken install python-pycurl python-apt</span><br></pre></td></tr></table></figure><br>那么我再install-deps看看</p>
 <p>还是一样的错误…<br>快被这个知乎写的气死了，我按官方文档的方法试试吧</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/OpenNMT/OpenNMT-py.git</span><br><span class="line"><span class="built_in">cd</span> OpenNMT-py</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
-
 <p>唉，接收对象接收的好慢啊！</p>
 <p>今天就到这了，人都要气没了。下次找下怎么快速在Linux里clone GitHub仓库的方法。</p>
 <h1 id="2020-10-27我又来了"><a href="#2020-10-27我又来了" class="headerlink" title="2020-10-27我又来了"></a>2020-10-27我又来了</h1><p><a href="https://blog.csdn.net/qq_28154847/article/details/80345057" target="_blank" rel="noopener">Ubuntu下安装和使用OpenNMT翻译以及其中系统中遇到的问题</a><br>这篇博客里的步骤还挺清晰的，就按着这个来了。</p>
 <h3 id="安装github"><a href="#安装github" class="headerlink" title="安装github"></a>安装github</h3><ol>
 <li>第一步：</li>
 </ol>
-<p>安装git。打开终端输入命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<p>虽然出现了一点小问题，但第一步还是顺利完成了（好像之前就完成了）。</p>
-<ol start="2">
+<p>安装git。打开终端输入命令<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure><br>虽然出现了一点小问题，但第一步还是顺利完成了（好像之前就完成了）。</p>
+<ol>
 <li>第二步：</li>
 </ol>
-<p>配置本机git的两个重要信息，user.name和user.email,中终端输入如下命令即可设置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line">git config --global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure>
-<p>然后我们可通过命令 git config –list,查看是否设置成功。<br>顺利完成。</p>
-<ol start="3">
+<p>配置本机git的两个重要信息，user.name和user.email,中终端输入如下命令即可设置<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line">git config --global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure><br>然后我们可通过命令 git config —list,查看是否设置成功。<br>顺利完成。</p>
+<ol>
 <li>第三步：</li>
 </ol>
-<p>查看home目录下是否有.ssh目录，一般情况是没有的，需要我们敲命令生成这个目录，在终端输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure>
-
+<p>查看home目录下是否有.ssh目录，一般情况是没有的，需要我们敲命令生成这个目录，在终端输入<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure></p>
 <p>邮箱就是刚刚第二步设置的。然后一路按回车，其实就是不设置密码。然后你就会看到home目录下多了.ssh目录。</p>
-<p>完成，虽然我没有看见那个目录，但可以进去</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home</span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<p>完成，虽然我没有看见那个目录，但可以进去<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home</span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>第四步：</li>
 </ol>
 <p>进入.ssh目录你会看到两个文件id_rsa和id_rsa.pub,id_rsa是私钥，id_rsa.pub自然就是公钥啦。然后我们需要做的就是把id_rsa.pub文件中的内容拷贝一下。</p>
 <p>我看不到，去查了下如何复制公钥到自己的剪贴板上。但是查到的方法命令行都告诉我识别不了…</p>
-<ol start="5">
+<ol>
 <li>第五步：</li>
 </ol>
 <p>进入你自己的网上github，进入Settings-&gt;SSH and GPG keys-&gt;New SSH key,然后在Key那栏下面将第四步拷贝的东西粘贴进去就可以了，最后点击 Add SSH key按钮添加。</p>
 <h1 id="2020-10-29"><a href="#2020-10-29" class="headerlink" title="2020-10-29"></a>2020-10-29</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>之前安装git被打断了。今天老师发了个虚拟机的账号，于是安装了VNC View，登上了虚拟机。<br><img src="https://i.loli.net/2020/10/29/ACIgfxzUVTbdY49.png" alt="QQ图片20201029001200.png"><br>一看就比我的专业很多！<br>那我就按照知乎上那个清晰的步骤来按照OpenNMT了！第一句话，还在运行，希望半小时内能成功。</p>
-<p>运行到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash install-deps</span><br></pre></td></tr></table></figure>
-<p>出问题了！<br>查到这个博客，我来试试<br><a href="https://blog.csdn.net/weixin_38132338/article/details/86007530" target="_blank" rel="noopener">Linux搭建torch环境出现无法定位软件包的解决方法</a><br>呜呜呜<br><img src="https://i.loli.net/2020/10/29/i5zFVZGxubtI293.png" alt="image.png"><br>我觉得这不像安装好了的样子，但我还是往下继续做试试吧。<br>我的天，这虚拟机太卡了！完全无法手动打开文件夹！<br>救命…一动不动的…我该何去何从…呜呜呜重新打开也没用，wsl，那么我去看代码了。</p>
+<p>运行到<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash install-deps</span><br></pre></td></tr></table></figure><br>出问题了！<br>查到这个博客，我来试试<br><a href="https://blog.csdn.net/weixin_38132338/article/details/86007530" target="_blank" rel="noopener">Linux搭建torch环境出现无法定位软件包的解决方法</a><br>呜呜呜<br><img src="https://i.loli.net/2020/10/29/i5zFVZGxubtI293.png" alt="image.png"><br>我觉得这不像安装好了的样子，但我还是往下继续做试试吧。<br>我的天，这虚拟机太卡了！完全无法手动打开文件夹！<br>救命…一动不动的…我该何去何从…呜呜呜重新打开也没用，wsl，那么我去看代码了。</p>
 <h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><p>它失败了，但它自己从摔倒的地方站起来重新开始，比我那个破虚拟机好多了。那我就边等待边看代码吧。突然觉得，作者用到的代码应该就是主文件下散落的那几个py文件，其他的文件夹应该都是模型运行或者OpenNMT生成的。</p>
 <p>根据主文件夹里的readme，第一个要看的应该是preprocess.py<br>（校园网真是莫名其妙断网）</p>
-<p>然后是train.py。它好像使用不同的yml（一种配置文件）？就可以训练不同的模型。比如使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python train.py -config config/train/config-rnn-keyphrase-one2seq-diverse.yml</span><br></pre></td></tr></table></figure>
-<p>可以训练a One2Seq model with Diversity Mechanisms enabled。</p>
-<p>使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python train.py -config config/train/config-rnn-keyphrase-one2one-stackexchange.yml</span><br></pre></td></tr></table></figure>
-<p>可以训练一个one2one model。<br>最后用kp_gen_eval.py这个文件进行关键词生成和评估。</p>
+<p>然后是train.py。它好像使用不同的yml（一种配置文件）？就可以训练不同的模型。比如使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python train.py -config config/train/config-rnn-keyphrase-one2seq-diverse.yml</span><br></pre></td></tr></table></figure><br>可以训练a One2Seq model with Diversity Mechanisms enabled。</p>
+<p>使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python train.py -config config/train/config-rnn-keyphrase-one2one-stackexchange.yml</span><br></pre></td></tr></table></figure><br>可以训练一个one2one model。<br>最后用kp_gen_eval.py这个文件进行关键词生成和评估。</p>
 <h3 id="preprocess-py"><a href="#preprocess-py" class="headerlink" title="preprocess.py"></a>preprocess.py</h3><p>opt应该都是用来使用OpenNMT的方法的对象吧？</p>
 <ol>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_existing_pt_files</span><span class="params">(opt)</span>:</span></span><br></pre></td></tr></table></figure>
@@ -77,10 +54,8 @@
 <li></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_save_dataset</span><span class="params">(corpus_type, fields, src_reader, tgt_reader, opt)</span>:</span></span><br></pre></td></tr></table></figure>
-<p>其中涉及的一些python知识：<br><a href="https://www.runoob.com/python3/python3-assert.html" target="_blank" rel="noopener">Python3 assert（断言）</a><br><a href="https://www.runoob.com/python/python-func-zip.html" target="_blank" rel="noopener">Python zip() 函数</a><br>shard_size是什么呢？没有找到相关介绍，只知道是参数…<br><a href="https://blog.csdn.net/lc013/article/details/91813812" target="_blank" rel="noopener">[Python技巧]是时候用 defaultdict 和 Counter 代替 dictionary 了</a><br>作者甚至把它们组合了起来，用的是</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">counters = defaultdict(Counter)</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.runoob.com/python/python-func-enumerate.html" target="_blank" rel="noopener">Python enumerate() 函数</a><br>shard是什么意思？</p>
-<ol start="3">
+<p>其中涉及的一些python知识：<br><a href="https://www.runoob.com/python3/python3-assert.html" target="_blank" rel="noopener">Python3 assert（断言）</a><br><a href="https://www.runoob.com/python/python-func-zip.html" target="_blank" rel="noopener">Python zip() 函数</a><br>shard_size是什么呢？没有找到相关介绍，只知道是参数…<br><a href="https://blog.csdn.net/lc013/article/details/91813812" target="_blank" rel="noopener">[Python技巧]是时候用 defaultdict 和 Counter 代替 dictionary 了</a><br>作者甚至把它们组合了起来，用的是<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">counters = defaultdict(Counter)</span><br></pre></td></tr></table></figure><br><a href="https://www.runoob.com/python/python-func-enumerate.html" target="_blank" rel="noopener">Python enumerate() 函数</a><br>shard是什么意思？</p>
+<ol>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_save_vocab</span><span class="params">(train_dataset, fields, opt)</span>:</span></span><br></pre></td></tr></table></figure>
 <p>应该是构建了词汇表然后存下来</p>
 </li>
@@ -94,7 +69,6 @@
 <p>参数？</p>
 </li>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    parser = _get_parser()</span><br><span class="line"></span><br><span class="line">    opt = parser.parse_args()</span><br><span class="line">    main(opt)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h3 id="train-py"><a href="#train-py" class="headerlink" title="train.py"></a>train.py</h3><ol>
@@ -105,7 +79,6 @@
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorHandler</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, error_queue)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_child</span><span class="params">(self, pid)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">error_listener</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">signal_handler</span><span class="params">(self, signalnum, stackframe)</span>:</span></span><br></pre></td></tr></table></figure></li>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_get_parser</span><span class="params">()</span>:</span></span><br></pre></td></tr></table></figure></li>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h3 id="kp-gen-eval-py"><a href="#kp-gen-eval-py" class="headerlink" title="kp_gen_eval.py"></a>kp_gen_eval.py</h3><ol>
@@ -116,8 +89,7 @@
 <p>返回参数</p>
 </li>
 <li><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br></pre></td></tr></table></figure>
-<p>加了一堆的参数<br>。。。</p>
-</li>
+加了一堆的参数<br>。。。</li>
 </ol>
 <h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><p>换换脑子…代码看不下去了，里面的方法函数搜都搜不到！<br>主题是Deep Keyphrase Expansion</p>
 <p>关于expansion，或许可以指两个方面：</p>
@@ -137,6 +109,7 @@
 <p>（继续补充想到的…那么如何证明这些关键短语都是好的呢？不同读者指定的关键短语也许意思全都重复了，只是短语没有完全相同。不过我们无法以读者检索文献时的满意度来评估一个模型，只能通过这些“标准答案”，在这个数据集里，标准答案就是作者和读者指定的这些短语）</p>
 <p>不知道王翠学姐上次有没有汇报评估指标到底是怎么评估的呢？F@10这种不满10个关键短语要怎么办？expansion可以帮助模型效果的评估吗？</p>
 <p>目前我能想到的就是这些了，然后去看看模型怎么办。<br>首先是相关论文中的模型</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -144,7 +117,8 @@
 <th>模型及作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>deep keyphrase generation</td>
 <td>RNN：生成短语<br>注意力机制：用于优化模型<br>复制机制：用于增强原文词汇的出现概率</td>
 </tr>
@@ -152,8 +126,11 @@
 <td>title-guided</td>
 <td>主要是基于GRU的序列到序列模型，体现title引导的是注意力机制中（因为注意力机制是相似度越大的越重要嘛？），它把context拆成title和body，计算context与title的相似度。这样title的信息被增强了一边，也将body里关于title的信息着重体现了出来</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>以上两篇用的词汇表好像都是出现频率最高的5w个单词</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -161,7 +138,8 @@
 <th>模型及作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Automatic Keyphrase Extraction via Topic Decomposition</td>
 <td>用了一提取文档主题的模型（LDA），把文档的主题加入对关键短语的排序考虑中</td>
 </tr>
@@ -197,7 +175,9 @@
 <td>Topic-Aware Neural Keyphrase Generation for Social Media Language</td>
 <td>神经主题模型</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>我们的模型</p>
 <ul>
 <li>需要控制不出现太多重复意思的短语（吗？用于信息检索的话，好像不需要控制。还是说能联想同义词应该是搜索引擎解决的事情呢？）</li>

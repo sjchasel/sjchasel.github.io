@@ -20,14 +20,16 @@
 <li>无监督技术从大规模文档中收集<br>作者使用第二种</li>
 </ol>
 <p>潜在主题模型：从大规模文档中推断文档/单词的主题 LDA\LSA\pLDA</p>
-<h2 id="LDA"><a href="#LDA" class="headerlink" title="LDA"></a>LDA</h2><table>
+<h2 id="LDA"><a href="#LDA" class="headerlink" title="LDA"></a>LDA</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>符号</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>d</td>
 <td>文档</td>
 </tr>
@@ -47,7 +49,9 @@
 <td>φ<sup>（z）</sup></td>
 <td>描述主题z的词</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>Dirichle分布：<br>共轭先验：</p>
 <p><img src="https://i.loli.net/2020/07/19/qjdOYmcBFphElRH.png" alt="image.png"></p>
 <h1 id="Topical-PageRank-for-Keyphrase-Extraction"><a href="#Topical-PageRank-for-Keyphrase-Extraction" class="headerlink" title="Topical PageRank for Keyphrase Extraction"></a>Topical PageRank for Keyphrase Extraction</h1><h2 id="构建文档d的词图"><a href="#构建文档d的词图" class="headerlink" title="构建文档d的词图"></a>构建文档d的词图</h2><p>将文档视为一个词序列，单词之间的链接权重被简单地设置为词序中W个单词最多的滑动窗口内的共现计数。<br>作者在本文构建有向图。<br>当滑动一个W宽度的窗口时，我们在每个位置添加从第一个单词指向窗口内其他单词的链接。由于关键词通常是名词短语，所以我们只在词图中添加形容词和名词。</p>
@@ -57,7 +61,7 @@
 <li>先将文档标记化，再用POS词性标注文档</li>
 </ol>
 <p><strong>标记化：</strong> 在Python中，标记化基本上是指将更大的文本体分成更小的行，单词甚至为非英语语言创建单词。各种标记化功能内置于nltk模块本身，可以在程序中使用。<br><strong>POS：</strong> POS是给句子中每个词一个词性类别的任务。 这里的词性类别可能是名词、动词、形容词或其他。 下面的句子是一个词性标注的例子。<br>其中，v代表动词、n代表名词、c代表连词、d代表副词、wp代表标点符号。</p>
-<ol start="2">
+<ol>
 <li>我们提取带有模式（形容词）*（名词）+的名词短语，表示零个或多个形容词，后跟一个或多个名词。我们将这些名词短语视为候选关键短语。</li>
 </ol>
 <h2 id="给定d文件的主题，将候选关键短语的主题特定排名整合到最终排名中，并选择排名靠前的作为关键短语。"><a href="#给定d文件的主题，将候选关键短语的主题特定排名整合到最终排名中，并选择排名靠前的作为关键短语。" class="headerlink" title="给定d文件的主题，将候选关键短语的主题特定排名整合到最终排名中，并选择排名靠前的作为关键短语。"></a>给定d文件的主题，将候选关键短语的主题特定排名整合到最终排名中，并选择排名靠前的作为关键短语。</h2><ol>
@@ -65,7 +69,7 @@
 <li>考虑文档d的主题分布，表示为每个主题z的pr（z | d）</li>
 </ol>
 <p><img src="https://i.loli.net/2020/07/20/BGd2KtvLNfaADx3.png" alt="image.png"></p>
-<ol start="3">
+<ol>
 <li>对候选短语（短语得分是短语中单词得分之和）进行综合排名后，我们选择前M作为文档d的关键短语。</li>
 </ol>
 <h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
@@ -77,6 +81,7 @@
 <ol>
 <li>精度/召回率/F-度量<br>p=c<sub>correct</sub>/c<sub>extract</sub><br>r=c<sub>correct</sub>/c<sub>standard</sub><br>f=2pr/(p+r)</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -84,7 +89,8 @@
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>c<sub>correct</sub></td>
 <td>通过一种方法提取的正确关键短语的总数</td>
 </tr>
@@ -96,9 +102,11 @@
 <td>c<sub>standard</sub></td>
 <td>类标记的标准关键短语的总数</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>由于排序的指标决定着最后的结果，也即影响着算法的性能。这种指标没有考虑提取的关键短语的顺序，所以作者又构建了两个额外的指标</p>
-<ol start="2">
+<ol>
 <li><p>binary preference measure (Bpref)二进制优先度量<br>对于一个文档，如果通过一种方法在M个提取的关键字短语中有R个正确的关键字短语，其中R是正确的关键字短语，n是不正确的关键字短语，则Bpref的定义如下<br>M：提取的关键字短语数量<br>R：正确的关键字短语数量<br>r：正确的关键字短语<br>n：不正确的关键字短语<br><img src="https://i.loli.net/2020/07/20/mfz8TP2cH1OAtGu.png" alt="image.png"> </p>
 </li>
 <li><p>平均互易秩（MRR）<br>用于评估每个文档的第一个正确关键字是如何排名的<br><img src="https://i.loli.net/2020/07/20/wqLp6AheUJBVsGy.png" alt="image.png"><br>d：文档<br>D：用于关键字提取的文档集</p>
@@ -110,7 +118,7 @@
 <li>本文将主题信息集成到PageRank中。我们计划在基于疗法的绘图算法中考虑主题信息，如HITS（Kleinberg，1999）。</li>
 <li>在本文中，我们使用维基百科来训练LDA，假设维基百科是人类知识的一个广泛的快照，可以涵盖新闻和研究中谈论的大多数话题。事实上，学习主题对学习语料库的依赖性很强。我们将探讨语料库选择对用TPR训练LDA进行关键短语提取的影响。</li>
 </ol>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/07/20/TPR/">http://yoursite.com/2020/07/20/TPR/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/07/20/Keyphrase%20Generation%20A%20Text%20Summarization%20Struggle/"><i class="fa fa-chevron-left">  </i><span>Keyphrase Generation: A Text Summarization Struggle</span></a></div><div class="next-post pull-right"><a href="/2020/07/13/20200713-0717%E6%80%BB%E7%BB%93/"><span>20200713-0717一周总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/07/20/TPR/">http://yoursite.com/2020/07/20/TPR/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/07/23/Keyphrase%20Generation%20for%20Scientific%20Document%20Retrieval/"><i class="fa fa-chevron-left">  </i><span>Keyphrase Generation for Scientific Document Retrieval</span></a></div><div class="next-post pull-right"><a href="/2020/07/20/Keyphrase%20Generation%20A%20Text%20Summarization%20Struggle/"><span>Keyphrase Generation: A Text Summarization Struggle</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {
   this.page.url = 'http://yoursite.com/2020/07/20/TPR/';
   this.page.identifier = '2020/07/20/TPR/';
