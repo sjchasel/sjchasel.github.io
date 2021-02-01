@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Title-Guided Encoding for Keyphrase Generation的模型"><meta name="keywords" content="NLP,论文"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>Title-Guided Encoding for Keyphrase Generation的模型 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Problem-Definition"><span class="toc-number">1.</span> <span class="toc-text">Problem Definition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Model"><span class="toc-number">2.</span> <span class="toc-text">Model</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder"><span class="toc-number">2.1.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequence-Encoding-Layer"><span class="toc-number">2.1.1.</span> <span class="toc-text">Sequence Encoding Layer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概览"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">概览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GRU具体公式"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">GRU具体公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matching-Layer"><span class="toc-number">2.1.2.</span> <span class="toc-text">Matching Layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merging-Layer"><span class="toc-number">2.1.3.</span> <span class="toc-text">Merging Layer</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training"><span class="toc-number">3.</span> <span class="toc-text">Training</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">61</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">18</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Title-Guided Encoding for Keyphrase Generation的模型</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-02-01</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/02/01/title%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/02/01/title模型详解/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>[TOC]</p>
+<h1 id="Problem-Definition"><a href="#Problem-Definition" class="headerlink" title="Problem Definition"></a>Problem Definition</h1><p>关键短语生成就是得知一个content $x$ ，需要输出一系列它的关键短语 $\mathcal{Y}={y^i}_{i=1,…,M}$ 。此时的content指的是包括了标题和main body的数据。</p>
+<p>content和关键短语都是单词序列，因此可以将它们表示为：$x=[x<em>1,…,x</em>{L<em>x}]$ ，第i个关键短语可以表示为： $y^i=[y_1^i,…,y^i</em>{L_y^i}]$ 。</p>
+<p>顺便表示下x的title: $\pmb t=[t<em>1,…,t</em>{L_t}]$</p>
+<ul>
+<li>$M$ ：一篇文档的关键短语的数量</li>
+<li>$L_x$ ：x的长度</li>
+<li>$L_y^i$ ：$y^i$ 的长度</li>
+<li>$L_t$ ：标题的长度</li>
+</ul>
+<p>为了应用seq2seq模型，与Rui一样，需要对数据做出切分。如果一篇content x有M个关键短语，那么我们可以切分成M对数据：${(\pmb x,\pmb y^i)}<em> {i=1,…,M}$ 。在这篇文章中title需要被特殊处理，不能与main body放在一起，因此拆分成： ${(\pmb x,\pmb t,\pmb y^i)}</em>{i=1,…,M}$ 。接下来我们就用 $(\pmb x,\pmb t,\pmb y)$ 来简单地表示这些数据。</p>
+<p>❗注意❗： $\pmb y$ 只是一个关键短语， $\pmb x$ 不是main body，而是包括了main body和title的内容，我们将其称为context。</p>
+<ul>
+<li>$\pmb W$ ：参数矩阵</li>
+</ul>
+<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p><img src="https://i.loli.net/2021/02/01/V4ICUo5QgMjxAiD.png" alt="image.png"></p>
+<p>encoder包括三层：</p>
+<ol>
+<li>Sequence Encoding Layer：分别编码context和title的上下文表示</li>
+<li>Matching Layer：通过注意力机制，利用title挑出context里的重要信息</li>
+<li>Merging Layer：融合成输入</li>
+</ol>
+<h3 id="Sequence-Encoding-Layer"><a href="#Sequence-Encoding-Layer" class="headerlink" title="Sequence Encoding Layer"></a>Sequence Encoding Layer</h3><h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p>首先我们根据embedding查询表将标题和context中的每个单词都映射到一个固定长度的向量 $d_e$ 中。然后我们使用两个双向的GRU对title和main body分别进行编码：</p>
+<script type="math/tex; mode=display">\overrightarrow{\pmb u}_i = GRU_{11}(\pmb x_i,\overrightarrow{\pmb u}_{i-1})</script><script type="math/tex; mode=display">\overleftarrow{\pmb u}_i = GRU_{12}(\pmb x_i,\overleftarrow{\pmb u}_{i+1})</script><script type="math/tex; mode=display">\overrightarrow{\pmb v}_j = GRU_{21}(\pmb t_j,\overrightarrow{\pmb v}_{j-1})</script><script type="math/tex; mode=display">\overleftarrow{\pmb v}_j = GRU_{22}(\pmb t_j,\overleftarrow{\pmb v}_{j+1})</script><ul>
+<li>$i=1,2,…,L_x$</li>
+<li>$j=1,2,…,L_t$</li>
+<li>$\pmb x_i$： context单词序列中第i个单词的嵌入表示</li>
+<li>$\pmb t_j$： title单词序列中第j个单词的嵌入表示</li>
+<li>$d$： hidden state的维度</li>
+</ul>
+<p>右箭头的是将嵌入表示按顺序输入得到的一半hidden state，左箭头的是反序输入嵌入表示的。它们的维度都是2/d。将其合并：</p>
+<script type="math/tex; mode=display">\pmb u_i=[\overrightarrow{\pmb u}_i,\overleftarrow{\pmb u}_i]</script><p>得到维度为d的，context中第i个单词的上下文向量。</p>
+<script type="math/tex; mode=display">\pmb v_j=[\overrightarrow{\pmb v}_j,\overleftarrow{\pmb v}_j]</script><p>得到维度为d的，title中第j个单词的上下文向量。</p>
+<h4 id="GRU具体公式"><a href="#GRU具体公式" class="headerlink" title="GRU具体公式"></a>GRU具体公式</h4><h3 id="Matching-Layer"><a href="#Matching-Layer" class="headerlink" title="Matching Layer"></a>Matching Layer</h3><p>$\pmb x$ 的第i个单词的aggregated information vector计算的公式：$\pmb c<em>i=attn(\pmb u_i,[\pmb v_1,\pmb v_2,…,\pmb v</em>{L_t}];\pmb W_1)$</p>
+<p>详细计算步骤如下：</p>
+<script type="math/tex; mode=display">\pmb c_i=\sum_{j=1}^{L_t}\alpha_{i,j}\pmb v_j</script><script type="math/tex; mode=display">\alpha_{i,j}=exp(s_{i,j})/\sum_{k=1}^{L_t}exp(s_{i,k})</script><script type="math/tex; mode=display">s_{i,j}=(\pmb u_i)^T\pmb W_i\pmb v_j</script><p>$s_{i,j}$ 表示 $\pmb u_i$ 和 $\pmb v_j$ 在 $\pmb W_1$ 度量下的内积，即还没规范化的注意力得分。</p>
+<p>看起来只是在计算context表示和title表示的注意力得分，其实里面包含了两个部分。这是因为context里就包含了两部分内容：title和main body。两部分内容如下：</p>
+<ol>
+<li>title to title<blockquote>
+<p>The first part is the “title to title” self matching part, wherein each title word attends the whole title itself and gathers the relevant title information.</p>
+<h3 id="Merging-Layer"><a href="#Merging-Layer" class="headerlink" title="Merging Layer"></a>Merging Layer</h3></blockquote>
+</li>
+</ol>
+<h1 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h1><script type="math/tex; mode=display">\mathcal{L} = -\sum^{L_y}_{t=1}logP_{final}(\pmb y_{t-1},\pmb x,\pmb t;\Theta)</script><ul>
+<li>$\Theta$ ：所有需要学习的参数的集合</li>
+<li>$L_y$ ：目标关键短语 $\pmb y$ 的长度</li>
+<li>$y_t$ ：$\pmb y$ 中的第t个单词</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/02/01/title%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3/">http://yoursite.com/2021/02/01/title%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/02/01/%E4%B8%AD%E7%AD%89%E9%93%BE%E8%A1%A8%E9%A2%98/"><i class="fa fa-chevron-left">  </i><span>中等链表题</span></a></div><div class="next-post pull-right"><a href="/2021/01/28/DeepKeyphraseGeneration/"><span>Deep Keyphrase Generation的模型</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2021/02/01/title%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3/';
+  this.page.identifier = '2021/02/01/title模型详解/';
+  this.page.title = 'Title-Guided Encoding for Keyphrase Generation的模型';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
