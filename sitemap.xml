@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2021/02/14/%E4%B8%AD%E7%AD%89%E9%93%BE%E8%A1%A8%E9%A2%98/</loc>
+    
+    <lastmod>2021-02-16T06:39:35.023Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2021/01/26/%E7%AE%80%E5%8D%95%E9%93%BE%E8%A1%A8%E9%A2%98/</loc>
+    
+    <lastmod>2021-02-14T07:16:15.307Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2021/01/26/title%E5%A4%8D%E7%8E%B0%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2021-02-06T13:43:15.841Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2021/02/01/title%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3/</loc>
     
-    <lastmod>2021-02-01T13:08:27.615Z</lastmod>
+    <lastmod>2021-02-01T13:41:05.398Z</lastmod>
     
   </url>
   
@@ -16,30 +37,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2021/01/26/%E7%AE%80%E5%8D%95%E9%93%BE%E8%A1%A8%E9%A2%98/</loc>
-    
-    <lastmod>2021-02-01T09:34:00.215Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2021/01/28/DeepKeyphraseGeneration/</loc>
     
     <lastmod>2021-02-01T08:32:05.456Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2021/02/01/%E4%B8%AD%E7%AD%89%E9%93%BE%E8%A1%A8%E9%A2%98/</loc>
-    
-    <lastmod>2021-02-01T05:10:07.127Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2021/01/26/title%E5%A4%8D%E7%8E%B0%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    
-    <lastmod>2021-01-27T13:01:50.585Z</lastmod>
     
   </url>
   
