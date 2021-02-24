@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Teacher forcing in RNN"><meta name="keywords" content="深度学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>Teacher forcing in RNN | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">1.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">64</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">20</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Teacher forcing in RNN</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-02-21</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/02/21/Teacher%20forcing%20in%20RNN/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/02/21/Teacher forcing in RNN/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>在看copy机制的代码的时候看见一个类里的一个参数叫teacher_forcing，百度了一下相关理论，于是又来当缝合怪写博客。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/93030328" target="_blank" rel="noopener">关于Teacher Forcing 和Exposure Bias的碎碎念</a><br><a href="https://cedar.buffalo.edu/~srihari/CSE676/10.2.1%20TeacherForcing.pdf" target="_blank" rel="noopener">RNNs: Teacher Forcing</a><br><a href="https://blog.csdn.net/wl1710582732/article/details/88636852" target="_blank" rel="noopener">Teacher Forcing策略在RNN的应用</a><br><a href="https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c" target="_blank" rel="noopener">What is Teacher Forcing?</a><br><a href="https://machinelearningmastery.com/teacher-forcing-for-recurrent-neural-networks/" target="_blank" rel="noopener">What is Teacher Forcing for Recurrent Neural Networks?</a><br><a href="https://blog.csdn.net/qq_30219017/article/details/89090690" target="_blank" rel="noopener">一文弄懂关于循环神经网络(RNN)的Teacher Forcing训练机制</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/02/21/Teacher%20forcing%20in%20RNN/">http://yoursite.com/2021/02/21/Teacher%20forcing%20in%20RNN/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/02/20/DCIC%E5%85%B1%E4%BA%AB%E5%8D%95%E8%BD%A6task01/"><span>DCIC算法分析题：早高峰共享单车潮汐点的群智优化——task01</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2021/02/21/Teacher%20forcing%20in%20RNN/';
+  this.page.identifier = '2021/02/21/Teacher forcing in RNN/';
+  this.page.title = 'Teacher forcing in RNN';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
