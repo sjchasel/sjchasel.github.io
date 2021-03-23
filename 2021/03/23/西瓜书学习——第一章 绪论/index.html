@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="西瓜书南瓜书 第一章 绪论"><meta name="keywords" content="机器学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>西瓜书南瓜书 第一章 绪论 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#补充"><span class="toc-number">1.</span> <span class="toc-text">补充</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#假设空间"><span class="toc-number">2.</span> <span class="toc-text">假设空间</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#归纳偏好"><span class="toc-number">3.</span> <span class="toc-text">归纳偏好</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思考"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#课后习题"><span class="toc-number">5.</span> <span class="toc-text">课后习题</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">69</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">西瓜书南瓜书 第一章 绪论</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-23</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/03/23/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/03/23/西瓜书学习——第一章 绪论/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>从数据中学习模型的过程叫做学习或训练。模型需要学习到的是数据中潜在的规律，叫做假设。而这种规律本身是ground-truth。我们希望我们的模型学习到的假设是非常逼近真相的。<br>机器学习的目标是使得学习到的模型更好地逼近新样本。我们通常会假设样本服从一个未知的分布，且采样时都是独立的，即样本是独立同分布的。我们的样本越多，我们就能知道越多有关这个分布的信息，从而学习到逼近真相的假设。</p>
+<h1 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h1><p>归纳（induction）：从特殊到一般的泛化（generalization）过程。<br>演绎（deduction）：从一般到特殊的特化（specialization）过程。</p>
+<p>机器学习（一般是从样例学习）是一个归纳过程，因此也叫归纳学习。</p>
+<p>我们可以把学习过程看作一个在所有假设（hypothesis）组成的空间中进行搜索的过程，目的是找到与训练集相匹配的那个假设。但是现实情况下假设空间很大，训练集的样本数也不够多，我们可能找到很多个符合训练集的假设。这些假设的集合叫做 <strong>“版本空间”</strong>。我们必须根据某些条件选出我们需要的那个假设。也就是我们对假设会有某种偏好。👇</p>
+<h1 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h1><p>归纳偏好可以看作学习算法自身在一个庞大的假设空间中对假设进行选择的启发式或者“价值观”。</p>
+<p>奥卡姆剃刀（Occam‘s razor）是一种常用的原则：“若有多个假设与观察一致，则选最简单的那个”。<br>但是问题又来了：</p>
+<ol>
+<li>现实情况很复杂，我们不能肯定未知数据到底是什么样的。也许它就是更符合那个复杂的假设呢？</li>
+<li>我们如何衡量假设的复杂性，如何比较出哪个假设是更简单的？需要一种定量分析的手法才行。</li>
+</ol>
+<p>然而 <strong>免费的午餐定理（NFL No Free Lunch Theorem）</strong> 的前提告诉我们，所有“问题”出现的机会相同、或所有问题同等重要。也就是 <strong>在不知道具体问题的情况下，我们只能假设真实的目标函数是均匀分布的</strong> ，每个算法都是一样的。</p>
+<p>我们先定义一些符号：</p>
+<ul>
+<li>$\mathfrak{L}_{a}$：一个简单的学习算法，符合训练集</li>
+<li>$\mathfrak{L}_{b}$：一个复杂的学习算法，符合训练集</li>
+<li>$\mathcal{X}$：样本空间，是离散的</li>
+<li>$\mathcal{H}$：假设空间，是离散的</li>
+<li>$f$：我们希望学习到的真实目标函数</li>
+<li>$\mathbb{I}(·)$：指示函数，若为真取1，为假取0</li>
+<li>$P(h|X,\mathfrak{L}_{a})$：算法a基于训练数据X产生假设h的概率</li>
+</ul>
+<p>我们计算算法a在 <strong>训练集之外</strong> 的所有样本上的误差（泛化误差）为</p>
+<p><img src="https://i.loli.net/2021/03/23/fbnKlDso2CBkPR4.png" alt="image.png"></p>
+<p>由于我们不知道真实的函数是什么样的（我们现在推导这个公式并没有在某个场景下），因此我们只能先假设真实的函数是均匀分布的。我们对每个函数的误差求和。<br>先考虑简单的二分类情形，真实的目标函数只要符合$\mathcal{X}\rightarrow{0,1}$就行了，函数空间为${0,1}^{|\mathcal{X}|}$。求和公式为</p>
+<p><img src="https://i.loli.net/2021/03/23/qcnLO5Hv1NSzsIX.png" alt="image.png"></p>
+<p>对于$\sum_f\mathbb{I}(h(\bm{x}) \neq f(\bm{x}))$这部分</p>
+<p>我们有$|\mathcal{X}|$个样本，每个样本可以取1或者0，即两种情况。所有样本最终的结果有$2^{|\mathcal{X}|}$个情况，也就是函数f会有这么多种情况。无论我们学习到的函数对这个样本的预测是0还是1，在函数空间里都会有一半f与之相同。也就是$\sum_f\mathbb{I}(h(\bm{x}) \neq f(\bm{x}))=\frac{1}{2}2^{|\mathcal{X}|}$</p>
+<hr>
+<p>举个🌰，以免自己以后复习的时候又看不懂自己写的。（我为什么要说又！</p>
+<p>我们有三个样本$x_1, x_2, x_3$<br>可能的函数有8个</p>
+<script type="math/tex; mode=display">f_1: f_1(x_1)=1, f_1(x_2)=1, f_1(x_3)=1 \\
+f_2: f_2(x_1)=1, f_2(x_2)=1, f_2(x_3)=0 \\
+f_3: f_3(x_1)=1, f_3(x_2)=0, f_3(x_3)=1 \\
+f_4: f_4(x_1)=1, f_4(x_2)=0, f_4(x_3)=0 \\
+f_5: f_5(x_1)=0, f_5(x_2)=1, f_5(x_3)=1 \\
+f_6: f_6(x_1)=0, f_6(x_2)=1, f_6(x_3)=0 \\
+f_7: f_7(x_1)=0, f_7(x_2)=0, f_7(x_3)=1 \\
+f_8: f_8(x_1)=0, f_8(x_2)=0, f_8(x_3)=0</script><p>对于样本$x_1$，如果我们的函数将其判断为1，那么在所有的函数中就有$f_1, f_2, f_3, f_4$这四个与之相同，也就是所有函数数量的一半。</p>
+<hr>
+<p>那么公式就可继续化简</p>
+<p><img src="https://i.loli.net/2021/03/23/mhijKZUdDMHRCNn.png" alt="image.png"></p>
+<p>总误差竟然与算法无关！这个神奇的结论归功于我们之前的假设，我们不知道具体的问题是什么，只能假设函数f离散且均匀分布。</p>
+<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>我们认为真实的函数是可以高度拟合观测到的数据的，但是我们不能保证我们的训练集中的数据足够多，甚至压根不存在那些可以区分出真实函数的样本。比如如果真实的函数是$f_1$，而我们拥有的数据只有$x_1=1,x_2=1$，没有$x_3$，这样$f_2$也是符合情况的。</p>
+<p>作者说脱离实际问题，空泛地谈论什么学习算法更好毫无意义。要谈论算法的相对优劣，必须要针对具体的学习问题。我认为是在某个具体问题下我们才会对这个真实的函数有一个预先的偏好。如果我们了解我们在解决什么问题，我们一定会知道这个问题下的数据大概会是什么样的。比如在之前的例子中我们大概会知道这个问题下会有$x_3=1$这样的样本，那我们就能对多个符合训练集的假设做出选择。也就能评价不同的算法的优劣了（比如算法a选择lf1而算法b选择了f2，我们知道在这个问题下算法a更好）。</p>
+<p>这样是不是引入了先验的经验呢？这也可以看作是扩充了训练数据集吗？</p>
+<h1 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h1></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/03/23/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/">http://yoursite.com/2021/03/23/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/03/22/NEURAL%20MACHINE%20TRANSLATION%E6%A8%A1%E5%9E%8B/"><span>Bahdanau Attention：《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》模型解析</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2021/03/23/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/';
+  this.page.identifier = '2021/03/23/西瓜书学习——第一章 绪论/';
+  this.page.title = '西瓜书南瓜书 第一章 绪论';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
