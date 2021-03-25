@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="西瓜书南瓜书 第二章 模型评估与选择"><meta name="keywords" content="机器学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>西瓜书南瓜书 第二章 模型评估与选择 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#过拟合与欠拟合"><span class="toc-number">1.</span> <span class="toc-text">过拟合与欠拟合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#先自己闭卷回答一下"><span class="toc-number">1.1.</span> <span class="toc-text">先自己闭卷回答一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据博客的补充"><span class="toc-number">1.2.</span> <span class="toc-text">根据博客的补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#过拟合-高方差（overfiting-high-variance）篇"><span class="toc-number">1.2.1.</span> <span class="toc-text">过拟合&#x2F;高方差（overfiting &#x2F; high variance）篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#过拟合是什么及检验方法？"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">过拟合是什么及检验方法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导致过拟合的原因是什么？"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">导致过拟合的原因是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#过拟合的解决方法是什么？"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">过拟合的解决方法是什么？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欠拟合-高偏差（underfiting-high-bias）篇"><span class="toc-number">1.2.2.</span> <span class="toc-text">欠拟合&#x2F;高偏差（underfiting &#x2F; high bias）篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#欠拟合是什么及检验方法？"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">欠拟合是什么及检验方法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导致欠拟合的原因是什么？"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">导致欠拟合的原因是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#欠拟合的解决方法是什么？"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">欠拟合的解决方法是什么？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么不推荐用PCA避免过拟合"><span class="toc-number">1.2.3.</span> <span class="toc-text">为什么不推荐用PCA避免过拟合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#瓜瓜书上的补充"><span class="toc-number">1.3.</span> <span class="toc-text">瓜瓜书上的补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#评估方法"><span class="toc-number">2.</span> <span class="toc-text">评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#留出法（hold-out）"><span class="toc-number">2.1.</span> <span class="toc-text">留出法（hold-out）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉验证法"><span class="toc-number">2.2.</span> <span class="toc-text">交叉验证法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自助法（bootstrapping）"><span class="toc-number">2.3.</span> <span class="toc-text">自助法（bootstrapping）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调参与验证集"><span class="toc-number">3.</span> <span class="toc-text">调参与验证集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#评价指标"><span class="toc-number">4.</span> <span class="toc-text">评价指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归"><span class="toc-number">4.1.</span> <span class="toc-text">回归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#均方误差（mean-square-error）"><span class="toc-number">4.1.1.</span> <span class="toc-text">均方误差（mean square error）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">4.2.</span> <span class="toc-text">分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误率与精度"><span class="toc-number">4.2.1.</span> <span class="toc-text">错误率与精度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">71</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">西瓜书南瓜书 第二章 模型评估与选择</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-24</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/03/24/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%8D%97%E7%93%9C%E4%B9%A6%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/03/24/西瓜书南瓜书 第二章/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h1><h2 id="先自己闭卷回答一下"><a href="#先自己闭卷回答一下" class="headerlink" title="先自己闭卷回答一下"></a>先自己闭卷回答一下</h2><p>过拟合与欠拟合都是模型的学习能力与数据的规模不匹配造成的模型泛化误差不高的问题。</p>
+<p><strong>过拟合：</strong> 模型的学习能力太强，数据不够多。使得模型不仅学习到了这批数据的普遍特征，也学习到了内部的噪声，相当于把数据死记硬背了下来。模型在训练数据上的表现非常好，但当模型应用在没见过的数据上时，新的数据噪声不和原来的数据一样，导致模型无法很好地拟合新数据。过拟合是无法避免的，我们只能通过一些方式去缓解。从模型角度进行调整可以加入正则化的惩罚项，使得模型不要那么复杂。或是对于决策树来说，对其进行剪枝操作。从数据的角度来调整，就是增大数据量或是增多数据的特征。使得有更多的信息可以提供给模型。</p>
+<p><strong>欠拟合：</strong> 模型太简单，学习能力不足，无法学习到这批数据的普遍特征。模型在新数据和旧数据上的表现都不好。解决欠拟合很简单，让模型变复杂总是比获得更多数据简单的。比如增加神经网络的层数、换用更复杂的模型。</p>
+<h2 id="根据博客的补充"><a href="#根据博客的补充" class="headerlink" title="根据博客的补充"></a>根据博客的补充</h2><p><img src="https://i.loli.net/2021/03/24/HUtdwMBuxbczNhI.jpg" alt="eec076b0b1aec804c74f1e9b726832a.jpg"></p>
+<h3 id="过拟合-高方差（overfiting-high-variance）篇"><a href="#过拟合-高方差（overfiting-high-variance）篇" class="headerlink" title="过拟合/高方差（overfiting / high variance）篇"></a>过拟合/高方差（overfiting / high variance）篇</h3><h4 id="过拟合是什么及检验方法？"><a href="#过拟合是什么及检验方法？" class="headerlink" title="过拟合是什么及检验方法？"></a>过拟合是什么及检验方法？</h4><ul>
+<li>问题表现：高方差<ul>
+<li>当训练集和测试集的误差之间有大的差距时，为高方差;</li>
+<li>当方差很高，训练集和验证集的准确率相差太多，应该是过拟合;</li>
+<li>表现为训练效果好,但是测试效果差，即模型的泛化能力差。可以通过观察模型在训练集和测试集上的损失函数值随着epoch的变化，如果是过拟合，模型在测试集上的损失函数值一般是先下降后上升。<h4 id="导致过拟合的原因是什么？"><a href="#导致过拟合的原因是什么？" class="headerlink" title="导致过拟合的原因是什么？"></a>导致过拟合的原因是什么？</h4></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>训练数据太少，样本单一。如果训练样本只有负样本，然后拿生成的模型去预测正样本，这肯定预测不准。所以训练样本要尽可能的全面，覆盖所有的数据类型；</li>
+<li><strong>存在噪声。噪声指训练数据中的干扰数据。过多的干扰会导致记录了很多噪声特征，忽略了真实输入和输出之间的关系；</strong></li>
+<li>模型过于复杂。模型太复杂，已经能够死记硬背记录下了训练数据的信息，但是遇到没有见过的数据的时候不能够变通，泛化能力太差。我们希望模型对不同的数据都有稳定的输出。模型太复杂是过拟合的重要因素。<h4 id="过拟合的解决方法是什么？"><a href="#过拟合的解决方法是什么？" class="headerlink" title="过拟合的解决方法是什么？"></a>过拟合的解决方法是什么？</h4></li>
+<li>增加样本，要覆盖全部的数据类型。数据经过清洗之后再进行模型训练，防止噪声数据干扰模型；</li>
+<li>降低模型复杂度。在训练和建立模型的时候，从相对简单的模型开始，不要一开始就把特征做的非常多，模型参数挑的非常复杂；<br>正则化。在模型算法中添加惩罚函数来防止过拟合。常见的有L1，L2正则化。而且 L1正则还可以自动进行特征选择；</li>
+<li><strong>集成学习方法bagging能有效防止过拟合；</strong> 如随机森林和DropOut策略。所谓的Dropout指的是在用前向传播算法和反向传播算法训练DNN模型时，一批数据迭代时，随机的从全连接DNN网络中去掉一部分隐藏层的神经元。　在对训练集中的一批数据进行训练时，我们随机去掉一部分隐藏层的神经元，并用去掉隐藏层的神经元的网络来拟合我们的一批训练数据。使用基于dropout的正则化比基于bagging的正则化简单，这显而易见，当然天下没有免费的午餐，由于dropout会将原始数据分批迭代，因此原始数据集最好较大，否则模型可能会欠拟合。</li>
+<li>减少特征个数(不是太推荐，但也是一种方法)。可以使用特征选择，减少特征数或使用较少的特征组合，对于按区间离散化的特征，增大划分的区间；</li>
+<li>交叉检验，通过交叉检验得到较优的模型参数；</li>
+<li>早停策略。本质上是交叉验证策略，选择合适的训练次数，避免训练的网络过度拟合训练数据；</li>
+</ol>
+<h3 id="欠拟合-高偏差（underfiting-high-bias）篇"><a href="#欠拟合-高偏差（underfiting-high-bias）篇" class="headerlink" title="欠拟合/高偏差（underfiting / high bias）篇"></a>欠拟合/高偏差（underfiting / high bias）篇</h3><h4 id="欠拟合是什么及检验方法？"><a href="#欠拟合是什么及检验方法？" class="headerlink" title="欠拟合是什么及检验方法？"></a>欠拟合是什么及检验方法？</h4><ul>
+<li>问题表现：高偏差<ul>
+<li>当训练集和测试集的误差收敛但却很高时，为高偏差;</li>
+<li>当偏差很高，训练集和验证集的准确率都很低，很可能是欠拟合；</li>
+<li>表现为不能很好的拟合数据，训练集和测试集效果都不佳。</li>
+</ul>
+</li>
+</ul>
+<h4 id="导致欠拟合的原因是什么？"><a href="#导致欠拟合的原因是什么？" class="headerlink" title="导致欠拟合的原因是什么？"></a>导致欠拟合的原因是什么？</h4><p>原因：模型没有很好的捕捉数据特征，不能很好地拟合数据</p>
+<h4 id="欠拟合的解决方法是什么？"><a href="#欠拟合的解决方法是什么？" class="headerlink" title="欠拟合的解决方法是什么？"></a>欠拟合的解决方法是什么？</h4><ol>
+<li><strong>做特征工程，添加更多的特征项，比如特征组合、高次特征，来增大假设空间。</strong> 如果欠拟合是由于特征项不够，没有足够的信息支持模型做判断；</li>
+<li>集成学习方法boosting（如GBDT）能有效解决high bias；</li>
+<li>增加模型复杂度。如果模型太简单，不能够应对复杂的任务。可以使用更复杂的模型。比如说可以使用SVM的核函数，增加了模型复杂度，把低维不可分的数据映射到高维空间，就可以线性可分，减小欠拟合；</li>
+<li>减小正则化系数。</li>
+</ol>
+<blockquote>
+<p>集成学习的bagging解决过拟合，boosting解决欠拟合</p>
+</blockquote>
+<h3 id="为什么不推荐用PCA避免过拟合"><a href="#为什么不推荐用PCA避免过拟合" class="headerlink" title="为什么不推荐用PCA避免过拟合"></a>为什么不推荐用PCA避免过拟合</h3><p>【以后理解后填坑】</p>
+<h2 id="瓜瓜书上的补充"><a href="#瓜瓜书上的补充" class="headerlink" title="瓜瓜书上的补充"></a>瓜瓜书上的补充</h2><p>过拟合（overfitting）：把训练样本自身的一些特点当作了所有潜在样本都会具有的一般特质。<br>欠拟合（underfitting）：对训练样本的一般特质尚未学好</p>
+<p>理想的解决方案是对候选模型的泛化误差进行评估，选择泛化误差最小的那个。然而客观的泛化误差是没那么好知道的，因此我们有很多种选择模型的方法👇</p>
+<h1 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h1><h2 id="留出法（hold-out）"><a href="#留出法（hold-out）" class="headerlink" title="留出法（hold-out）"></a>留出法（hold-out）</h2><p><strong>留出法（hold-out）</strong> ：在数据集划分成两个互斥的集合，一个作为训练集，一个作为测试集。<br><strong>分层采样（stratified sampling）</strong> ：采样时对两个集合保留类别比例，即不能改变数据的分布。</p>
+<p>一般一次留出法不能合理地评估，我们会用若干次随机划分、重复实验后进行实验评估取平均值作为留出法的评估结果。</p>
+<p>如何选择训练集和测试集中数据的多少是一个难点。如果训练集中的数据太多，测试集中的数据太少，评估结果会有很大的方差（如果换一批测试集模型的表现可能就非常不同了），因此难以评价我们的模型的好坏。如果训练集中的样本太少，测试集中的样本太多，那么模型的评估结果会有很大的偏差。因为训练数据不够多，模型离真实情况相差较大。</p>
+<h2 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h2><p><strong>p次k折交叉验证</strong> ：</p>
+<ol>
+<li>将数据集随机分成等量的k份，尽量保持数据分布的一致性</li>
+<li>拿其中一份作为测试集，其他k-1份作为训练集。</li>
+<li>用训练集训练模型，测试集评估模型，得到一个评分</li>
+<li>重复2、3步k次，也就是每份数据子集都当过测试集。得到了k个评分</li>
+<li>这k个评分的平均数就是模型的表现</li>
+<li>重复上面五个步骤p次，得到p个表现分数。这p个表现分数的平均分就是模型最后的评分。</li>
+</ol>
+<p><img src="https://bkimg.cdn.bcebos.com/pic/8326cffc1e178a820e220820ff03738da977e810?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5/format,f_auto" alt=""></p>
+<p><strong>留一法</strong><br>有几个样本就分成几份，也就是只留一个样本来评估模型。由于这个方法使用的训练集很大，因此我们认为模型会很接近真实情况，且多次平均的得分也可以比较准确。但是当总样本数量很大时，这个计算开销非常大，因为我们要训练很多很多模型。也会有其他情况使得留一法不准确。</p>
+<h2 id="自助法（bootstrapping）"><a href="#自助法（bootstrapping）" class="headerlink" title="自助法（bootstrapping）"></a>自助法（bootstrapping）</h2><p>以 <strong>自助采样法（bootstrap sampling）</strong> 为基础。我们有一个数据集D，里面有m个样本。每次从中随机有放回地取出一个样本放入数据集D’，重复m次后，D’中也有m个样本了。由于是随机有放回的，因此必然会有一批样本存在于D中却没有被采样去D’中。我们可以计算</p>
+<script type="math/tex; mode=display">\lim_{m\rightarrow\infty}(1-\frac{1}{m})^m=\frac{1}{e}\approx0.368</script><p>也就是当这个数据集足够大时，会有约36.8%的样本没在D’中。我们把D’作为训练集，D-D’作为测试集。这样训练集也会有m个样本去训练模型，但又会有占整个数据集的百分之三十多的样本（模型没见过的）拿去评估模型。这样的测试结果叫做 <strong>包外估计（out-of-bag estimate）</strong> 。</p>
+<p>它的优点：</p>
+<ol>
+<li>对数据集很小，难以划分时很有用；</li>
+<li>产生不同的训练集，有利于集成模型的学习。<br>缺点：</li>
+<li>改变了数据的分布。因此在数据足够多时还是用留出法和交叉验证法。</li>
+</ol>
+<h1 id="调参与验证集"><a href="#调参与验证集" class="headerlink" title="调参与验证集"></a>调参与验证集</h1><p><strong>首先解释下超参数是什么</strong></p>
+<p>超参数是一类定义了模型更高层次的概念，比如学习能力和复杂程度的参数。模型参数是通过学习数据，拟合数据的分布得到的，但超参数是在模型训练之前需要人手动设定的。当超参数确定了，这个模型才能开始学习。比如在神经网络训练之前我们得定义它的结构，它有几层。当确定好这些超参数就可以开始训练来获得内部的权重参数。两个不同层数的神经网络虽然都是神经网络，但却是两个不同的模型。</p>
+<p><strong>超参数的设置方法</strong></p>
+<p>我们希望设定的超参数使得模型有更好的表现，也就是需要通过模型的表现来评估我们选取的超参数。那么如果用测试集来确定模型的超参数，最后又用它来评估最终的模型表现显然是不可以的（相当于高考泄题）。我们就又划分出一个数据集，叫验证集。<br>我们在训练集上训练模型，在验证集上验证模型的好坏。改变超参数后继续这一步骤，最终根据验证集上的多个结果选出最好的一组超参数作为我们的模型。这个模型拿去测试集测试出的结果就是我们模型的表现。也就是测试集不到最后一刻是不能使用的。<br>由于模型的超参数也很多，如果每种组合都试一遍选一组最优的显然是不现实的。有很多设置寻找超参数的方法比如贝叶斯优化、网格搜索、随即搜索。</p>
+<p><strong>交叉验证寻找超参数</strong></p>
+<p><img src="https://pics0.baidu.com/feed/f9dcd100baa1cd113a6c971934c4e8fbc2ce2d0a.jpeg?token=0a5118d9fc05e041a2699d07a2ee827b" alt=""></p>
+<h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h1><p>模型的好坏不仅取决于算法和数据，还取决于我们解决的是什么任务。所有任务用同一个评价指标显然是不合理的，因此我们需要根据我们不同的目的，来选择不同的评价指标对我们的模型进行客观的评价。</p>
+<h2 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h2><h3 id="均方误差（mean-square-error）"><a href="#均方误差（mean-square-error）" class="headerlink" title="均方误差（mean square error）"></a>均方误差（mean square error）</h3><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="错误率与精度"><a href="#错误率与精度" class="headerlink" title="错误率与精度"></a>错误率与精度</h3><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/km1994/NLP-Interview-Notes" target="_blank" rel="noopener">NLP INTERVIEW NOTES——DataWhale</a><br>西瓜书<br>南瓜书</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/03/24/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%8D%97%E7%93%9C%E4%B9%A6%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/">http://yoursite.com/2021/03/24/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%8D%97%E7%93%9C%E4%B9%A6%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/03/23/DeepKeyphraseGeneration/"><span>DeepKeyphraseGeneration</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2021/03/24/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%8D%97%E7%93%9C%E4%B9%A6%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/';
+  this.page.identifier = '2021/03/24/西瓜书南瓜书 第二章/';
+  this.page.title = '西瓜书南瓜书 第二章 模型评估与选择';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
