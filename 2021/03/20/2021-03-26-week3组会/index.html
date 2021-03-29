@@ -8,21 +8,15 @@
     noSupport: '浏览器不支持'
   }
 } </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
-</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#KEYPHRASE-GENERATION"><span class="toc-number">1.</span> <span class="toc-text">KEYPHRASE GENERATION</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-03-26-week3"><span class="toc-number">1.1.</span> <span class="toc-text">2021-03-26 week3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SONG-JIA"><span class="toc-number">1.1.1.</span> <span class="toc-text">SONG JIA</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CONTENT"><span class="toc-number">2.</span> <span class="toc-text">CONTENT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#seq2seq-and-encoder-decoder"><span class="toc-number">3.</span> <span class="toc-text">seq2seq and encoder-decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Background-and-Problems"><span class="toc-number">3.1.</span> <span class="toc-text">Background and Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-general-model"><span class="toc-number">3.2.</span> <span class="toc-text">a general model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#encoder"><span class="toc-number">3.2.1.</span> <span class="toc-text">encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoder"><span class="toc-number">3.2.2.</span> <span class="toc-text">decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#train"><span class="toc-number">3.2.3.</span> <span class="toc-text">train</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#《Sequence-to-Sequence-Learning-with-Neural-Networks》"><span class="toc-number">3.2.4.</span> <span class="toc-text">《Sequence to Sequence Learning with Neural Networks》</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse-input"><span class="toc-number">3.2.5.</span> <span class="toc-text">reverse input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#《Learning-Phrase-Representations-using-RNN-Encoder–Decoder-for-Statistical-Machine-Translation》"><span class="toc-number">3.2.6.</span> <span class="toc-text">《Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation》</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Attention-mechanism"><span class="toc-number">4.</span> <span class="toc-text">Attention mechanism</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bahdanau-Attention-《NEURAL-MACHINE-TRANSLATION-BY-JOINTLY-LEARNING-TO-ALIGN-AND-TRANSLATE》"><span class="toc-number">4.1.</span> <span class="toc-text">Bahdanau Attention:《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">4.1.1.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoder"><span class="toc-number">4.1.2.</span> <span class="toc-text">Decoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Luong-Attention-《Effective-Approaches-to-Attention-based-Neural-Machine-Translation》"><span class="toc-number">4.2.</span> <span class="toc-text">Luong Attention:《Effective Approaches to Attention-based Neural Machine Translation》</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#beam-search"><span class="toc-number">5.</span> <span class="toc-text">beam search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#beam-search-1"><span class="toc-number">6.</span> <span class="toc-text">beam search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparison-of"><span class="toc-number">7.</span> <span class="toc-text">Comparison of</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#different-models"><span class="toc-number">8.</span> <span class="toc-text">different models</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">9.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">71</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">2021-03-26-week3组会</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-20</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/03/20/2021-03-26-week3%E7%BB%84%E4%BC%9A/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/03/20/2021-03-26-week3组会/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><!-- slide -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#KEYPHRASE-GENERATION"><span class="toc-number">1.</span> <span class="toc-text">KEYPHRASE GENERATION</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-03-26-week3"><span class="toc-number">1.1.</span> <span class="toc-text">2021-03-26 week3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SONG-JIA"><span class="toc-number">1.1.1.</span> <span class="toc-text">SONG JIA</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CONTENT"><span class="toc-number">2.</span> <span class="toc-text">CONTENT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#seq2seq-and-encoder-decoder"><span class="toc-number">3.</span> <span class="toc-text">seq2seq and encoder-decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Background-and-Problems"><span class="toc-number">3.1.</span> <span class="toc-text">Background and Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-general-model"><span class="toc-number">3.2.</span> <span class="toc-text">a general model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#encoder"><span class="toc-number">3.2.1.</span> <span class="toc-text">encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoder"><span class="toc-number">3.2.2.</span> <span class="toc-text">decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#《Sequence-to-Sequence-Learning-with-Neural-Networks》"><span class="toc-number">3.2.3.</span> <span class="toc-text">《Sequence to Sequence Learning with Neural Networks》</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse-input"><span class="toc-number">3.2.4.</span> <span class="toc-text">reverse input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#《Learning-Phrase-Representations-using-RNN-Encoder–Decoder-for-Statistical-Machine-Translation》"><span class="toc-number">3.2.5.</span> <span class="toc-text">《Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation》</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Attention-mechanism"><span class="toc-number">4.</span> <span class="toc-text">Attention mechanism</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#in-seq2seq"><span class="toc-number">5.</span> <span class="toc-text">in seq2seq</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bahdanau-Attention-《NEURAL-MACHINE-TRANSLATION-BY-JOINTLY-LEARNING-TO-ALIGN-AND-TRANSLATE》"><span class="toc-number">5.1.</span> <span class="toc-text">Bahdanau Attention:《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">5.1.1.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoder"><span class="toc-number">5.1.2.</span> <span class="toc-text">Decoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Luong-Attention-《Effective-Approaches-to-Attention-based-Neural-Machine-Translation》"><span class="toc-number">5.2.</span> <span class="toc-text">Luong Attention:《Effective Approaches to Attention-based Neural Machine Translation》</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Copy-Mechanism"><span class="toc-number">6.</span> <span class="toc-text">Copy Mechanism</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">7.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#beam-search"><span class="toc-number">8.</span> <span class="toc-text">beam search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#beam-search-1"><span class="toc-number">9.</span> <span class="toc-text">beam search</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">70</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">2021-03-26-week3组会</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-20</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/03/20/2021-03-26-week3%E7%BB%84%E4%BC%9A/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/03/20/2021-03-26-week3组会/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><!-- slide -->
 <h1 id="KEYPHRASE-GENERATION"><a href="#KEYPHRASE-GENERATION" class="headerlink" title="KEYPHRASE GENERATION"></a>KEYPHRASE GENERATION</h1><h2 id="2021-03-26-week3"><a href="#2021-03-26-week3" class="headerlink" title="2021-03-26 week3"></a>2021-03-26 week3</h2><h3 id="SONG-JIA"><a href="#SONG-JIA" class="headerlink" title="SONG JIA"></a>SONG JIA</h3><!-- slide -->
 <h1 id="CONTENT"><a href="#CONTENT" class="headerlink" title="CONTENT"></a>CONTENT</h1><ol>
 <li>seq2seq and encoder-decoder</li>
 <li>Attention Mechanism in seq2seq</li>
-<li>⭐Copy Mechanism</li>
-<li>Comparison of different models<ul>
-<li>《Incorporating Copying Mechanism in Sequence-to-Sequence Learning》</li>
-<li>《Deep Keyphrase Generation》</li>
-<li>《Title-Guided Encoding for Keyphrase Generation》<!-- slide -->
-<h1 id="seq2seq-and-encoder-decoder"><a href="#seq2seq-and-encoder-decoder" class="headerlink" title="seq2seq and encoder-decoder"></a>seq2seq and encoder-decoder</h1></li>
-</ul>
-</li>
+<li>Copy Mechanism</li>
 </ol>
-<ul>
+<!-- slide -->
+<h1 id="seq2seq-and-encoder-decoder"><a href="#seq2seq-and-encoder-decoder" class="headerlink" title="seq2seq and encoder-decoder"></a>seq2seq and encoder-decoder</h1><ul>
 <li><p>Sutskever et al., Sequence to Sequence Learning with Neural Networks. NIPS. 2014</p>
 </li>
 <li><p>Cho et al., Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation. arXiv. 2014</p>
@@ -43,20 +37,12 @@
 </li>
 </ul>
 <!-- slide -->
-<h2 id="a-general-model"><a href="#a-general-model" class="headerlink" title="a general model"></a>a general model</h2><h3 id="encoder"><a href="#encoder" class="headerlink" title="encoder"></a>encoder</h3><script type="math/tex; mode=display">\bm{h}_t=f(\bm{x}_t,\bm{h}_{t-1})</script><script type="math/tex; mode=display">\bm{c}=q(\bm{h}_1,...,\bm{h}_T)</script><h3 id="decoder"><a href="#decoder" class="headerlink" title="decoder"></a>decoder</h3><script type="math/tex; mode=display">\bm{s}_{t'}=g(t_{t'-1},\bm{c},\bm{s}_{t'-1})</script><h3 id="train"><a href="#train" class="headerlink" title="train"></a>train</h3><p>输出序列基于输⼊序列的条件概率:</p>
-<script type="math/tex; mode=display">P(y_1,...,y_{T'}|x_q,...,x_T)=\prod^{T'}_{t'=1}P(y_{t'}|y_1,...,y_{t'-1},x_1,...,x_T)=\prod^{T'}_{t'=1}P(y_{t'}|y_1,...,y_{t'-1},\bm{c})</script><p>该输出序列的损失:</p>
-<script type="math/tex; mode=display">-logP(y_1,...,y_{T'}|x_1,...,x_T)=-\sum^{T'}_{t'=1}logP(y_{t'}|y_1,...,y_{t'},\bm{c})</script><!-- slide -->
+<h2 id="a-general-model"><a href="#a-general-model" class="headerlink" title="a general model"></a>a general model</h2><h3 id="encoder"><a href="#encoder" class="headerlink" title="encoder"></a>encoder</h3><script type="math/tex; mode=display">\bm{h}_t=f(\bm{x}_t,\bm{h}_{t-1})</script><script type="math/tex; mode=display">\bm{c}=q(\bm{h}_1,...,\bm{h}_T)</script><h3 id="decoder"><a href="#decoder" class="headerlink" title="decoder"></a>decoder</h3><script type="math/tex; mode=display">\bm{s}_{t'}=g(t_{t'-1},\bm{c},\bm{s}_{t'-1})</script><script type="math/tex; mode=display">P(y_1,...,y_{T'}|x_q,...,x_T)=\prod^{T'}_{t'=1}P(y_{t'}|y_1,...,y_{t'-1},x_1,...,x_T)=\prod^{T'}_{t'=1}P(y_{t'}|y_1,...,y_{t'-1},\bm{c})</script><!-- slide -->
 <h3 id="《Sequence-to-Sequence-Learning-with-Neural-Networks》"><a href="#《Sequence-to-Sequence-Learning-with-Neural-Networks》" class="headerlink" title="《Sequence to Sequence Learning with Neural Networks》"></a>《Sequence to Sequence Learning with Neural Networks》</h3><p><img src="https://i.loli.net/2021/03/20/8DHXI1r5WQtLq6l.png" alt=""></p>
 <ul>
 <li>To tackle long term dependencies, the author used LSTM.</li>
 <li>Two LSTM. One for encoder, another for decoder.</li>
 <li>The last hidden state of encoder is the first input of decoder.</li>
-</ul>
-<hr>
-<p><strong>shortages</strong></p>
-<ul>
-<li>all information of inputs is decompress to a fixed length vector whatever how long the input is which may leads to the loss of useful information.</li>
-<li>only the first lstm unit uses hidden state of encoder</li>
 </ul>
 <!-- slide -->
 <h3 id="reverse-input"><a href="#reverse-input" class="headerlink" title="reverse input"></a>reverse input</h3><ol>
@@ -64,30 +50,94 @@
 </li>
 <li><p>From many papers, we can find that soft attention or alignment is very useful for seq2seq. </p>
 </li>
+<li></li>
 </ol>
 <blockquote>
 <p>“RNN is a biased model, where later words are more dominant than earlier words.”《Recurrent Convolutional Neural Networks for Text Classification》</p>
 </blockquote>
 <p>After reversing input, the first word in seq have the biggest influence in the hidden state. Then we use the hidden state to predict the first word which is kind of aligned. So we can get better performance.</p>
 <!-- slide -->
+<p><strong>shortages</strong></p>
+<ul>
+<li>all information of inputs is decompress to a fixed length vector whatever how long the input is which may leads to the loss of useful information.</li>
+<li>only the first lstm unit uses hidden state of encoder<!-- slide -->
+</li>
+</ul>
 <h3 id="《Learning-Phrase-Representations-using-RNN-Encoder–Decoder-for-Statistical-Machine-Translation》"><a href="#《Learning-Phrase-Representations-using-RNN-Encoder–Decoder-for-Statistical-Machine-Translation》" class="headerlink" title="《Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation》"></a>《Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation》</h3><p><img src="https://i.loli.net/2021/03/21/dWJG5KowRQvhPtc.png" alt="image.png"></p>
 <ul>
 <li>propose GRU</li>
 <li>peeky</li>
 </ul>
 <!-- slide -->
-<h1 id="Attention-mechanism"><a href="#Attention-mechanism" class="headerlink" title="Attention mechanism"></a>Attention mechanism</h1><ul>
+<h1 id="Attention-mechanism"><a href="#Attention-mechanism" class="headerlink" title="Attention mechanism"></a>Attention mechanism</h1><h1 id="in-seq2seq"><a href="#in-seq2seq" class="headerlink" title="in seq2seq"></a>in seq2seq</h1><ul>
 <li>Bahdanau Attention</li>
 <li>Luong Attention</li>
 </ul>
 <!-- slide -->
 <h2 id="Bahdanau-Attention-《NEURAL-MACHINE-TRANSLATION-BY-JOINTLY-LEARNING-TO-ALIGN-AND-TRANSLATE》"><a href="#Bahdanau-Attention-《NEURAL-MACHINE-TRANSLATION-BY-JOINTLY-LEARNING-TO-ALIGN-AND-TRANSLATE》" class="headerlink" title="Bahdanau Attention:《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》"></a>Bahdanau Attention:《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》</h2><!-- slide -->
-<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><script type="math/tex; mode=display">h_t=f(x_t,h_{t-1})</script><p><img src="https://i.loli.net/2021/02/01/ov8ZsVOdr4qE5pt.png" alt="image.png"></p>
-<script type="math/tex; mode=display">\pmb c = q(h_1,h_2,...,h_T)</script><script type="math/tex; mode=display">c_i = \sum^T_{j=1}\alpha_{ij}h_j</script><script type="math/tex; mode=display">\alpha_{ij} = \frac{exp(a(s_{i-1},h_j))}{\sum^T_{k=1}exp(a(s_{i-1},h_k))}</script><ul>
-<li>$a(s_{i-1},h_j)$ : an alignment model which scores how well the inputs around position j and the output at position i match.</li>
-</ul>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><script type="math/tex; mode=display">h_t=f(x_t,h_{t-1})</script><script type="math/tex; mode=display">h_j=[\overrightarrow{h}_j^\top;\overleftarrow{h}_j^\top]^\top</script><script type="math/tex; mode=display">\pmb c = q(h_1,h_2,...,h_T)</script><script type="math/tex; mode=display">c_i = \sum^T_{j=1}\alpha_{ij}h_j</script><script type="math/tex; mode=display">\alpha_{ij} = \frac{exp(e_{ij})}{\sum^{T_x}_{k=1}exp(e_{ik})}</script><p>$e<em>{ij}=v_a^\top tanh(W_as</em>{i-1}+U_ah_j) $(concat)</p>
 <h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><script type="math/tex; mode=display">s_t = f(y_{t-1},s_{t-1},c_t)</script><script type="math/tex; mode=display">p(y_t | y_{< t } ,x) = g(y_{t-1},s_t,c_t)</script><!-- slide -->
 <h2 id="Luong-Attention-《Effective-Approaches-to-Attention-based-Neural-Machine-Translation》"><a href="#Luong-Attention-《Effective-Approaches-to-Attention-based-Neural-Machine-Translation》" class="headerlink" title="Luong Attention:《Effective Approaches to Attention-based Neural Machine Translation》"></a>Luong Attention:《Effective Approaches to Attention-based Neural Machine Translation》</h2><!-- slide -->
+<p><img src="https://i.loli.net/2021/03/25/1U97xTsf64Z3BMR.png" alt="Global Attention"></p>
+<p>$h_t \rightarrow a_t \rightarrow c_t \rightarrow \tilde{h}_t$</p>
+<p>$\bm{a}<em>t(s)=align(\bm{h}_t,\bm{\overline{h}}_s)=\frac{exp(score(\bm{h}_t,\bm{\overline{h}}_s))}{\sum</em>{s’}exp(\bm{h}<em>t,\bm{\overline{h}}</em>{s’})}$</p>
+<script type="math/tex; mode=display">
+score(\bm{h}_t,\bm{\overline{h}}_s)=
+\begin{cases}
+\bm{h}_t^\top\overline{\bm{h}}_s & dot  \\
+\bm{h}_t^\top\bm{W}_a\overline{\bm{h}}_s & general \\
+\bm{v}_a^\top tanh(\bm{W}_a[\bm{h}_t^\top;\overline{\bm{h}}_s]) & concat
+\end{cases}</script><script type="math/tex; mode=display">\bm{c}_t=\sum_s \bm{a}_t(s)\overline{\bm{h}}_s</script><script type="math/tex; mode=display">\tilde{h}_t=tanh(\bm{W}_c[\bm{c}_t;\bm{h}_t])</script><!-- slide -->
+<p><img src="https://i.loli.net/2021/03/25/7hZaCOXwGJj1vxr.png" alt="Local Attention"></p>
+<p>an aligned position $p_t$ for each target word at time t<br>window size D is empirically selected</p>
+<ul>
+<li>Monotonic alignment(local-m):$p_t=t$</li>
+<li>Predictive alignment(local-p):<script type="math/tex; mode=display">p_t=S\cdot sigmoid(\bm{v}_p^\top tanh(\bm{W_p}\bm{h}_t))</script><script type="math/tex; mode=display">\bm{a}_t=align(\bm{h}_t,\bm{\overline{h}}_s)exp(-\frac{(s-p_t)^2}{2\sigma^2})</script></li>
+</ul>
+<!-- slide -->
+<h1 id="Copy-Mechanism"><a href="#Copy-Mechanism" class="headerlink" title="Copy Mechanism"></a>Copy Mechanism</h1><p><img src="https://i.loli.net/2021/03/25/M5wTzGhICdn1gfl.png" alt="image.png"></p>
+<!-- slide -->
+<script type="math/tex; mode=display">p(y_t|\pmb s_t,y_{t-1},\pmb c_t,\pmb M)=p(y_t,g|\pmb s_t,y_{t-1},\pmb c_t,\pmb M)+p(y_t,c|\pmb s_t,y_{t-1},\pmb c_t,\pmb M)</script><ul>
+<li>g：probability of generation</li>
+<li>c：probability of copy</li>
+</ul>
+<script type="math/tex; mode=display">p(y_t,g|·)=\left\{
+\begin{array}{rcl}
+\frac{1}{Z}e^{\Psi_g(y_t)}       &      & {y_t\in\nu}\\
+0     &      & {y_t\in\chi\bigcap\overline{V}}\\
+\frac{1}{Z}e^{\Psi_g(UNK)}     &      & {y_t\notin\nu\bigcup\chi}
+\end{array} \right.</script><script type="math/tex; mode=display">p(y_t,c|·)=\left\{
+\begin{array}{rcl}
+\frac{1}{Z}\sum_{j:x_j=y_t}e^{\psi_c(x_j)}       &      & {y_t\in\chi}\\
+0     &      & {otherwise}
+\end{array} \right.</script><p><img src="https://i.loli.net/2021/01/29/k5OybVYTqRt3MLN.png" alt="image.png"></p>
+<!-- slide -->
+<p><strong>Details of probability calculation</strong></p>
+<script type="math/tex; mode=display">\psi_g(y_t=v_i)=\mathbf{\pmb v}^\top_i\pmb W_o\pmb s_t,\qquad v_i\in\nu\bigcup UNK</script><script type="math/tex; mode=display">\psi_c(y_t=x_j)=\sigma(\mathbf{\pmb h}^\top_j\pmb W_c)\pmb s_t ,\qquad x_j\in\chi</script><p><strong>hidden state of decoder</strong></p>
+<script type="math/tex; mode=display">s_t = f(y_{t-1},s_{t-1},c)</script><ul>
+<li><p>$y<em>{t-1}$ =$\mathbf{[\pmb e(y</em>{t-1});\zeta(y_{t-1})]}^\top$  </p>
+</li>
+<li><p>$\pmb e(y<em>{t-1})$ ：Word embedding vector of $y</em>{t-1}$ </p>
+</li>
+<li><p>$\zeta(y_{t-1})$ ：A weighted sum of some hidden states</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">\zeta(y_{t-1})=\sum^{T_s}_{\tau=1}\rho_{t\tau}\pmb h_\tau</script><script type="math/tex; mode=display">\rho_{t\tau}=\left\{
+\begin{array}{rcl}
+\frac{1}{K}p(x_\tau,c|s_{t-1},\pmb M)       &      & {x_\tau=y_{t-1}}\\
+0     &      & {otherwise}
+\end{array} \right.</script><script type="math/tex; mode=display">K=\sum_{\tau':x_{\tau'}=y_{t-1}}p(x_{\tau'},c|s_{t-1},\pmb M)</script><!-- slide -->
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li>《Dive into Deep Learning》</li>
+<li>seq2seq：《Sequence to sequence learning with neural networks. In Advances in neural information processing systems》（2014）</li>
+<li>encoder-decoder：《Learning phrase representations using RNN encoder-decoder for statistical machine translation》</li>
+<li>Bahdanau Attention：《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》</li>
+<li>Luong Attention：《Effective Approaches to Attention-based Neural Machine Translation》</li>
+<li>Copy Mechanism：《Incorporating Copying Mechanism in Sequence-to-Sequence Learning》</li>
+<li>《Deep Keyphrase Generation》</li>
+<li>《Title-Guided Encoding for Keyphrase Generation》</li>
+<li><a href="https://www.pianshen.com/article/5999247470/" target="_blank" rel="noopener">常见注意力机制原理介绍与对比</a></li>
+</ul>
 <!-- slide -->
 <h1 id="beam-search"><a href="#beam-search" class="headerlink" title="beam search"></a>beam search</h1><ul>
 <li><strong>exhaustive search</strong>:Because of the large size of the vocab, we can’t calculate all the probable results and choose the best.</li>
@@ -97,26 +147,6 @@
 <!-- slide -->
 <h1 id="beam-search-1"><a href="#beam-search-1" class="headerlink" title="beam search"></a>beam search</h1><p><img src="https://i.loli.net/2021/03/20/Jfk8h1jB2gxMl6b.png" alt="image.png"></p>
 <p>候选序列有几个？这本书里说每一步的序列都是候选序列，但我觉得只有碰到了eos或者达到了最大长度才可以是。之后看代码找答案<br><a href="https://www.zhihu.com/question/54356960" target="_blank" rel="noopener">https://www.zhihu.com/question/54356960</a><br>这个回答里说了一个细节问题：如果有k个序列已经终止了（遇到eos），下一步就选n-k个</p>
-<!-- slide -->
-<h1 id="Comparison-of"><a href="#Comparison-of" class="headerlink" title="Comparison of"></a>Comparison of</h1><h1 id="different-models"><a href="#different-models" class="headerlink" title="different models"></a>different models</h1><!-- slide -->
-<p>《Neural Machine Translation by Jointly Learning to Align and Translate》</p>
-<hr>
-<ul>
-<li>Introduce the attention mechanism to NLP for the first time</li>
-<li>Statistical machine translation —&gt; Neural Machine Translation</li>
-</ul>
-<!-- slide -->
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li>《Dive into Deep Learning》</li>
-<li>seq2seq：《Sequence to sequence learning with neural networks. In Advances in neural information processing systems》（2014）反转输入数据</li>
-<li>encoder-decoder：《Learning phrase representations using RNN encoder-decoder for statistical machine translation》peeky偷窥</li>
-<li>Bahdanau Attention：《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》</li>
-<li>Luong Attention：《Effective Approaches to Attention-based Neural Machine Translation》</li>
-<li>Copy Mechanism：《Incorporating Copying Mechanism in Sequence-to-Sequence Learning》</li>
-<li>《Deep Keyphrase Generation》</li>
-<li>《Title-Guided Encoding for Keyphrase Generation》</li>
-<li><a href="https://www.pianshen.com/article/5999247470/" target="_blank" rel="noopener">常见注意力机制原理介绍与对比</a></li>
-</ul>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/03/20/2021-03-26-week3%E7%BB%84%E4%BC%9A/">http://yoursite.com/2021/03/20/2021-03-26-week3%E7%BB%84%E4%BC%9A/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/03/22/NEURAL%20MACHINE%20TRANSLATION%E6%A8%A1%E5%9E%8B/"><i class="fa fa-chevron-left">  </i><span>Bahdanau Attention：《NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE》模型解析</span></a></div><div class="next-post pull-right"><a href="/2021/03/20/20210320-0326%E6%80%BB%E7%BB%93/"><span>20210320-0326一周总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {
   this.page.url = 'http://yoursite.com/2021/03/20/2021-03-26-week3%E7%BB%84%E4%BC%9A/';
