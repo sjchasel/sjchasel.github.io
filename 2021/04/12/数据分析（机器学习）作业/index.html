@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="由一次数据分析作业引发的矩阵推导探究"><meta name="keywords" content="机器学习"><meta name="author" content="Chasel"><meta name="copyright" content="Chasel"><title>由一次数据分析作业引发的矩阵推导探究 | ChaselのBlog</title><link rel="shortcut icon" href="http://pics.sc.chinaz.com/Files/pic/icons128/5000/31.png"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分子布局与分母布局"><span class="toc-number">1.</span> <span class="toc-text">分子布局与分母布局</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#分子布局"><span class="toc-number">1.1.</span> <span class="toc-text">分子布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标量-向量"><span class="toc-number">1.1.1.</span> <span class="toc-text">标量&#x2F;向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量-标量"><span class="toc-number">1.1.2.</span> <span class="toc-text">向量&#x2F;标量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量-向量"><span class="toc-number">1.1.3.</span> <span class="toc-text">向量&#x2F;向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标量-矩阵"><span class="toc-number">1.1.4.</span> <span class="toc-text">标量&#x2F;矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分母布局"><span class="toc-number">1.2.</span> <span class="toc-text">分母布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标量-向量-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">标量&#x2F;向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量-标量-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">向量&#x2F;标量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量-向量-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">向量&#x2F;向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标量-矩阵-1"><span class="toc-number">1.2.4.</span> <span class="toc-text">标量&#x2F;矩阵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一个简单的例子看分子布局和分母布局的区别"><span class="toc-number">2.</span> <span class="toc-text">一个简单的例子看分子布局和分母布局的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#原题推导"><span class="toc-number">3.</span> <span class="toc-text">原题推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个常用的求导规则"><span class="toc-number">3.1.</span> <span class="toc-text">一个常用的求导规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带入原题"><span class="toc-number">3.2.</span> <span class="toc-text">带入原题</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://tiebapic.baidu.com/forum/w%3D580/sign=f55a55488545d688a302b2ac94c37dab/24899045d688d43fb1330d896a1ed21b0ff43bb9.jpg"></div><div class="author-info__name text-center">Chasel</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/sjchasel" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">74</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">21</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://yang-00.github.io/" target="_blank" rel="noopener">鳝鳝</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ChaselのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Blog</a><a class="site-page" href="/archives">Posts</a><a class="site-page" href="/tags">MyTags</a><a class="site-page" href="/categories">MyCategories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">由一次数据分析作业引发的矩阵推导探究</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-04-12</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2021/04/12/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89%E4%BD%9C%E4%B8%9A/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2021/04/12/数据分析（机器学习）作业/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>[TOC]</p>
+<p><img src="https://i.loli.net/2021/04/12/oWnzxtf4l5wRNrM.jpg" alt="QQ图片20210412003051.jpg"></p>
+<p>即为什么</p>
+<script type="math/tex; mode=display">\frac{\partial \theta^\top X^\top X\theta}{\partial \theta}=\theta^\top X^\top X+\theta^\top(X^\top X)^\top</script><h1 id="分子布局与分母布局"><a href="#分子布局与分母布局" class="headerlink" title="分子布局与分母布局"></a>分子布局与分母布局</h1><p>矩阵求导有两种布局：分子布局和分母布局。在求导前我们要明白自己用什么布局，两种布局会相差一个转置。它们二者的区别如下：</p>
+<p>（向量都是列向量）</p>
+<h2 id="分子布局"><a href="#分子布局" class="headerlink" title="分子布局"></a>分子布局</h2><h3 id="标量-向量"><a href="#标量-向量" class="headerlink" title="标量/向量"></a>标量/向量</h3><p>把<strong>分母向量按行</strong>铺开</p>
+<script type="math/tex; mode=display">\frac{\partial y}{\partial \mathbf{x}}=[\frac{\partial y}{\partial x_1} \frac{\partial y}{\partial x_2}...\frac{\partial y}{\partial x_n}]</script><h3 id="向量-标量"><a href="#向量-标量" class="headerlink" title="向量/标量"></a>向量/标量</h3><p>把<strong>分子向量按列</strong>铺开</p>
+<script type="math/tex; mode=display">\frac{\partial \mathbf{y}}{\partial x}=
+\left[ \begin{matrix} 
+\frac{\partial y_1}{\partial x} \\ 
+\frac{\partial y_2}{\partial x}  \\ 
+...  \\ 
+\frac{\partial y_m}{x}  
+\end{matrix} \right]</script><h3 id="向量-向量"><a href="#向量-向量" class="headerlink" title="向量/向量"></a>向量/向量</h3><p>把<strong>分子向量按列</strong>铺开<br>把<strong>分母向量按行</strong>铺开</p>
+<script type="math/tex; mode=display">\frac{\partial \mathbf{y}}{\partial \mathbf{x}}=\left[ \begin{matrix} \frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & ... & \frac{\partial y_1}{\partial x_n} \\
+\frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & ... & \frac{\partial y_2}{\partial x_n} \\
+ ...&...&...&...\\ 
+\frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & ... & \frac{\partial y_m}{\partial x_n} \\
+\end{matrix} \right]</script><h3 id="标量-矩阵"><a href="#标量-矩阵" class="headerlink" title="标量/矩阵"></a>标量/矩阵</h3><p>把矩阵<strong>先转置</strong>再铺开</p>
+<script type="math/tex; mode=display">\frac{\partial y}{\partial \mathbf{X}}=
+\left[ \begin{matrix} 
+\frac{\partial y}{\partial x_{11}} & \frac{\partial y}{\partial x_{21}} &...&\frac{\partial y}{\partial x_{p1}} \\ 
+\frac{\partial y}{\partial x_{12}} & \frac{\partial y}{\partial x_{22}} & ... & \frac{\partial y}{\partial x_{p2}} \\ 
+... & ... & ... & ... \\ 
+\frac{\partial y}{\partial x_{1q}} & \frac{\partial y}{\partial x_{2q}} & ... & \frac{\partial y}{\partial x_{pq}} 
+\end{matrix} \right]</script><h2 id="分母布局"><a href="#分母布局" class="headerlink" title="分母布局"></a>分母布局</h2><h3 id="标量-向量-1"><a href="#标量-向量-1" class="headerlink" title="标量/向量"></a>标量/向量</h3><p>把<strong>分母向量按列</strong>铺开</p>
+<h3 id="向量-标量-1"><a href="#向量-标量-1" class="headerlink" title="向量/标量"></a>向量/标量</h3><p>把<strong>分子向量按行</strong>铺开</p>
+<h3 id="向量-向量-1"><a href="#向量-向量-1" class="headerlink" title="向量/向量"></a>向量/向量</h3><p>把<strong>分母向量按列</strong>铺开<br>把<strong>分子向量按行</strong>铺开</p>
+<h3 id="标量-矩阵-1"><a href="#标量-矩阵-1" class="headerlink" title="标量/矩阵"></a>标量/矩阵</h3><p>矩阵<strong>无需转置</strong>，直接铺开</p>
+<h1 id="一个简单的例子看分子布局和分母布局的区别"><a href="#一个简单的例子看分子布局和分母布局的区别" class="headerlink" title="一个简单的例子看分子布局和分母布局的区别"></a>一个简单的例子看分子布局和分母布局的区别</h1><p>A是一个m行n列的矩阵，$\mathbf{x}$是一个n行1列的列向量。求</p>
+<script type="math/tex; mode=display">\frac{\partial A\mathbf{x}}{\partial \mathbf{x}}=?</script><p><img src="https://i.loli.net/2021/04/12/x4ruMBdweb6GULv.png" alt="image.png"></p>
+<p>在分子布局下（分子列展开，分母行展开）</p>
+<p><img src="https://i.loli.net/2021/04/12/AKP7GRWwN1tofVs.png" alt="image.png"></p>
+<p>在分母布局下（分子行展开，分母列展开）</p>
+<p><img src="https://i.loli.net/2021/04/12/qLbV9SzQTlBygkZ.png" alt="image.png"></p>
+<p>可以发现就相差一个转置，因为两个布局的展开规则是相反的。</p>
+<h1 id="原题推导"><a href="#原题推导" class="headerlink" title="原题推导"></a>原题推导</h1><p>由于我之前一直使用的是分母布局（而不自知），看见老师的推导过程有点迷惑，感觉中间对不上但结果却一样。后来查了资料才知道是因为布局不同，老师使用的是分子布局，现在就在分子布局下分析一下这个推导过程。</p>
+<h2 id="一个常用的求导规则"><a href="#一个常用的求导规则" class="headerlink" title="一个常用的求导规则"></a>一个常用的求导规则</h2><p>我们尝试求这个问题</p>
+<script type="math/tex; mode=display">\frac{\partial \mathbf{x}^\top A \mathbf{x}}{\partial \mathbf{x}}=?</script><p>若x是一个n行1列的列向量，根据分子上的求导我们可以知道A是一个n行n列的方阵。并且分子相乘起来是一个标量（维度分别为1×n n×n n×1），分母又是一个列向量（n×1）。因此这是一个标量/向量的问题，在分子布局下分母按行展开。</p>
+<p><img src="https://i.loli.net/2021/04/12/virwFp6dSeEPGBg.png" alt="image.png"></p>
+<p>因此在分子布局下</p>
+<script type="math/tex; mode=display">\frac{\partial \mathbf{x}^\top A \mathbf{x}}{\partial \mathbf{x}}=\mathbf{x}^\top(A+A^\top)</script><h2 id="带入原题"><a href="#带入原题" class="headerlink" title="带入原题"></a>带入原题</h2><script type="math/tex; mode=display">\frac{\partial \theta^\top X^\top X\theta}{\partial \theta}=\theta^\top X^\top X+\theta^\top(X^\top X)^\top</script><p>我们可以把$X^\top X$看成A，$\theta$看成$\mathbf{x}$即可。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chasel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/04/12/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89%E4%BD%9C%E4%B8%9A/">http://yoursite.com/2021/04/12/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89%E4%BD%9C%E4%B8%9A/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">ChaselのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=117e8c5482cad1c8d0bbfc2f4f3e67c4/fd9597cad1c8a786e827d6757009c93d71cf50c2.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="http://tiebapic.baidu.com/forum/w%3D580/sign=072f3c81c6c8a786be2a4a065709c9c7/4d40d3c8a786c9175d0ece42de3d70cf3ac757c2.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/04/11/20210409-0416%E4%B8%80%E5%91%A8%E6%80%BB%E7%BB%93/"><span>20210409-0416一周总结</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'http://yoursite.com/2021/04/12/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89%E4%BD%9C%E4%B8%9A/';
+  this.page.identifier = '2021/04/12/数据分析（机器学习）作业/';
+  this.page.title = '由一次数据分析作业引发的矩阵推导探究';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + '西窗' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://西窗.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(http://imgsrc.baidu.com/forum/pic/item/4c4e0cf3d7ca7bcbe161fcccb2096b63f724a8ff.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Chasel</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">The stain of red that colors the pvement painted with bolood of somebody you love</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("01/28/2020 17:01:21");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
