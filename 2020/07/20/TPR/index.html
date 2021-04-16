@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Automatic Keyphrase Extraction via Topic Decomposition</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Automatic Keyphrase Extraction via Topic Decomposition</a></h2><span class="post__date">2020-07-20</span><a href="/tags/NLP/"><span class="post__tags">#NLP</span></a><a href="/tags/%E8%AE%BA%E6%96%87/"><span class="post__tags">#论文</span></a></div></div><div class="article__content"><h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>传统的关键词抽取是把文档转换成图之后，在图上进行一次随机游走，对单词打分。一个事实是，文本或文档可以被分解为多个语义主题内容，因此作者想到可以在不同主题上进行随机游走。先对主题打分，（在给定文档主题分布的情况下）再对主题中的单词打分。</p>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>提取关键词的方法：有监督和无监督<br>有监督的方法：分类问题。人工先标记有哪些关键词，再对样本进行分类。但人工标注太麻烦了<br>无监督：根据文档构建词图，再根据随机游走的方法对词进行排序（如PageRank）<br>作者发现同一个词语在不同的语义主题下可能有不同的含义，如果不考虑主题直接对所有单词进行排序的话，会有两个问题：</p>
 <ol>

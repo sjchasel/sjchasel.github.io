@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">主成分分析（PCA）详解</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">主成分分析（PCA）详解</a></h2><span class="post__date">2020-10-21</span><a href="/tags/python/"><span class="post__tags">#python</span></a><a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"><span class="post__tags">#数据挖掘</span></a></div></div><div class="article__content"><h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>PCA一般用来选择特征。一个数据集中有很多特征，不一定每个特征都是不可或缺的，它们之间的信息可能会有冗余。PCA创造一些新的特征，每个新特征是某几个旧特征的线性组合。这样数据的维数就减小了。</p>
 <p><a href="https://www.zhihu.com/question/41120789?sort=created" target="_blank" rel="noopener">一个红酒的例子</a></p>
 <p>现在有一些红酒，我们可以用酒精含量、瓶子大小、年份等描述它们。可能有这样一种情况：我们可以用酒精浓度=酒精体积/溶液体积作为一个新的特征。这个特性已经反映了酒精体积和溶液体积的信息，因此我们把特征数减少了。PCA在执行这个过程，创造出一些新的特征，这些新特征是旧的特征的线性组合，可以更简单地表示这批红酒。PCA挑选新的特征希望达到这样的目标：</p>

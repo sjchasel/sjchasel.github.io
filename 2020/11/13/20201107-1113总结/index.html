@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">20201107-1113总结</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">20201107-1113总结</a></h2><span class="post__date">2020-11-13</span><a href="/tags/NLP/"><span class="post__tags">#NLP</span></a><a href="/tags/%E8%AE%BA%E6%96%87/"><span class="post__tags">#论文</span></a><a href="/tags/%E6%80%BB%E7%BB%93/"><span class="post__tags">#总结</span></a></div></div><div class="article__content"><p>把虚拟机上的代码换了个文件夹，放到了pycharmprojects下面。上个星期王雷雷说可以针对自己的项目下载第三方库，因为我们两个项目用的版本不一样，所以我还是不在整台电脑上配了。之前没用过pycharm…各种尝试下需要的环境还是不断报错，先放放，看看代码😭</p>
 <p>因为代码包里的README写着是用脚本运行三个py文件：preprocess、train和translate，于是我把这三个文件里的代码看了看。</p>
 <p>总的来说，要每行看懂还是有点难。我先大概看看每个函数都在干什么。由于是基于OpenNMT的，里面会突然出现很多奇怪的函数，我在百度上搜，结果可能完全没有，在谷歌上搜，会搜出这是与OpenNMT有关的，但是最让人迷惑的是在OpenNMT的官方文档里搜也很少能搜出结果。我觉得这个官方文档写的（或者是搜索功能）十分不好！</p>

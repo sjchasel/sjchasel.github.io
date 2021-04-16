@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Keyphrase Generation for Scientific Document Retrieval</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Keyphrase Generation for Scientific Document Retrieval</a></h2><span class="post__date">2020-07-23</span><a href="/tags/NLP/"><span class="post__tags">#NLP</span></a><a href="/tags/%E8%AE%BA%E6%96%87/"><span class="post__tags">#论文</span></a></div></div><div class="article__content"><h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>序列到序列模型已经在关键短语生成方面取得了重大进展，但是它们是否足够可靠，是否有利于文档检索仍然是个未知数。本研究提供了实证证据，证明这些模型可以显著提高检索性能，并引入了一个新的外部评价框架，以便更好地理解关键短语生成模型的局限性。使用这个框架，我们指出并讨论了用关键短语补充文档（文本中不存在）以及跨域泛化模型时遇到的困难。</p>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>文献太多难以检索。关键词是检索文献的好方法。但是只有很少的文档指定了关键短语，而那些分配了关键字短语的文档大部分都是由作者自己标记的，因此显示了注释的不一致性<br><strong>？？？？什么叫注释的不一致性。是说作者标记的和电脑标记的不一样吗？</strong><br>关键词短语生成的任务是找到一组代表文档主要内容的单词和短语。</p>
 <p>预测关键短语的模型离运用到信息检索上还有一段路，一个原因是它们的性能相对较低，不利于将它们用于索引。<br>然而，最近提出的模型不仅取得了更好的性能，而且还显示了一个可能对检索效果有重大影响的特性：生成未出现在源文本中的关键短语的能力。这些缺失的关键短语不仅突出了最相关的主题，还通过向索引中添加新内容（例如同义词、语义相关术语）来提供某种形式的语义扩展。本文的目标有两个：</p>

@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">西瓜书南瓜书 第二章 模型评估与选择</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">西瓜书南瓜书 第二章 模型评估与选择</a></h2><span class="post__date">2021-03-24</span><a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><span class="post__tags">#机器学习</span></a><a href="/tags/%E3%80%8A%E8%A5%BF%E7%93%9C%E4%B9%A6%E3%80%8B/"><span class="post__tags">#《西瓜书》</span></a><a href="/tags/%E3%80%8A%E5%8D%97%E7%93%9C%E4%B9%A6%E3%80%8B/"><span class="post__tags">#《南瓜书》</span></a></div></div><div class="article__content"><p>[TOC]</p>
 <h1 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h1><h2 id="先自己闭卷回答一下"><a href="#先自己闭卷回答一下" class="headerlink" title="先自己闭卷回答一下"></a>先自己闭卷回答一下</h2><p>过拟合与欠拟合都是模型的学习能力与数据的规模不匹配造成的模型泛化误差不高的问题。</p>
 <p><strong>过拟合：</strong> 模型的学习能力太强，数据不够多。使得模型不仅学习到了这批数据的普遍特征，也学习到了内部的噪声，相当于把数据死记硬背了下来。模型在训练数据上的表现非常好，但当模型应用在没见过的数据上时，新的数据噪声不和原来的数据一样，导致模型无法很好地拟合新数据。过拟合是无法避免的，我们只能通过一些方式去缓解。从模型角度进行调整可以加入正则化的惩罚项，使得模型不要那么复杂。或是对于决策树来说，对其进行剪枝操作。从数据的角度来调整，就是增大数据量或是增多数据的特征。使得有更多的信息可以提供给模型。</p>

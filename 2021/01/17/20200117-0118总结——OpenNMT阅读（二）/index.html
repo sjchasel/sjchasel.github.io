@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="ChaselのBlog" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">ChaselのBlog</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">20210117——阅读OpenNMT官方文档(二)</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">20210117——阅读OpenNMT官方文档(二)</a></h2><span class="post__date">2021-01-17</span><a href="/tags/NLP/"><span class="post__tags">#NLP</span></a><a href="/tags/%E6%80%BB%E7%BB%93/"><span class="post__tags">#总结</span></a></div></div><div class="article__content"><p>之前的Library，我猜应该是介绍了一下onmt的大概结构？之后的应用都是通过修改yaml配置文件来进行的了。比如<a href="https://opennmt.net/OpenNMT-py/examples/Translation.html" target="_blank" rel="noopener">Translation</a>、<a href="https://opennmt.net/OpenNMT-py/examples/Summarization.html" target="_blank" rel="noopener">Summarization</a>。还介绍了OpenNMT中引入的<a href="https://opennmt.net/OpenNMT-py/examples/GGNN.html" target="_blank" rel="noopener">门控图神经网络（Gated Graph Neural Network，ggnn）</a>的相关配置。这部分中关于Graph data format的没咋看懂。</p>
 <p>接下来进入SCRIPT部分，里面介绍了整个流程中参数的细节。我只能当一个没有感情的翻译机器。</p>
 <h1 id="Build-Vocab"><a href="#Build-Vocab" class="headerlink" title="Build Vocab"></a>Build Vocab</h1><p>build_vocab.py<br>是哪里的文件？？在源码包里没有找到。下面是它的用法。看起来应该是代指有build_vocab功能的py文件就行？</p>
