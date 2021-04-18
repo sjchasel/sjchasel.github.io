@@ -58,7 +58,7 @@ MathJax.Hub.Queue(function() {
 <li>组织好数据在数据库中的存储。因为老师说可以把所有数据都放一起。因此想到的是关于个股的研报、新闻就放在同一个表里。里面标注好时间、股票名、股票代号、是研报还是新闻之类的特征。关于行业的放在同一张表里。因此爬取时需要判断到底放在哪个表里，进行去重什么的。</li>
 <li>由于和队友分工爬取，因此找找能不能两个人通过mongodb操作同一张表。</li>
 </ol>
-<h1 id="数据库远程连接"><a href="#数据库远程连接" class="headerlink" title="数据库远程连接"></a>数据库远程连接</h1><figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">mongo <span class="hljs-number">10.64</span><span class="hljs-number">.23</span><span class="hljs-number">.188</span>:<span class="hljs-number">27017</span>/meeting -u <span class="hljs-string">"simple"</span> -p <span class="hljs-string">"1122"</span><br></code></pre></td></tr></table></figure>
+<h1 id="数据库远程连接"><a href="#数据库远程连接" class="headerlink" title="数据库远程连接"></a>数据库远程连接</h1><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"><br><br></code></pre></td></tr></table></figure>
 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>不太记得老师上次根据个股查找信息的网页是哪进去的了..找到了两个地方，一个是个股的资讯与公告，比如：<a href="http://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllNewsStock/symbol/sz002655.phtml" target="_blank" rel="noopener">http://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllNewsStock/symbol/sz002655.phtml</a><br>一个还是研报，只不过我们按照股票代码或行业代码依次查找</p>
 <p>由于前者的数据虽然频率高，但是年份也仅限于近两年了。而且里面信息很杂乱，感觉投资者提问那些的作用都不是很大。研报有从上市到现在的数据，因此还是爬研报的吧。</p>
 <p>网页上可以爬到以下数据</p>
