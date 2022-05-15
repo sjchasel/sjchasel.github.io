@@ -24,12 +24,12 @@ mathjax: true
 
 
 # test 
-就看过的弗雷斯科回复考试大纲反馈\( \frac{fsdhgs}{djskgfjs} \)克己奉公挖了和我去看
+就看过的弗雷斯科回复考试大纲反馈\\( \frac{fsdhgs}{djskgfjs} \\)克己奉公挖了和我去看
 
 
 \\( khdgajhasfjds \\)
 
-堵塞叫服务员$fjkewgfj$fse后方可为规范i无关
+堵塞叫服务员 $ \frac{dfs}{d} fjkewgfj$  fse后方可为规范i无关
 
 $$kjsdgfjs\frac{csljbdcdfk}{dslkh}$$
 
