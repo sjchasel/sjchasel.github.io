@@ -11,10 +11,8 @@ categories: ["论文笔记", "NLP"]
 
 ## KP-Miner 2009
 
- [KP-Miner] El-Beltagy S R, Rafea A. KP-Miner: A Keyphrase Extraction System for English and Arabic Documents[J]. Information
-Systems, 2009, 34(1): 132-144.
+论文：El-Beltagy S R, Rafea A. KP-Miner: A Keyphrase Extraction System for English and Arabic Documents[J]. Information Systems, 2009, 34(1): 132-144.
 
----
 
 一些理论依据
 
@@ -36,16 +34,13 @@ Systems, 2009, 34(1): 132-144.
    + cutoff constant (CutOff )：如果出现的太晚，不会是关键短语。只对某些领域的文档有效，
 
 2. Step 2: candidate keyphrases weight calculation
++ boosting factor: $ B_{\mathrm{d}}=\left|N_{\mathrm{d}}\right| /\left(\left|P_{\mathrm{d}}\right| \alpha\right) $
+有最大值；$N_d$是文档$d$中所有候选关键短语的个数；$|P_d|$是文档中长度超过1的候选短语的个数。$\alpha$是一个使其最终的值别太大的常数。
 
-   + boosting factor：$B_{\mathrm{d}}=\left|N_{\mathrm{d}}\right| /\left(\left|P_{\mathrm{d}}\right| \alpha\right)$
++ term position associated factor：可选 是否考虑位置
 
-     有最大值；$N_d$是文档$d$中所有候选关键短语的个数；$|P_d|$是文档中长度超过1的候选短语的个数。$\alpha$是一个使其最终的值别太大的常数。
-
-   + term position associated factor：可选 是否考虑位置
-
-   + final score：$w_{ij}=tf_{ij}*idf*B_i*P_f$
-
-     其中$tf_{ij}$是术语$t_j$在文档$D_i$中的出现频率，$idf$是$log_2\frac{N}{n}$,$N$是语料库中文档的数量，$n$是术语$t_j$至少出现了一次的文档数量。
++ final score：$w_{ij}=tf_{ij}*idf*B_i*P_f$
+其中 $ tf_{ij} $ 是术语 $ t_j $ 在文档$D_i$中的出现频率，$ idf $ 是 $ log_2\frac{N}{n} $ , $ N $ 是语料库中文档的数量, $ n $ 是术语 $ t_j $ 至少出现了一次的文档数量。
 
 3. 排序
 
