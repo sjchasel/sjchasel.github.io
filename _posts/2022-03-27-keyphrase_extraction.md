@@ -23,6 +23,15 @@ mathjax: true
 4. 越早出现的短语可能越重要。但出现次数多到一定程度时这个词就不是关键短语了。
 
 
+# test 
+就看过的弗雷斯科回复考试大纲反馈\( \frac{fsdhgs}{djskgfjs} \)克己奉公挖了和我去看
+
+
+\\( khdgajhasfjds \\)
+
+堵塞叫服务员$fjkewgfj$fse后方可为规范i无关
+
+$$kjsdgfjs\frac{csljbdcdfk}{dslkh}$$
 
 方法
 
