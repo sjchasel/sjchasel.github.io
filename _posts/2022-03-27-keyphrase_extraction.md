@@ -23,17 +23,6 @@ mathjax: true
 4. 越早出现的短语可能越重要。但出现次数多到一定程度时这个词就不是关键短语了。
 
 
-# test 
-就看过的弗雷斯科回复考试大纲反馈\\( \frac{fsdhgs}{djskgfjs} \\)克己奉公挖了和我去看
-
-
-\\( khdgajhasfjds \\)
-
-堵塞叫服务员 $ \frac{dfs}{d} fjkewgfj$  fse后方可为规范i无关
-
-堵塞叫服务员 $$ \frac{dfs}{d} fjkewgfj$$  fse后方可为规范i无关
-
-$$kjsdgfjs\frac{csljbdcdfk}{dslkh}$$
 
 方法
 
@@ -47,7 +36,7 @@ $$kjsdgfjs\frac{csljbdcdfk}{dslkh}$$
 
 2. Step 2: candidate keyphrases weight calculation
 + boosting factor: $ B_{\mathrm{d}}=\left| N_{\mathrm{d}}\right| /\left(\left|P_{\mathrm{d}}\right| \alpha\right) $
-有最大值；$N_d$是文档$d$中所有候选关键短语的个数；$|P_d|$是文档中长度超过1的候选短语的个数。$\alpha$是一个使其最终的值别太大的常数。
+有最大值；$N_d$是文档$d$中所有候选关键短语的个数； $ | P_d | $ 是文档中长度超过1的候选短语的个数。$\alpha$是一个使其最终的值别太大的常数。
 
 + term position associated factor：可选 是否考虑位置
 
