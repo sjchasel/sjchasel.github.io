@@ -39,7 +39,7 @@ categories: ["论文笔记", "NLP"]
 
 + term position associated factor：可选 是否考虑位置
 
-+ final score：$w_{ij}=tf_{ij}*idf*B_i*P_f$
++ final score：$ w_{ij}=tf_{ij}*idf*B_i*P_f $
 其中 $ tf_{ij} $ 是术语 $ t_j $ 在文档$D_i$中的出现频率，$ idf $ 是 $ log_2\frac{N}{n} $ , $ N $ 是语料库中文档的数量, $ n $ 是术语 $ t_j $ 至少出现了一次的文档数量。
 
 3. 排序
