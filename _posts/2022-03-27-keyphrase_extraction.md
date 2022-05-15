@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 【论文合集】关键短语抽取论文整理
-tags: ["论文笔记", "NLP"]
+categories: ["论文笔记", "NLP"]
 # key: kp_papers
 ---
 
