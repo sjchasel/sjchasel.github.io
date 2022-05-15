@@ -29,7 +29,7 @@ mathjax: true
 
 \\( khdgajhasfjds \\)
 
-堵塞叫服务员 $ \frac{dfs}{d} fjkewgfj$  fse后方可为规范i无关
+堵塞叫服务员 $$ \frac{dfs}{d} fjkewgfj$$  fse后方可为规范i无关
 
 $$kjsdgfjs\frac{csljbdcdfk}{dslkh}$$
 
