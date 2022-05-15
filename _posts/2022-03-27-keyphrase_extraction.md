@@ -34,7 +34,7 @@ categories: ["论文笔记", "NLP"]
    + cutoff constant (CutOff )：如果出现的太晚，不会是关键短语。只对某些领域的文档有效，
 
 2. Step 2: candidate keyphrases weight calculation
-+ boosting factor: $ B_{\mathrm{d}}=\left|N_{\mathrm{d}}\right| /\left(\left|P_{\mathrm{d}}\right| \alpha\right) $
++ boosting factor: $ B_{\mathrm{d}}=\left| N_{\mathrm{d}}\right| /\left(\left|P_{\mathrm{d}}\right| \alpha\right) $
 有最大值；$N_d$是文档$d$中所有候选关键短语的个数；$|P_d|$是文档中长度超过1的候选短语的个数。$\alpha$是一个使其最终的值别太大的常数。
 
 + term position associated factor：可选 是否考虑位置
