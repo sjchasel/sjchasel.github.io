@@ -13,7 +13,7 @@ code：https://github.com/yhcc/BARTABSA
 
 ABSA竟然能分出七个子任务...这篇文章也是将信息抽取任务的多种表现形式用seq2seq模型统一起来生成。
 
-![sent](../images/blog/sent_subtask.png)
+![sent](/images/blog/sent_subtask.png)
 
 其中，a表示aspect term，是需要判断情感极性的实体，s表示情感极性，o表示opinion term。通过o判断a的s。这七种子任务为：
 
@@ -49,13 +49,13 @@ ABSA竟然能分出七个子任务...这篇文章也是将信息抽取任务的�
 
 一个例子如下：
 
-![task](../images/blog/sent_example.png)
+![task](/images/blog/sent_example.png)
 
 但是这两个任务的输入，给的aspect term放哪呢？直接拼接在句子上吗？
 
 ## Model
 
-![model](../images/blog/sent_model.png)
+![model](/images/blog/sent_model.png)
 
 晕，这两篇论文的模型图就是换了个色系吧。这两篇论文真的是...
 
@@ -81,6 +81,6 @@ $$
 # Experiment
 
 
-![exp](../images/blog/sent_exp.png)
+![exp](/images/blog/sent_exp.png)
 
 其实感觉这种抽取的形式挺抽象的，但实验还是有效果。

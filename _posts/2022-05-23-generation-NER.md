@@ -17,7 +17,7 @@ code：https://github.com/yhcc/BARTNER
 2. nested NER：实体中有实体
 3. discontinuous NER：实体词在句子中不连续
 
-![subtasks](../images/blog/generation_ner.png)
+![subtasks](/images/blog/generation_ner.png)
 
 以往解决 NER 任务用的方法是字符级别的序列标注或者对 text span 进行分类，但这些方法无法同时解决这三种子任务。
 
@@ -32,7 +32,7 @@ code：https://github.com/yhcc/BARTNER
 
 ## Model
 
-![model](../images/blog/generation_ner_model.png)
+![model](/images/blog/generation_ner_model.png)
 
 如上图所示，其实模型就是一个带pointer mechanism的seq2seq model，用了BART。
 
@@ -44,7 +44,7 @@ code：https://github.com/yhcc/BARTNER
 这边还提到了BART使用BPE算法会引起的一些问题，sentiment那篇并没有提。因为BPE算法可能会把一个word表示成好几个token，那么如何识别原文中的span呢。作者定义了三种方式如下：
 
 
-![bpe](../images/blog/ner_bpe.png)
+![bpe](/images/blog/ner_bpe.png)
 
 这个例子有三个实体（有重叠），PER的word是x1和x3，LOC的word是x1，x2，x3和x4，ORG的word是x4。
 
@@ -54,6 +54,6 @@ code：https://github.com/yhcc/BARTNER
 
 # Experiment
 
-![res1](../images/blog/ner_res1.png)
-![res2](../images/blog/ner_res2.png)
+![res1](/images/blog/ner_res1.png)
+![res2](/images/blog/ner_res2.png)
 
