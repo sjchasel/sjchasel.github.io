@@ -330,6 +330,11 @@ if __name__ == "__main__":
 
         target_word_embeddings.append(word_embedding)
 
+    list_of_distances = []
+    for text1, embed1 in zip(texts, target_word_embeddings):
+        for text2, embed2 in zip(texts, target_word_embeddings):
+            cos_dist = 1 - cosine(embed1, embed2)
+            list_of_distances.append([text1, text2, cos_dist])
     distances_df = pd.DataFrame(list_of_distances, columns=['text1', 'text2', 'distance'])
     distances_df #[distances_df.text1 == 'bank']
 ```
