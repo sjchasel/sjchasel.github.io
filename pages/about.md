@@ -41,7 +41,6 @@ permalink: /about/
 {% endfor %} -->
 
 
-![pic](https://s2.loli.net/2022/06/19/ETQ1Uc6I5qGxnHe.jpg)
 
 # 关于本博客
 
@@ -53,6 +52,9 @@ permalink: /about/
 # 关于作者
 
 SWUFE - IS --✈️--> XMU - AI - NLP
+
+![pic](https://s2.loli.net/2022/06/19/ETQ1Uc6I5qGxnHe.jpg)
+
 
 
 在本科生涯结束之际，深刻感到 **少不入川，老不出蜀** 是真理。
