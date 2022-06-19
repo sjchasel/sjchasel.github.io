@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【论文阅读】A Unified Generative Framework for Various NER Subtasks
-categories: ["论文笔记", "NLP"]
+categories: 论文笔记
+keywords: NLP, NER
 mathjax: true
 ---
 

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【论文阅读】Prefix-Tuning： Optimizing Continuous Prompts for Generation
-categories: ["论文笔记", "NLP"]
+categories: 论文笔记
+keywords: NLP, Prompt
 mathjax: true
 # key: prefix_tuning
 ---

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【学习笔记】CS224N 01 Introduction and Word Vectors
-categories: ["CS224N", "NLP", "学习笔记"]
+categories: 学习笔记
+keywords: NLP, CS224N
 mathjax: true
 # key: cs224n_1
 ---

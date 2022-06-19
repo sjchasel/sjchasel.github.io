@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【论文阅读】Text is no more Enough!A Benchmark for Profile-based Spoken Language Understanding
-categories: ["NLP", "论文笔记"]
+categories: 论文笔记
+keywords: NLP, dialog
 mathjax: true
 # key: text_not_enough
 ---

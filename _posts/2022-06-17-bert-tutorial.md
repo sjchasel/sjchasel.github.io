@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【代码练习】Bert Word Embedding
-categories: ["NLP"]
+categories: 代码demo
+keywords: bert
 mathjax: true
 ---
 

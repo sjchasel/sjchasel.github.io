@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【论文合集】关键短语抽取论文整理
-categories: ["论文笔记", "NLP"]
+categories: 论文笔记
+keywords: keyphrase, NLP
 mathjax: true
 # key: kp_papers
 ---
