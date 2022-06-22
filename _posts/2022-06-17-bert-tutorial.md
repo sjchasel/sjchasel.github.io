@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 【学习笔记】Bert Word Embedding
-categories: 学习笔记, 代码demo
+categories: ["学习笔记", "代码demo"]
 keywords: bert
 mathjax: true
 ---
