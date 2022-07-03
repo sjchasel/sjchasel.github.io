@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【学习笔记】迈向大规模高效自然语言处理
+title: 【学习笔记】邱锡鹏老师讲座-迈向大规模高效自然语言处理
 categories: 学习笔记
 keywords: NLP, 讲座
 mathjax: true
