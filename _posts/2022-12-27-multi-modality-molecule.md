@@ -1,0 +1,275 @@
+---
+layout: post
+title: 【论文阅读】Multimodal Molecule-Language Models
+categories: 论文笔记
+keywords: NLP, Bio
+mathjax: true
+---
+
+[TOC]
+
+
+# Preliminaries
+
+分子的表示方式可以从维度分成以下三类：
+
+- 1D：以SMILES为代表，将分子化成一个字符串。比如
+![](https://bkimg.cdn.bcebos.com/pic/fd039245d688d43f87944d97b052c51b0ef41bd58d0b?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UxMTY=,g_7,xp_5,yp_5)
+这种表示也能立即将NLP中的语言模型迁移过来使用，非常方便。存在的问题大概有，在分子中相邻、相连的原子，在SMILES中可能隔得很远，因此不利于学习分子中重要的官能团这种信息。
+- 2D：将分子的原子作为节点，分子的化学键作为连接节点的边。采用图神经网络来学习分子的表示。但是在现实世界中其实没有化学键这种东西，化学键是人为建模出来的帮助我们理解分子的结构。所以这种表示存在的问题大概就是不太自然，无法直接学习分子的本质信息，并且没有三维坐标信息。
+- 3D：分子是一个有三维信息的立体的东西，并且因为蛋白质和小分子的结合是三维形态的嵌入，所以考虑分子的三维信息在这类任务上很重要。可以用点云、密度图等来表示3D的分子，大家也会参考论文 E (n) equivariant graph neural  networks 使用E(3) Transformer来建模分子。对分子进行3D的建模时要注意的问题就是分子具有旋转和平移上的等变性。整个分子进行任意角度的平移、旋转，并不会对它的性质有什么改变。
+
+# Motivation
+
+将自然语言模态和分子模态结合的好处在于：
+1. 药物的设计更加自由和直观。药学家只需要说出自己想要的性质，就能检索/生成/优化出想要的分子。
+2. 数据库中存在大量人类对分子的标注文本，这些人类对分子的理解（以文本描述存在）可以作为外部知识，在对分子建模的时候可以结合这部信息，来学习更好的表示。
+3. 将文本和分子结构联系起来，可以提高分子的可解释性（感觉就是在找词语和分子的官能团的共现关系）。比如研究者发现“pollutant”这个自然语言总是会检索出拥有“F-C”子结构的分子[1]。
+
+# Task and Evaluation
+
+我将涉及到的任务分成检索、生成、分类三类进行介绍，并同时介绍这些任务的评价指标。
+
+## retrieval task
+
+论文[1]中，对检索任务的定义是给定一个文本query和一堆分子，去检索和文本描述最相关的分子（目标只有一个）。用Hits@1和MRR作为评价指标。如下图所示：
+
+![](/images/blog/text2mol.png)
+
+
+论文[2]中，构造了阅读理解的任务，所用的数据集是PCdes。流程如下图所示：
+
+![](/images/blog/KVPLM-reading.png)
+
+论文[4]中，这个任务包括Graph-text retrieval和Text-graph retrieval。用来评估这个任务的数据集是PCdes dataset，包含了PubChem数据库中15K个分子的SMILES和对它们的性质描述。训练集是10500条，验证集是1500条，测试集3000条。
+完全follow论文[2]的设置。
+
+## generation task
+
+### molecule caption[3,4]
+
+如下图，类似image caption。输入分子（SMILES），输出对这个分子的描述。
+
+![](/images/blog/molecule_caption.png)
+
+因此评价指标可以采用BLEU、ROUGE、METEOR，比较目标文本的相似度。
+
+除此之外，这个任务是论文[3]提出的，还能使用论文[2]的模型Text2Mol。这是一个检索排序模型，通过将分子和文本描述映射到同一个空间中，来计算它们的余弦相似度。因此可以用这个相似度来作为评价指标。我们希望生成描述和给定的分子之间的相似度尽量大。
+
+### text-guided molecule generation[3]/Text-to-graph molecule generation[4]
+
+
+论文[3,4]都是输入文本，生成符合描述的分子。
+
+在论文[3]中，
+
+![](/images/blog/text_molecule.png)
+
+同样可以使用Text2Mol的相似度指标，希望生成的分子和给定的描述之间的相似度尽量大。
+
+也可以计算生成分子和目标分子之间的相似度。比如：
+- fingerprint metrics：对于分子生成，比较生成的分子和ground-truth分子指纹的古本相似度。
+- SMILES metrics：SMILES之间的编辑距离和BLEU score。
+
+在论文[4]中
+
+
+## classification task
+
+### 分子结构性质预测——MoleculeNet[2]
+
+分子结构性质预测，来自这个benchmark的四个分类任务：
+1. BBBP：blood-brain barrier penetration dataset（血脑屏障穿透数据集），2053个小分子的二分类，判断目标为penetration/non-penetration。
+2. SIDER：Side Effect Resource database of marketed drugs and adverse drug reactions（已上市药品及药物不良反应资源库）。1427个药物在27个器官上进行二分类。
+3. Tox21：8014个分子，在12个目标上进行有毒或无毒的分类。
+4. HIV：判断41127个分子抑制HIV病毒复制的能力是活跃还是不活跃。
+
+### 命名实体识别[2]
+
+所用数据集为BC5CDR，化学-疾病关系检测语料库，1500 abstracts 均分成train/dev/test。每个数据集中有超过5k个化学的mention，使用SciBERT用的版本做NER。这个数据集也可以做关系抽取。
+
+### 关系抽取[2]
+
+所用数据集为Chemprot，是判断小分子和蛋白质之间的反应关系，总共有13种关系，比如inhibitor, product-of。
+- train：1020 abstracts (230k tokens) 
+- dev：612 abstracts (110k tokens) 
+- test：800 abstracts (180k tokens)
+
+### chemical reaction classification task（few-shot）[2]
+
+所用数据集为USPTO 1k TPL。
+
+
+### 分子结构性质预测——Property prediction[4]
+
+
+
+
+# Datasets
+
+这里介绍论文中提出的一些新数据集
+
+## ChEBI-20[1]
+
+来源于PubChem、Chemical Entities of Biological Interest (ChEBI)。前者提供小分子，后者提供这些小分子的描述文本，总共有102,980个数据对。筛选出描述大于20个词的，能被RDKit识别的小分子，剩下33，010对。
+按8/1/1划分数据集。在做排序时是对数据集中的所有分子排序（？）。
+
+论文[3]也使用这个数据集进行finetune/训练baseline。但是这个数据集中的描述总是在开头说这个分子的名字，比如“Rostratin D is an organic disulfide isolated from ...”，所以作者将开头的名字替换成了"The
+molecule is [...]" (e.g., “The molecule is an organic disulfide isolated from ...”)。
+
+## KV-PLM的预训练数据[2]
+
+
+预训练数据来自S2orc数据库，这是一个包含英文学术论文PDF的数据库。爬取了30万论文，包含10亿token。75%的论文是药学、生物学、化学领域，其他的是计算机领域。只用摘要、引言和结论。用SciSpacy对其进行命名实体识别，找到其中的化合物名词。和PubChem数据库中分子的名字/同义词进行匹配，从而获得文献中小分子的SMILES。将SMILES插入到文本的名词后面。
+
+怎么不公开！
+
+## [4]
+
+从PubChem中搜集了前5w个分子的名字、同分异构体（synonyms应该是这个？）、SMILES。用OGB的smiles2graph将其转成图。用分子的名字作为query，从S2orc数据库中检索相关的描述文本。获得了15,613 graph-document数据对。
+弱监督方式收集的数据，会比较粗糙。
+
+
+
+# Papers
+
+## paper list
+
+目前只发现了这五篇论文
+
+[1] EMNLP21 Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries
+
+code: https://github.com/cnedwards/text2mol
+
+[2]NATURE COMMUNICATIONS22清华 A deep-learning system bridging molecule structure and biomedical text with comprehension comparable to human professionals
+
+model(包含[code](https://github.com/thunlp/KV-PLM)): https://drive.google.com/drive/folders/1xig3-3JG63kR-Xqj1b9wkPEdxtfD_4IX
+
+[3]EMNLP22 Translation between Molecules and Natural Language
+
+code: https://github.com/blender-nlp/MolT5
+
+
+[4]Arxiv22.9.12人大 A Molecular Multimodal Foundation Model Associating Molecule Graphs with Natural Language
+
+code: https://github.com/BingSu12/MoMu 和 https://github.com/yangzhao1230/GraphTextRetrieval
+
+[5]Arxiv22.12.21唐建 Multi-modal Molecule Structure-text Model for Text-based Retrieval and Editing
+
+code: https://github.com/chao1224/MoleculeSTM  
+还是空的
+
+## Methods and Experiments
+
+分别讲讲五篇论文的做法。
+
+### Text2Mol
+
+#### Method
+
+分子和文本分别有一个encoder，文本的用SciBERT，分子的尝试了两种结构：
+1. MLP：Mol2vec的embedding作为输入
+2. GCN
+
+和摩根指纹的构建关系好像比较大，之后研究一下。
+![](/images/blog/text2mol_model.png)
+
+除了这两个encoder之外，还有一个transformer decoder，作用是将文本encoder的输出解码成为分子encoder的输出。
+loss采用了论文 CLIP 中的 symmetric contrastive loss。
+
+但是作者发现仅用这个loss没什么用，因为模型无视文本信息？信息从一个encoder泄漏到另一个encoder。没看懂是为什么。
+所以作者修改了损失函数，加上一个二分类任务，判断一个分子和一个文本描述是否匹配，来强迫模型去学习文本信息。
+
+---
+
+
+为了增强模型的可解释性，作者加入了一个cross-modal attention模块。利用最后一层的attention值作为支持度，对分子的token和文本的token进行关联规则挖掘。对于每对（文本token，分子token）这样的规则，我们都得到了置信度值。
+
+对于每个（文本，分子）对，它的得分一般采用topk个规则的置信度值的平均值表示，但是作者修改了一下，将平均值和余弦相似度做了个线性插值，即：
+
+$$S(a,b)=\alpha cos(a,b) + (1-\alpha)AR(1,b)$$
+
+其中 $\alpha\in [0,1]$，是从验证集上计算出来的超参数。
+
+还做了个集成学习，取多个模型的平均值。
+
+#### Experiment
+
+
+![](/images/blog/text2mol_exp.png)
+
+主要是分析集成学习的效果。
+MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结构的不同初始参数也有不同。集成起来能达到最好的效果。
+
+
+对于模型的缺陷以及下一步改进：
+作者认为描述文本决定了这个模型的上限，虽然通过关联规则挖掘学习到了一些文本和分子结构的关系，但是这是不够的，模型仍然对一些基础知识无法识别。比如描述中出现“oxide” 意味着这个分子会有氧原子，而模型没有生成。因此融合更多外部知识可能可以继续提高模型的表现。
+
+
+### KV-PLM
+
+#### Method
+
+用SciBERT对模型进行初始化，加上了个分类层对下游任务进行适配。作者尝试了用SciBERT的词表对SMILES进行分词 和 用BPE算法对SMILES分词 两种设置。
+
+![](/images/blog/KV-PLM.png)
+
+然后就做mask language model的任务。
+
+#### Experiment
+
+
+![](/images/blog/KVPLM-exp1.png)
+
+对比了六种基于BERT的baseline。发现如下：
+1. SciBERT没有在SMILES数据上预训练，在分子结构性质预测任务上的表现也不错。作者认为SMILES的语言模式和自然语言有一定联系。但是我感觉只是因为SciBERT的预训练数据里是包含SMILES的？SMILES不就是把分子构成树然后遍历吗，这似乎是确定的规则？
+2. KV-PLM*（BPE对SMILES分词）版本没有直接拿SciBERT词表对SMILES分词的表现好。可能是因为在BPE的词表下，一些决定了分子性质的官能团被忽略了。
+
+
+### molT5
+
+#### Method
+
+![](/images/blog/molT5.png)
+
+
+用T5.1.1作为初始化参数，采用replace corrupted spans任务做预训练。单语言的预训练数据分别为C4和Chemformer用的一亿条SMILES（竟然有这么大的数据集？？？！）。预训练阶段并没有做语言的对齐。
+
+分子文本对数据用在两个下游任务的finetune中。
+
+#### Experiment
+
+![](/images/blog/molT5-exp1.png)
+
+![](/images/blog/molT5-exp2.png)
+
+这个对比公平吗？所有的baseline要么是没有单语预训练，要么是参数更小。
+
+
+1. RNN经常产生SMILES语法无效的序列；
+2. 数据集太小，无法finetune transformer；
+3. 作者在两个任务都列举了一堆case来说明自己模型的理解能力。
+
+
+### MoMu
+
+这篇文章的分子是2D graph形式。
+
+为了弥补molecule-text pair的数据稀少的问题，作者采用了在单模态上预训练的模型初始化两个encoder。分子和文本的encoder分别是GIN（How powerful are graph neural networks?）和Sci-BERT（MoMu-S）或KV-PLM（MoMu-K）。
+
+对于graph-text对，采用graph数据增强的方式采样两个graph，从文档中随机采样两个不同的句子。用DeClip中对比学习的做法，并将 inter-modal 和 intra-modal contrastive learning 作为预训练的任务，loss是InfoNCE。
+
+![](/images/blog/MoMu.png)
+
+
+### MoleculeSTM
+
+
+# 感想
+
+1. 分子和文本的结合感觉从数据的本质上来看是多模态任务，这两种模态的信息实在是太不对齐了。文本描述可以有很多种，就像对图像的描述，每个人写的都不同。人类描写的文本一定无法将分子结构蕴含的信息全面表达，但又可以直白地说出结构的一些性质。
+但当分子用SMILES表示时，感觉可以参考多语言的模型。论文[3]也说了他们的模型像mBART。
+当分子用2D图或3D的形式来表示，才更像多模态任务。只能用不同的encoder去编码分子和文本这两种模态，再思考如何对齐和融合。
+2. 对齐的数据还是太少了，无法离开大型的预训练模型。似乎新出了一篇做分子性质预测的任务里第一次提出分子数据增强的方法，不知道能不能用上。【待会看看】
+3. 这些文章中只做了粗粒度数据对的对齐，能不能类似visual grounding的做法做多模态中细粒度的对齐。比如用Text2Mol中通过关联规则挖掘出来的，分子官能团与文本的对应关系作为先验知识，或者不知道有没有数据库也提供这样的知识。
+4. 一些对齐的做法迁移过来。比如mask一个模态，用其他模态的信息去预测。
