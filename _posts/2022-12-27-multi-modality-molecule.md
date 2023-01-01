@@ -10,8 +10,6 @@ mathjax: true
 
 # Paper list
 
-目前只发现了这五篇论文
-
 [1] EMNLP21 Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries
 
 code: https://github.com/cnedwards/text2mol
