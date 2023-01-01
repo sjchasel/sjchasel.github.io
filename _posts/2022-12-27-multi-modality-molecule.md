@@ -8,6 +8,32 @@ mathjax: true
 
 [TOC]
 
+# Paper list
+
+目前只发现了这五篇论文
+
+[1] EMNLP21 Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries
+
+code: https://github.com/cnedwards/text2mol
+
+[2]NATURE COMMUNICATIONS22清华 A deep-learning system bridging molecule structure and biomedical text with comprehension comparable to human professionals
+
+model(包含[code](https://github.com/thunlp/KV-PLM)): https://drive.google.com/drive/folders/1xig3-3JG63kR-Xqj1b9wkPEdxtfD_4IX
+
+[3]EMNLP22 Translation between Molecules and Natural Language
+
+code: https://github.com/blender-nlp/MolT5
+
+
+[4]Arxiv22.9.12人大 A Molecular Multimodal Foundation Model Associating Molecule Graphs with Natural Language
+
+code: https://github.com/BingSu12/MoMu 和 https://github.com/yangzhao1230/GraphTextRetrieval
+
+[5]Arxiv22.12.21唐建 Multi-modal Molecule Structure-text Model for Text-based Retrieval and Editing
+
+code: https://github.com/chao1224/MoleculeSTM  
+还是空的
+
 
 # Preliminaries
 
@@ -61,6 +87,10 @@ mathjax: true
 
 论文[5]中检索任务是zero-shot场景下的structure-text retrieval task。
 
+从DrugBank数据库构造了三个数据集，提取的字段有描述文本、pharmacodynamics field？和 anatomical therapeutic chemical (ATC) field？。
+
+同样有双向的两个任务，从化学结构检索文本和从文本检索化学结构。检索的个数有4、10、20三个设置，比之前的论文少很多。
+
 ## generation task
 
 ### molecule caption[3,4]
@@ -102,7 +132,12 @@ mathjax: true
 
 ### Text-based Molecule Editing[5]
 
-这个任务也做在zero-shot场景下
+这个任务也做在zero-shot场景下。
+随机从ZINC数据库中采200个分子，构造文本的prompt也作为输入。有四种prompt：
+1. Single-objective editing：单目标优化，比如 “molecule with high solubility”、“molecule more like a drug”。
+2. Multi-objective (compositionality) editing：多目标优化，比如 “molecule with high solubility and high permeability”。
+3. Binding-affinity-based editing：应该是让分子针对某个蛋白质去优化，希望生成的分子能有更高的亲和性。比如 “This molecule is tested positive in an assay that are inhibitors and substrates of an enzyme protein. It uses molecular oxygen inserting one oxygen atom into a substrate, and reducing the second into a water molecule.”
+4. Drug relevance editing：希望生成的分子和某些药物相似，比如“this molecule looks like Penicillin”。
 
 
 ## classification task
@@ -115,7 +150,7 @@ mathjax: true
 3. Tox21：8014个分子，在12个目标上进行有毒或无毒的分类。
 4. HIV：判断41127个分子抑制HIV病毒复制的能力是活跃还是不活跃。
 
-论文[2]在这个benchmark上测试，论文[4]除了这四个数据集的任务外，还多测了四个：
+论文[2]在这个benchmark上测试，论文[4,5]除了这四个数据集的任务外，还多测了四个：
 1. ToxCast
 2. ClinTox
 3. MUX
@@ -135,11 +170,6 @@ mathjax: true
 ### chemical reaction classification task（few-shot）[2]
 
 所用数据集为USPTO 1k TPL。
-
-
-### 分子结构性质预测——Property prediction[4]
-
-
 
 
 # Datasets
@@ -167,46 +197,14 @@ molecule is [...]" (e.g., “The molecule is an organic disulfide isolated from 
 
 ## PubChemSTM[5]
 
-来源PubChem的数据，大小是KV-PLM数据的28倍多，也就是分子文本多模态领域目前最大的数据集了。
 
-
-
+之前数据集的构造方式是用同义词字段去检索文本，但PubChem里还有一个叫“string”的字段，提供了更全面的对分子的注释。作者利用这个字段构造了包含250K个分子和281K个structure-text数据对的PubChemSTM，大小是之前数据集的28倍多，是目前分子文本多模态领域目前最大的数据集。
 
 # Papers
 
-## paper list
+## Text2Mol
 
-目前只发现了这五篇论文
-
-[1] EMNLP21 Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries
-
-code: https://github.com/cnedwards/text2mol
-
-[2]NATURE COMMUNICATIONS22清华 A deep-learning system bridging molecule structure and biomedical text with comprehension comparable to human professionals
-
-model(包含[code](https://github.com/thunlp/KV-PLM)): https://drive.google.com/drive/folders/1xig3-3JG63kR-Xqj1b9wkPEdxtfD_4IX
-
-[3]EMNLP22 Translation between Molecules and Natural Language
-
-code: https://github.com/blender-nlp/MolT5
-
-
-[4]Arxiv22.9.12人大 A Molecular Multimodal Foundation Model Associating Molecule Graphs with Natural Language
-
-code: https://github.com/BingSu12/MoMu 和 https://github.com/yangzhao1230/GraphTextRetrieval
-
-[5]Arxiv22.12.21唐建 Multi-modal Molecule Structure-text Model for Text-based Retrieval and Editing
-
-code: https://github.com/chao1224/MoleculeSTM  
-还是空的
-
-## Methods and Experiments
-
-分别讲讲五篇论文的做法。
-
-### Text2Mol
-
-#### Method
+### Method
 
 分子和文本分别有一个encoder，文本的用SciBERT，分子的尝试了MLP和GCN两种结构，似乎都是获得分子的摩根指纹，用Mol2vec获得embedding，但我不太清楚指纹的构建方式，之后仔细看看。
 
@@ -231,7 +229,7 @@ $$S(a,b)=\alpha cos(a,b) + (1-\alpha)AR(1,b)$$
 
 还做了个集成学习，取多个模型的平均值。
 
-#### Experiment
+### Experiment
 
 
 ![](/images/blog/text2mol_exp.png)
@@ -244,9 +242,9 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 作者认为描述文本决定了这个模型的上限，虽然通过关联规则挖掘学习到了一些文本和分子结构的关系，但是这是不够的，模型仍然对一些基础知识无法识别。比如描述中出现“oxide” 意味着这个分子会有氧原子，而模型没有生成。因此融合更多外部知识可能可以继续提高模型的表现。
 
 
-### KV-PLM
+## KV-PLM
 
-#### Method
+### Method
 
 用SciBERT对模型进行初始化，加上了个分类层对下游任务进行适配。作者尝试了用SciBERT的词表对SMILES进行分词 和 用BPE算法对SMILES分词 两种设置。
 
@@ -254,7 +252,7 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 
 然后就做mask language model的任务。
 
-#### Experiment
+### Experiment
 
 
 ![](/images/blog/KVPLM-exp1.png)
@@ -265,9 +263,9 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 3. 单语言预训练很有效。
 
 
-### molT5
+## molT5
 
-#### Method
+### Method
 
 ![](/images/blog/molT5.png)
 
@@ -276,7 +274,7 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 
 分子文本对数据用在两个下游任务的finetune中。
 
-#### Experiment
+### Experiment
 
 ![](/images/blog/molT5-exp1.png)
 
@@ -290,9 +288,9 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 3. 作者在两个任务都列举了一堆case来说明自己模型的理解能力。
 
 
-### MoMu
+## MoMu
 
-#### Method
+### Method
 
 这篇文章的分子是2D graph形式。
 
@@ -302,9 +300,9 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 
 ![](/images/blog/MoMu.png)
 
-#### Experiment
+### Experiment
 
-##### Cross-modality retrieval
+#### Cross-modality retrieval
 
 ![](/images/blog/MoMu-exp1.png)
 
@@ -312,7 +310,7 @@ a是正常的检索任务，旁边的d是zero-shot设置。不用PCdes数据集�
 
 MoMu-K和MoMu-S的区别在于文本的encoder初始化参数是SciBERT还是KV-PLM*。但后者并没有比前者更好，说明从SMILES这样的文本序列中学习到的分子的结构信息很难迁移到对分子图的编码上。
 
-##### molecule caption
+#### molecule caption
 
 作者对这个任务的实验设置是，将MoMu模型对分子图编码的特征作为一个额外的特征向量给MolT5模型。  
 效果好不是很正常吗？要是模型训得好，这额外的特征没有用的话线性层的权重为0不就行了。  
@@ -321,7 +319,7 @@ MoMu-K和MoMu-S的区别在于文本的encoder初始化参数是SciBERT还是KV-
 ![](/images/blog/MoMu-exp2.png)
 
 
-##### Zero-shot text-to-graph molecule generation
+#### Zero-shot text-to-graph molecule generation
 
 
 采用MolFlow作为分子的生成器，预训练好的MoMu和MolFlow（在ZINC250K上预训练）的参数都不会再调整。
@@ -342,9 +340,7 @@ MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，�
 3. MoMu能根据特定的性质描述文本生成想要的分子。他展示出来的case确实是这样，但是MolT5也有好的case。不是很明白这么多case study的意义。
 
 
-
-
-##### Molecule property prediction
+#### Molecule property prediction
 
 ![](/images/blog/MoMu-exp4.png)
 
@@ -353,9 +349,9 @@ MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，�
 
 
 
-### MoleculeSTM
+## MoleculeSTM
 
-#### Method
+### Method
 
 ![](/images/blog/MoleculeSTM.png)
 
@@ -363,10 +359,13 @@ MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，�
 1. Open vocabulary：模型的文本不受限于对一些分子的描述，而是认识更多的专有名词。所以有能力面对一些需要挖掘新关系的场景。
 2. Compositionality：在多目标先导化合物优化上，以往的方法需要大型的数据库用于检索，或是设计多个分类器去完成多个目标。但通过自然语言，可以很方便地组合多个目标，语言模型也能够理解其中复杂的语义。比如只需要设计这样一个文本的prompt“molecule is soluble in water and has high permeability”，就能表达两种目标的需求。
 
+模型的结构：
+1. Chemical structure branch：即考虑了SMILES又考虑了分子图的表示。对于SMILES，用预训练encoder MegaMolBART；对于分子图，用 GraphMVP预训练的graph isomorphism network (GIN)，这个模型里也包含了一些三维空间信息。（然后怎么结合，似乎没看见哪里有写）
+2. Textual description branch：SciBERT。
 
 
-
-#### Experiment
+对比学习：  
+结合了EBM-NCE和InfoNCE
 
 
 # 感想
@@ -380,7 +379,7 @@ MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，�
 当分子用2D图或3D的形式来表示，才更像多模态任务。只能用不同的encoder去编码分子和文本这两种模态，再思考如何对齐和融合。
 
 
-类似多模态的任务，对齐文本的短语描述和图像中的一些实体。这个任务也在对齐描述性质的词/短语以及分子的官能团。各篇论文的case study也都在展示模型这方面的能力：
+类似文本图像多模态的任务需要对齐文本的短语描述和图像中的一些实体，这个任务也在对齐描述性质的词/短语以及分子的官能团。各篇论文的case study也都在展示模型这方面的能力：
 
 
 ![](/images/blog/KVPLM-case.png)
@@ -403,5 +402,3 @@ MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，�
 
 3. 【数据形式】这些文章做粗粒度的对齐的同时，都展示了细粒度的对齐结果。引入文本，其实还是想将文本的一些词语/短语和决定分子这些性质的官能团联系起来，然后组合起来去理解整个的语义。所以用SMILES这样的1D形式是感觉天然地不合适这种任务。因为序列会把官能团拆分开来。最起码也得在分子图上划分子图吧。
 
-
-4. 【】回到这个任务的motivation，似乎分子方面所有的研究都是在为药物设计做准备。但是现在搜集的数据好像只是，只要是有文本描述的小分子化合物就用，不管这是不是可合成的药物分子。那么根据文本prompt设计出来的小分子不一定是可合成的，这样就没有意义了。
