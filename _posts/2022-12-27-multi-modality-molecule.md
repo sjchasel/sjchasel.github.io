@@ -36,8 +36,9 @@ mathjax: true
 
 ![论文1-task](/images/blog/text2mol.png)
 
+---
 
-论文[2]中，检索任务叫Versatile reading tasks，所用的数据集是PCdes。其中子任务2 CHEMIchoice如下图所示：
+论文[2]中，检索任务叫Versatile reading tasks，所用的数据集是PCdes。包含了PubChem数据库中15K个分子的SMILES和对它们的性质描述。训练集是10500条，验证集是1500条，测试集3000条。其中子任务2 CHEMIchoice如下图所示：
 
 ![multiplechoice task CHEMIchoice](/images/blog/KVPLM-reading.png)
 
@@ -46,9 +47,19 @@ mathjax: true
 1. cross-information retrieval：双向的检索。从3k个分子/文本描述中检索出最相似的一个文本描述/分子。汇报了模型的 recall@20 得分。
 2. match judging：也就是上图，multiplechoice task CHEMIchoice。从数据中采样四个描述句子，选择和分子最相似的一句。三个负例的选择会排除掉和正例特别相似的。
 
+---
 
-论文[4]中，这个任务包括Graph-text retrieval和Text-graph retrieval。用来评估这个任务的数据集是PCdes dataset，包含了PubChem数据库中15K个分子的SMILES和对它们的性质描述。训练集是10500条，验证集是1500条，测试集3000条。
-完全follow论文[2]的设置。
+论文[4]中，这个任务包括：
+1. Graph-text retrieval：给定分子图，检索出最相似的文本描述。
+2. Text-graph retrieval：给定文本描述，检索出最相似的分子图。
+
+完全follow论文[2]的设置，也用PCdes数据集。
+他提到检索的范围也是follow[2]的，从随机sample的一个batch（64条数据）和整个测试集（3k）中进行检索。
+在论文[2]中，文本描述是从文档中sample的句子，这篇论文将其称为sentence-level retrieval，并且也尝试了整个文本描述去检索的设置——paragraph-level retrieval。
+
+---
+
+论文[5]中检索任务是zero-shot场景下的structure-text retrieval task。
 
 ## generation task
 
@@ -62,7 +73,8 @@ mathjax: true
 
 除此之外，这个任务是论文[3]提出的，还能使用论文[2]的模型Text2Mol。这是一个检索排序模型，通过将分子和文本描述映射到同一个空间中，来计算它们的余弦相似度。因此可以用这个相似度来作为评价指标。我们希望生成描述和给定的分子之间的相似度尽量大。
 
-### text-guided molecule generation[3]/Text-to-graph molecule generation[4]
+
+### text-guided molecule generation[3]
 
 
 论文[3,4]都是输入文本，生成符合描述的分子。
@@ -77,18 +89,37 @@ mathjax: true
 - fingerprint metrics：对于分子生成，比较生成的分子和ground-truth分子指纹的古本相似度。
 - SMILES metrics：SMILES之间的编辑距离和BLEU score。
 
-在论文[4]中
+
+### zero-shot text-to-graph molecule generation[4]
+
+
+在论文[4]中，是在zero-shot场景下进行分子生成。
+他认为他和论文[3]中text-guided molecule generation任务的不同在于：他提供的描述是一些指定的属性或条件，需要去生成满足条件的新分子。但是[3]的任务是在描述一个已经存在的分子。
+
+举个例子，他的描述会更加抽象一些，比如“The molecule has high water solubility and barrier permeability with low toxicity”。但是论文[3]中的描述会对结构描述得很清楚，比如“The molecule is a member of the class of monohydroxy-1,4-benzoquinones that is 2-hydroxy-1,4-benzoquinone carrying an additional methyl substituent at position 5. It is a conjugate acid of a 2-oxido-5-methylquinone”。这种描述已经可以确定地定位一个具体的分子了，即“CC1=CC(=O)C(=O)C=C1O”。
+
+（是不是因为没有这种抽象的文本与分子对数据，才只能做zero-shot？）
+
+### Text-based Molecule Editing[5]
+
+这个任务也做在zero-shot场景下
 
 
 ## classification task
 
-### 分子结构性质预测——MoleculeNet[2]
+### 分子结构性质预测[2,4]
 
-分子结构性质预测，来自这个benchmark的四个分类任务：
+分子结构性质预测，有一个benchmark叫MoleculeNet，有四个分类任务：
 1. BBBP：blood-brain barrier penetration dataset（血脑屏障穿透数据集），2053个小分子的二分类，判断目标为penetration/non-penetration。
 2. SIDER：Side Effect Resource database of marketed drugs and adverse drug reactions（已上市药品及药物不良反应资源库）。1427个药物在27个器官上进行二分类。
 3. Tox21：8014个分子，在12个目标上进行有毒或无毒的分类。
 4. HIV：判断41127个分子抑制HIV病毒复制的能力是活跃还是不活跃。
+
+论文[2]在这个benchmark上测试，论文[4]除了这四个数据集的任务外，还多测了四个：
+1. ToxCast
+2. ClinTox
+3. MUX
+4. BACE
 
 ### 命名实体识别[2]
 
@@ -129,10 +160,15 @@ molecule is [...]" (e.g., “The molecule is an organic disulfide isolated from 
 
 怎么不公开！
 
-## [4]
+## MoMu的模态对齐finetune数据[4]
 
-从PubChem中搜集了前5w个分子的名字、同分异构体（synonyms应该是这个？）、SMILES。用OGB的smiles2graph将其转成图。用分子的名字作为query，从S2orc数据库中检索相关的描述文本。获得了15,613 graph-document数据对。
+从PubChem中搜集了前5w个分子的名字、同义词、SMILES。用OGB的smiles2graph将其转成图。用分子的名字作为query，从S2orc数据库中检索相关的描述文本。获得了15,613 graph-document数据对。
 弱监督方式收集的数据，会比较粗糙。
+
+## PubChemSTM[5]
+
+来源PubChem的数据，大小是KV-PLM数据的28倍多，也就是分子文本多模态领域目前最大的数据集了。
+
 
 
 
@@ -256,16 +292,81 @@ MLP和GCN结构在对不同官能团排序的能力很不一样，同一个结�
 
 ### MoMu
 
+#### Method
+
 这篇文章的分子是2D graph形式。
 
-为了弥补molecule-text pair的数据稀少的问题，作者采用了在单模态上预训练的模型初始化两个encoder。分子和文本的encoder分别是GIN（How powerful are graph neural networks?）和Sci-BERT（MoMu-S）或KV-PLM（MoMu-K）。
+和之前论文一样，为了弥补molecule-text pair的数据稀少的问题，作者采用了在单模态上预训练的模型初始化两个encoder。分子和文本的encoder分别是GIN（How powerful are graph neural networks?）和Sci-BERT（MoMu-S）或KV-PLM（MoMu-K）。然后再用自己收集的数据通过对比学习对模型进行finetune，实现模态的对齐。
 
 对于graph-text对，采用graph数据增强的方式采样两个graph，从文档中随机采样两个不同的句子。用DeClip中对比学习的做法，并将 inter-modal 和 intra-modal contrastive learning 作为预训练的任务，loss是InfoNCE。
 
 ![](/images/blog/MoMu.png)
 
+#### Experiment
+
+##### Cross-modality retrieval
+
+![](/images/blog/MoMu-exp1.png)
+
+a是正常的检索任务，旁边的d是zero-shot设置。不用PCdes数据集对MoMu finetune，直接使用预训练后的模型。并且因为PCdes中可能有数据被包含在预训练数据中，所以作者又收集了一些新的数据进行测试。
+
+MoMu-K和MoMu-S的区别在于文本的encoder初始化参数是SciBERT还是KV-PLM*。但后者并没有比前者更好，说明从SMILES这样的文本序列中学习到的分子的结构信息很难迁移到对分子图的编码上。
+
+##### molecule caption
+
+作者对这个任务的实验设置是，将MoMu模型对分子图编码的特征作为一个额外的特征向量给MolT5模型。  
+效果好不是很正常吗？要是模型训得好，这额外的特征没有用的话线性层的权重为0不就行了。  
+
+
+![](/images/blog/MoMu-exp2.png)
+
+
+##### Zero-shot text-to-graph molecule generation
+
+
+采用MolFlow作为分子的生成器，预训练好的MoMu和MolFlow（在ZINC250K上预训练）的参数都不会再调整。
+
+从高斯分布中采样q，用MolFlow生成分子图。将这个分子图输入给MoMu的molecule encoder，文本描述输给MoMu的text encoder，获得二者的特征向量，最大化两个特征向量之间的余弦相似度。优化后的q给MolFlow生成最后的分子。
+
+MoMu可以和任何能够进行反向梯度传播的分子生成模型兼容，能够搜索的分子空间取决于这个分子生成模型。MoMu去寻找和文本语义相似的新分子。
+
+这个实验也只是展示了一些case，输入的文本还是挺神奇（抽象的）。
+
+![](/images/blog/MoMu-exp3.png)
+
+
+作者对实验结果的分析如下：
+1. MolT5只能生成多个分子，但MoMu可以采样出很多不同的分子；
+2. MoMu处理抽象描述的能力强，MolT5经过了数据的finetune，只能处理那种非常具体的描述的文本。MoMu认为“美丽的”分子局部对称和拉伸，认为“万能的”分子有很多基团。认为“奇怪的”分子有乱七八糟的支链。
+我觉得这是作者收集的弱监督数据里，包含人类对分子的一些主观评价吧。而且这些评价对新药发现有很大的意义吗。。。
+3. MoMu能根据特定的性质描述文本生成想要的分子。他展示出来的case确实是这样，但是MolT5也有好的case。不是很明白这么多case study的意义。
+
+
+
+
+##### Molecule property prediction
+
+![](/images/blog/MoMu-exp4.png)
+
+在不同数据集上进行finetune，用molecule encoder编码出的特征进行性质预测。  
+用t-SNE对finetune前后的分子表示进行可视化，finetune后MoMu的分子表示是更加分散的。
+
+
 
 ### MoleculeSTM
+
+#### Method
+
+![](/images/blog/MoleculeSTM.png)
+
+这个模型的有效性来源于两点：
+1. Open vocabulary：模型的文本不受限于对一些分子的描述，而是认识更多的专有名词。所以有能力面对一些需要挖掘新关系的场景。
+2. Compositionality：在多目标先导化合物优化上，以往的方法需要大型的数据库用于检索，或是设计多个分类器去完成多个目标。但通过自然语言，可以很方便地组合多个目标，语言模型也能够理解其中复杂的语义。比如只需要设计这样一个文本的prompt“molecule is soluble in water and has high permeability”，就能表达两种目标的需求。
+
+
+
+
+#### Experiment
 
 
 # 感想
