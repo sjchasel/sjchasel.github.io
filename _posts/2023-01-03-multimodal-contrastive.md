@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【学习】对比学习论文串烧
+title: 【学习笔记】对比学习论文串烧
 categories: 学习笔记
 keywords: CV, 对比学习
 mathjax: true
