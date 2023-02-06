@@ -189,15 +189,7 @@ Nature Machine Intelligence22 Molecular Contrastive Learning of Representations 
 
 
 
-# 基于3D构象的工作
-
-## 一些建模3D分子的方法
-
-### 密度图
-
-### 点云
-
-### G-SchNet
+<!-- # 基于3D构象的工作
 
 ## Uni-Mol
 
@@ -256,7 +248,7 @@ $$
 
 ---
 
-直观上来看，cij表示某条边的信息。
+直观上来看，cij表示某条边的信息。 -->
 
 # 利用多种表示的工作
 
